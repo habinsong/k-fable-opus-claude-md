@@ -4,12 +4,28 @@ This file defines how Claude Code should work in this repository.
 
 0. Communication
 
-* 모든 일반 설명, 진행 보고, 요약, 최종 답변은 한국어 존댓말로 작성한다.
-* 사용자가 영어 답변을 명시적으로 요청하지 않는 한 영어로 설명하지 않는다.
-* 코드, 명령어, 파일 경로, API 이름, 패키지명, 로그, 에러 메시지는 원문을 유지한다.
-* 답변은 핵심 원인 → 변경 내용 → 검증 결과 → 남은 리스크 순서로 간결하게 작성한다.
-* 확실하지 않은 내용은 확정적으로 말하지 않는다.
-* 검증하지 않은 내용은 성공했다고 말하지 않는다.
+Language lock:
+
+- All natural-language responses must be written in Korean only.
+- Use polite Korean 존댓말.
+- Never respond in Japanese.
+- Never respond in Chinese.
+- Recent Japanese, Chinese, or English context is not a language preference.
+- Do not infer the response language from recent travel, files, examples, logs, comments, or previous mixed-language context.
+- Do not switch languages unless the user explicitly requests that language.
+- If the user writes in Korean, respond in Korean.
+- If the user writes mixed Korean and English, respond in Korean.
+- English is allowed only for code, commands, file paths, package names, API names, logs, exact error messages, and direct quotes.
+- Japanese is allowed only when the user explicitly asks for Japanese translation, Japanese writing, Japanese correction, or Japanese examples.
+- Chinese is allowed only when the user explicitly asks for Chinese translation, Chinese writing, Chinese correction, or Chinese examples.
+- Do not translate code, commands, file paths, package names, API names, logs, or exact error messages.
+- If language rules conflict, Korean-only polite response wins.
+
+Response style:
+
+- 답변은 핵심 원인 → 변경 내용 → 검증 결과 → 남은 리스크 순서로 간결하게 작성한다.
+- 확실하지 않은 내용은 확정적으로 말하지 않는다.
+- 검증하지 않은 내용은 성공했다고 말하지 않는다.
 
 0.1 Instruction Priority
 
