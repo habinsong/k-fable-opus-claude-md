@@ -1,13 +1,14 @@
 # k-fable-opus-claude-md
 
 **Fable 5**가 먹은 토큰 사용량에 충격 먹은 사람이<br>
-**GPT-5.5**로 깎아 만든 **Opus 4.8**용 `CLAUDE.md`
+**GPT-5.5**로 깎아 만든 **Opus 4.8**용 `CLAUDE.md`<br>
+그리고 이 'CLAUDE.md' 를 기반으로 만든 **GPT-5.5**용  `AGENTS.md`
 
 한국어로 대답하고, 헛짓 줄이고, 작게 고치고, 검증하고,<br>
 위험한 명령은 조심하게 만드는 클코용 세팅입니다.
 
 > Fable 5처럼 오래 보고, Opus처럼 깊게 보고,<br>
-> 한국어로 일하게 만들기 위한 `CLAUDE.md`
+> 한국어로 일하게 만들기 위한 `CLAUDE.md`, `AGENTS.md`
 
 ---
 
@@ -21,8 +22,10 @@
 ## What is this?
 
 `CLAUDE.md` is a project-level instruction file for Claude Code.
+`AGENTS.md` is a project-level instruction file for Codex.
 
 이 레포의 `CLAUDE.md`는 Claude Code가 다음처럼 행동하도록 유도합니다.
+이 레포의 `AGENTS.md`는 Codex가 다음처럼 행동하도록 유도합니다.
 
 - 한국어 존댓말로 답변<br>
   (한국인은 예의가 최우선이니까요.)
@@ -84,10 +87,11 @@
 
 ## Usage
 
-프로젝트 루트에 `CLAUDE.md`를 복사하면 됩니다.
+프로젝트 루트에 `CLAUDE.md`,'AGENTS.md'를 복사하면 됩니다.
 
 ```bash
 cp CLAUDE.md /path/to/your/project/CLAUDE.md
+cp AGENTS.md /path/to/your/project/AGENTS.md
 ```
 
 혹시나 노파심에 말씀드리지만 `/path/to/your/project/`이란 경로는 없습니다.<br>
@@ -99,16 +103,18 @@ Claude Code에서 메모리 로드 상태를 확인합니다.
 /memory
 ```
 
-**'정상'**이라면 대략 이런 식으로 보입니다.
+**정상**이라면 대략 이런 식으로 보입니다.
 
 ```text
 Project memory           Saved in ./CLAUDE.md
 User memory              Saved in ~/.claude/CLAUDE.md
 ```
 
+**Codex** 도 비슷합니다.
+
 ---
 
-## Recommended Setup
+## Recommended Setup for Claude
 
 전역 메모리는 짧게 두고, 프로젝트 메모리는 길게 두는 구성을 추천합니다.
 
@@ -137,7 +143,7 @@ User memory              Saved in ~/.claude/CLAUDE.md
 
 ## Philosophy
 
-이 파일의 목적은 Claude Code를 “똑똑한 척하는 말 많은 도구”가 아니라<br>
+이 파일의 목적은 Claude Code 와 Codex를 “똑똑한 척하는 말 많은 도구”가 아니라<br>
 **코드 먼저 읽고, 작게 고치고, 검증하고, 정직하게 보고하는 작업자**처럼<br>
 굴리게 만드는 것입니다.
 
@@ -151,12 +157,12 @@ User memory              Saved in ~/.claude/CLAUDE.md
 
 ## Warning
 
-이 `CLAUDE.md`는 만능 부적이 아닙니다.
+이 `CLAUDE.md`,'AGENTS.md'는 만능 부적이 아닙니다.
 
 프로젝트 구조, 권한 설정, 모델 상태, 사용자의 지시 방식에 따라 결과는 달라질 수 있습니다.
 
 사용했다가 프로젝트가 박살나도 모릅니다.<br>
-그건 당연히 어쩔 수 없는 CLAUDE.md도, 신도 어쩔 수 없는<br>
+그건 당연히 어쩔 수 없는 CLAUDE.md,AGENTS.md도, 신도 어쩔 수 없는<br>
 **99% 확률로 어쩔 수 없는 모델의 멍청함**과<br>
 **이상한 AI 관련 덕지덕지 붙은 플러그인**의 영향입니다.<br>
 **아니면 1%의 사용자 입력 프롬프트** 탓입니다.
