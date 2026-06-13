@@ -1,5 +1,9 @@
 # k-fable-opus-claude-md
 
+**2026-06-13**  
+Fable 5 is gone.
+모델 제공 중단 전에 미리 야물딱지게 뽑아서 우려봤습니다.
+
 **Fable 5**가 먹은 토큰 사용량에 충격 먹은 사람이<br>
 **GPT-5.5**로 깎아 만든 **Opus 4.8**용 `CLAUDE.md`<br>
 그리고 이 'CLAUDE.md' 를 기반으로 만든 **GPT-5.5**용  `AGENTS.md`
