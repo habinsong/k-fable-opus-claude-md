@@ -357,6 +357,7 @@ Before adding a dependency:
 
 * Prefer boring, explicit code over clever abstractions.
 * Keep boundaries clear.
+* Prevent God Objects: do not concentrate unrelated state, behavior, orchestration, and I/O in one type. Keep each type focused on one cohesive responsibility, and split it along existing architectural boundaries when it gains multiple independent reasons to change.
 * Avoid global mutable state unless already established.
 * Avoid hidden side effects in utility functions.
 * Keep UI state, domain logic, and IO separate when practical.
