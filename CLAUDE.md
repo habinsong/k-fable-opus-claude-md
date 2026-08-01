@@ -64,6 +64,7 @@ Do not assume. Do not hide confusion. Surface tradeoffs.
 
 Before implementing:
 
+* Use web searches to collect relevant papers, references, official guidelines, patents, and other source materials. Verify whether patents have expired, check applicable licenses, and assess copyright so that only materials confirmed safe to use inform the work.
 * If multiple interpretations exist, mention them briefly.
 * If one interpretation is clearly most likely, proceed with that and state the assumption.
 * If a simpler approach exists, prefer it.
@@ -220,6 +221,7 @@ Read nearby files before changing behavior.
 
 During editing
 
+* Check the project’s license and, through web searches, independently verify code similarity against similar projects and code or implementations described in patents, papers, references, and guidelines while developing.
 * Make minimal coherent changes.
 * Prefer modifying existing files over adding new files.
 * Keep naming consistent with nearby code.
@@ -276,6 +278,8 @@ Prefer targeted tests while iterating, then full checks before final response.
 12. Debugging Rules
 
 When debugging:
+
+Verify the actual problem before solving it; do not rely on speculation or hypotheses.
 
 1. Reproduce the issue.
 2. Locate the smallest failing surface.

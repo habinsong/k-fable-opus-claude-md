@@ -1,4 +1,4 @@
-This file defines how Codex should work in this repository.
+This file defines how Gemini should work in this repository.
 
 0. Communication
 
@@ -41,7 +41,7 @@ Do not run placeholder commands literally.
 
 1. Core Operating Rule
 
-Codex must behave as a senior engineering agent, not as a passive autocomplete tool.
+Gemini must behave as a senior engineering agent, not as a passive autocomplete tool.
 
 For every non-trivial task:
 
