@@ -1,18 +1,30 @@
 # k-fable-opus-claude-md
 
-**2026-08-02**  
+**2026-08-15**  
 Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 시작했고 지금도 우리고 있습니다.<br>
+
+Opus 5 에서 효과가 가장 좋습니다. 토큰 덜먹고, 작업은 천천히 나눠서 합니다. <br><br>
+
+GPT 5.6 Sol 에서는 확실하게 만들지만, 토큰을 많이 먹고 작업은 천천히 합니다. <br>
+GPT 5.6 Terra 에서는 적당히 만들지만, 토큰은 적당히 쓰고 작업은 느리게 오랫동안 합니다. <br>
+GPT 5.6 Luna 에서는 조각조각 만들고, 토큰을 적게 먹고 천천히 이어 붙이고 오류를 수정합니다. <br><br>
+
+Gemini 3.6 / 3.7 Flash 와 3.1 Pro 에서는 덜 멍청해집니다. <br>
 
 **Fable 5**가 먹은 토큰 사용량에 충격 먹은 사람이<br>
 **GPT-5.6**로 깎아 만든 **Opus 5** 그리고 **Opus 4.8** 용 `CLAUDE.md`<br>
 그리고 이 'CLAUDE.md' 를 기반으로 만든 **GPT-5.6** 그리고 **GPT-5.5**용  `AGENTS.md` <br>
-GPT-5.6-Sol 과 Opus 5 에 최적화 되어 있습니다. 
+GPT-5.6-Sol 과 Opus 5 에 최적화 되어 있습니다. <br>
+물론, 우리의 모자란 Gemini 를 위해서도 만들었습니다. <br>
 
 한국어로 대답하고, 헛짓 줄이고, 작게 고치고, 검증하고,<br>
-위험한 명령은 조심하게 만드는 클코용 세팅입니다.
+위험한 명령은 조심하게 만드는 세팅입니다.
+
+추론 강도는 high, xhigh, max 에서 모두 좋지만, 적당히 high 로 타협을 봅시다.<br>
+왜냐하면 추론 강도를 올릴수록 돈은 더 나가고, 더 잘 될거라는 보장이 없으니까요.<br>
 
 > Fable 5처럼 오래 보고, Opus처럼 깊게 보고,<br>
-> 한국어로 일하게 만들기 위한 `CLAUDE.md`, `AGENTS.md`
+> 한국어로 일하게 만들기 위한 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`
 
 ---
 
@@ -27,15 +39,18 @@ GPT-5.6-Sol 과 Opus 5 에 최적화 되어 있습니다.
 
 `CLAUDE.md` is a project-level instruction file for Claude Code.
 `AGENTS.md` is a project-level instruction file for Codex.
+`GEMINI.md` is a project-level instruction file for Antigravity.
 
 이 레포의 `CLAUDE.md`는 Claude Code가 다음처럼 행동하도록 유도합니다.
 이 레포의 `AGENTS.md`는 Codex가 다음처럼 행동하도록 유도합니다.
+이 레포의 `GEMINI.md`는 Antigravity가 다음처럼 행동하도록 유도합니다.
 
 - 한국어 존댓말로 답변<br>
   (한국인은 예의가 최우선이니까요.)
 
 - 코드 수정 전 기존 구조 확인<br>
   (+ 플젝이 개박살 나는 것 최소한의 방지)
+  (- 반복 검증을 하며 어느순간 실수를 찾을수도 있습니다.)
 
 - 요청 범위 밖 헛추상화 금지<br>
   (+ 과하게 만들어서 오히려 덜어내지 않게)
@@ -50,10 +65,12 @@ GPT-5.6-Sol 과 Opus 5 에 최적화 되어 있습니다.
   (+ 컴퓨터를 개작살내면 안 되니까요.)
 
 - 긴 작업에서도 목표를 잃지 않게 유지<br>
-  (- 과연 그럴까요...?)
+  (+ 그런편이더라구요.)
+  (- 다만, 개발이 좀 더딜수 있습니다.)
 
 - 웹 검색을 통해 최신 자료를 가져옵니다.<br>
-  (- 라이센스,특허, 저작권 문제를 생각하며 가져오려고 할겁니다...확인과 검증은 사람의 몫.)
+  (+ 라이센스,특허, 저작권 문제를 생각하며 가져오려고 할겁니다...확인과 검증은 사람의 몫.)
+  (- 각종 문제를 피하겠지만, 주석에서 뽀록이 날수도 있습니다. 직접 사람의 눈으로 확인하십쇼.)
 
 ---
 
@@ -62,7 +79,8 @@ GPT-5.6-Sol 과 Opus 5 에 최적화 되어 있습니다.
 - **Korean-first responses**  
 
   일반 설명, 요약, 최종 보고는 한국어 존댓말로 작성합니다.<br>
-  예의가 최우선이니까요. 주인장의 군대 문화가 조금 반영되었습니다.
+  예의가 최우선이니까요. 주인장의 군대 문화가 조금 반영되었습니다.<br>
+  말뽄새는 착해졌지만, AI 특유의 서술형 텍스트와 요상한 기술 언어는 많이 씁니다. 
 
 - **No yapping**  
 
@@ -94,11 +112,12 @@ GPT-5.6-Sol 과 Opus 5 에 최적화 되어 있습니다.
 
 ## Usage
 
-프로젝트 루트에 `CLAUDE.md`,'AGENTS.md'를 복사하면 됩니다.
+프로젝트 루트에 `CLAUDE.md`,`AGENTS.md`,`GEMINI.md` 를 복사하면 됩니다.
 
 ```bash
 cp CLAUDE.md /path/to/your/project/CLAUDE.md
 cp AGENTS.md /path/to/your/project/AGENTS.md
+cp AGENTS.md /path/to/your/project/GEMINI.md
 ```
 
 혹시나 노파심에 말씀드리지만 `/path/to/your/project/`이란 경로는 없습니다.<br>
@@ -164,7 +183,7 @@ User memory              Saved in ~/.claude/CLAUDE.md
 
 ## Warning
 
-이 `CLAUDE.md`,'AGENTS.md'는 만능 부적이 아닙니다.
+이 `CLAUDE.md`,`AGENTS.md`,`GEMINI.md`는 만능 부적이 아닙니다.
 
 프로젝트 구조, 권한 설정, 모델 상태, 사용자의 지시 방식에 따라 결과는 달라질 수 있습니다.
 
