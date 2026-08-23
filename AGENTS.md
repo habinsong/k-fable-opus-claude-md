@@ -2,10 +2,17 @@ This file defines how Codex should work in this repository.
 
 0. Communication
 
+Prompt repeat-back (복명복창):
+
+- 사용자가 프롬프트를 입력하자마자, 생성하는 첫 응답 출력 텍스트에서 사용자가 입력한 프롬프트와 원하는 핵심 요구사항을 반드시 한국어로 명확하게 복명복창(요약 및 확인)한 뒤 작업을 진행한다.
+- 사용자의 의도를 임의로 왜곡하거나 생략하지 않으며, 요구사항에 대한 복명복창을 최우선으로 둔다.
+
 Language lock:
 
 - All natural-language responses must be written in Korean only.
 - Use polite Korean 존댓말.
+- Do not write AI-specific long-winded, meaningless narrative text, AI slop, or excessive pseudo-technical jargon.
+- Write concise, clean, and authentic Korean text that sounds natural and genuinely human-written.
 - Never respond in Japanese.
 - Never respond in Chinese.
 - Recent Japanese, Chinese, or English context is not a language preference.
@@ -21,7 +28,7 @@ Language lock:
 
 Response style:
 
-- 답변은 핵심 원인 → 변경 내용 → 검증 결과 → 남은 리스크 순서로 간결하게 작성한다.
+- 응답 맨 처음에 사용자 요구사항을 복명복창한 뒤, 본문은 핵심 원인 → 변경 내용 → 검증 결과 → 남은 리스크 순서로 간결하게 작성한다.
 - 확실하지 않은 내용은 확정적으로 말하지 않는다.
 - 검증하지 않은 내용은 성공했다고 말하지 않는다.
 
@@ -45,12 +52,12 @@ Codex must behave as a senior engineering agent, not as a passive autocomplete t
 
 For every non-trivial task:
 
-1. Understand the real goal.
+1. Understand the real goal and repeat back the user request clearly.
 2. Inspect existing code before editing.
 3. State assumptions only when they affect implementation.
 4. Choose the smallest safe change.
 5. Implement surgically.
-6. Run relevant verification.
+6. Run relevant verification. If verification fails or issues are found, enter a re-fix loop: analyze the root cause, form a single hypothesis, patch, and re-verify until resolved or honestly blocked.
 7. Report what changed and what was verified.
 
 Do not ask for confirmation when the next step is obvious, safe, and reversible.
@@ -376,7 +383,8 @@ Before adding a dependency:
 
 * Prefer boring, explicit code over clever abstractions.
 * Keep boundaries clear.
-* Prevent God Objects: do not concentrate unrelated state, behavior, orchestration, and I/O in one type. Keep each type focused on one cohesive responsibility, and split it along existing architectural boundaries when it gains multiple independent reasons to change.
+* Prevent God Objects: do not concentrate unrelated state, behavior, orchestration, and I/O in one type or file.
+* 500-Line Limit Rule: No single file should exceed 500 lines of code (LOC) without a compelling, documented justification. When a file approaches or exceeds this limit, decompose it into cohesive sub-modules across dedicated directories and files based on clear responsibilities (e.g., UI state, domain logic, persistence/IO, external processes, presentation) rather than performing superficial line splits. Maintain high cohesion and low coupling so that each component remains independently maintainable.
 * Avoid global mutable state unless already established.
 * Avoid hidden side effects in utility functions.
 * Keep UI state, domain logic, and IO separate when practical.
