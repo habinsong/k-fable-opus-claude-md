@@ -72,6 +72,17 @@ class GeneratedDocs(unittest.TestCase):
         self.assertIn(chat_prompt("en").rstrip("\n"), text)
 
 
+class ReadmeNumbers(unittest.TestCase):
+    def test_rule_counts_in_readme_match_the_engine(self):
+        from ai_smell.rules import load_rules
+        rules = load_rules()
+        en = sum(r.lang == "en" for r in rules)
+        ko = sum(r.lang == "ko" for r in rules)
+        anyl = sum(r.lang == "any" for r in rules)
+        text = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(f"{len(rules)}개 규칙(영어 {en}, 한국어 {ko}, 공통 {anyl})", text)
+
+
 class Hygiene(unittest.TestCase):
     def test_files_stay_under_500_lines(self):
         for p in ROOT.rglob("*"):

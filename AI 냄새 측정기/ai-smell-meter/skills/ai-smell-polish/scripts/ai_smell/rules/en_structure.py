@@ -26,6 +26,16 @@ RULES = [
       "Negative parallelism: knocks down a view nobody held, then states the point.",
       tier="strong", repl=fx.neg_parallel_fix,
       sugg="State the point directly (the second half only)."),
+    R("en.structure.neg-parallel-noun", "en", "structure", "A",
+      r"(?<![\w'])[A-Za-z][\w-]*(?:\s+[\w-]+){0,3}?\s+(?:isn't|aren't|wasn't|weren't|is not|are not)\s+"
+      r"(?:just|only|merely|simply)\b[^.!?\n]{1,110}?" + SEP + r"\s*" + PIVOT,
+      "Negative parallelism with a noun subject.", sugg="State the point directly (the second half only)."),
+    R("en.structure.isnt-x-but-y", "en", "structure", "B",
+      r"\b(?:isn't|aren't|wasn't|weren't|is not|are not)\s+(?:the|a|an)\s+[^.!?\n]{1,50}?\s+but\s+(?:the|a|an)\b",
+      "'isn't the X but the Y' contrast.", w=0.8, sugg="Say what it is."),
+    R("en.structure.on-one-hand", "en", "structure", "C",
+      r"\bon (?:the )?one hand\b[^.!?\n]{0,200}?\bon the other(?: hand)?\b",
+      "Balanced both-sides frame.", w=0.5, sugg="Commit to the claim the evidence supports."),
     R("en.structure.neg-parallel-about", "en", "structure", "A",
       r"\b(?:isn't|aren't|is not|are not|wasn't) (?:really |just |only )?(?:about|a question of|a matter of)\b"
       r"[^.!?\n]{1,90}?[,;:—–.]\s*(?:it(?:'s| is)|but|they(?:'re| are)|rather)\b",

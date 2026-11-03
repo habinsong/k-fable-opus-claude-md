@@ -205,6 +205,8 @@ def neg_parallel_fix(m: "re.Match[str]", ctx: Ctx) -> Optional[str]:
         return None
     pc = _PIVOT_CLAUSE.search(s)
     if pc:
+        if not _NEG.match(s):
+            return None                    # 주어가 명사면 앞 절을 지울 때 주어가 사라진다
         return case_like(s[:1], pc.group(1))
     if re.search(r"\bbut\s*$", s, re.I):
         n = _NEG.match(s)

@@ -51,6 +51,7 @@ RULES = [
       r"담고\s*있다|내포하고\s*있다|미친다|미칠\s*것이다)", "의미가 크다고만 하고 내용이 없다.", w=0.6,
       genre={"academic": 0.7}),
     R("ko.puffery.precious", "ko", "puffery", "C", r"소중한\s*(?:시간|경험|추억|기회)", "정형 수식.", w=0.3),
+    R("ko.puffery.honestly", "ko", "puffery", "C", r"(?:솔직히|사실대로|정직하게)\s*말(?:하면|해서)", "연출된 솔직함.", w=0.4),
     R("ko.puffery.one-step", "ko", "puffery", "C", r"한\s*걸음\s*더\s*나아가", "상투 연결."),
 
     # ---- 예고와 안내
@@ -61,7 +62,7 @@ RULES = [
       "하겠다는 예고. 하지 않고 말만 한다.", tier="strong", repl="", scope="sentence", genre=ACAD,
       sugg="예고를 지우고 바로 내용으로 들어간다."),
     R("ko.signpost.lets", "ko", "signpost", "B",
-      r"(?:함께|같이|한번)\s*[^.!?\n]{0,20}(?:알아볼까요|살펴볼까요|살펴봅시다|알아봅시다|시작해\s*볼까요|시작해\s*봅시다)[.!?]?",
+      r"(?:함께|같이|한번)\s*[^.!?\n]{0,20}(?:볼까요|알아볼까요|살펴볼까요|살펴봅시다|알아봅시다|시작해\s*봅시다)[.!?]?",
       "권유형 예고.", tier="strong", repl="", scope="sentence"),
     R("ko.signpost.qa", "ko", "signpost", "C",
       r"(?:왜|무엇|어떻게|과연|그렇다면)[^.!?\n]{0,40}(?:일까요|할까요|걸까요|을까요|ㄹ까요|일까|할까|을까)\?\s*"
@@ -83,6 +84,9 @@ RULES = [
     R("ko.structure.beyond", "ko", "structure", "B",
       r"(?:을|를)\s*넘어(?:서)?[,，]?\s*[가-힣A-Za-z0-9\s]{1,20}(?:으로|로|까지|에\s*이르)|에\s*(?:그치지|머무르지)\s*않고",
       "'~를 넘어 ~로' 확장 틀.", w=0.8),
+    R("ko.structure.on-one-hand", "ko", "structure", "C",
+      r"한편으로(?:는)?[^.!?\n]{0,120}다른\s*한편(?:으로(?:는)?)?", "양면을 나란히 세우는 틀.", w=0.5,
+      sugg="근거가 가리키는 쪽을 말한다."),
     R("ko.structure.rather", "ko", "structure", "C",
       r"라기보다(?:는)?\s*[^.!?\n]{1,40}(?:에\s*가깝|이다|입니다)", "대구의 변종.", w=0.5),
     R("ko.structure.cleft", "ko", "structure", "C",

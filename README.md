@@ -237,13 +237,14 @@ git switch -c 내-플젝명
 
 # 개편 후 구조 (2026-11-03)
 
-개편 전에는 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 세 파일이 전부였습니다. 지금은 지침을 모델마다 따로 두고, 조사 기록은 지침과 떼어 놨습니다. 루트에는 폴더가 세 개 있습니다.
+개편 전에는 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 세 파일이 전부였습니다. 지금은 지침을 모델마다 따로 두고, 조사 기록은 지침과 떼어 놨습니다. 루트에는 지침과 조사 기록 폴더 세 개와 윤문 도구 폴더 한 개가 있습니다.
 
 | 폴더 | 내용 | LLM 컨텍스트에 넣나 |
 |---|---|---|
 | [`universal/`](universal/) | 모델에 상관없이 쓰는 범용 지침. 파일 하나만 넣어도 쓸 수 있습니다 | 넣습니다 |
 | [`md/`](md/) `<제공자>/<모델>/` | 모델별 지침. 범용 지침에 그 모델에게 하는 지시를 더했습니다 | 넣습니다 |
 | [`docs/`](docs/) | 사양, 가격, 벤치마크, 비판, 출처, 확인하지 못한 것을 적은 조사 기록 | 넣지 않습니다 |
+| [`AI 냄새 측정기/`](AI%20냄새%20측정기/ai-smell-meter/README.md) | 한국어·영어 글의 AI 티를 재고 교정문을 출력하는 도구 | 도구입니다. 컨텍스트에 넣는 문서가 아닙니다 |
 
 `universal/`과 `md/`에는 출처 URL, 근거 태그, 가격, 벤치마크, 비판을 두지 않습니다. 이런 내용이 컨텍스트에 섞이면 모델이 지침을 읽는 데 방해가 됩니다. `scripts/docs_tool.py check`가 위반을 오류로 잡습니다. 근거가 궁금하면 `docs/`에서 같은 경로의 문서를 여세요.
 
@@ -258,6 +259,7 @@ git switch -c 내-플젝명
 ├── docs/                    조사·검증 기록
 │   ├── _common/             공통 조사
 │   └── <제공자>/<모델>/      README, overview, performance, operations, critique, sources, domains/, korean-writing
+├── AI 냄새 측정기/           윤문 엔진, 스킬, 에이전트 (ai-smell-meter/)
 └── scripts/                 docs_tool.py, ko_style_probe.py, tests/
 ```
 
@@ -305,13 +307,32 @@ AI가 쓴 한국어에서 티가 나는 부분을 줄이는 지침입니다. 문
 - `ko-everyday.md`: 메신저, 이메일, 후기, 대화 말투
 - `ko-literary.md`: 소설, 수필, 칼럼, 대사
 
-윤문은 읽기, 측정, 국소 수정, 재측정, 보고 순으로 돕니다. 측정에는 `scripts/ko_style_probe.py`를 씁니다.
+윤문은 읽기, 측정, 국소 수정, 재측정, 보고 순으로 돕니다. 측정과 교정문 출력은 아래 AI 냄새 측정기가 맡습니다. `scripts/ko_style_probe.py`는 한국어 신호만 세는 더 가벼운 예전 도구입니다.
 
 ```bash
 python3 -I scripts/ko_style_probe.py 원고.txt
 ```
 
-이 도구는 AI 탐지기가 아닙니다. 정규식으로 문체 신호를 세는 휴리스틱이라서 수치가 낮아도 사람이 쓴 글이 되지는 않습니다. 근거와 한계는 [`docs/_common/korean-writing/`](docs/_common/korean-writing/README.md)에 정리했습니다. 이 규칙을 적용한 출력을 사람이 읽고 평가해 본 적은 아직 없습니다. 작성자가 직접 적용해 전후를 잰 시험 3건이 [시험 기록](docs/_common/korean-writing/trial-log.md)에 있고, 거기서 찾은 도구 누락과 규칙 모순은 고쳤습니다. 사람 평가 절차도 그 파일에 적어 뒀습니다.
+둘 다 AI 탐지기가 아닙니다. 정규식으로 문체 신호를 세는 휴리스틱이라서 수치가 낮아도 사람이 쓴 글이 되지는 않습니다. 근거와 한계는 [`docs/_common/korean-writing/`](docs/_common/korean-writing/README.md)에 정리했습니다. 이 규칙을 적용한 출력을 사람이 읽고 평가해 본 적은 아직 없습니다. 이 저장소를 쓴 AI 에이전트가 직접 적용해 전후를 잰 시험 3건이 [시험 기록](docs/_common/korean-writing/trial-log.md)에 있고, 거기서 찾은 도구 누락과 규칙 모순은 고쳤습니다. 사람 평가 절차도 그 파일에 적어 뒀습니다.
+
+## AI 냄새 측정기
+
+[`AI 냄새 측정기/ai-smell-meter/`](AI%20냄새%20측정기/ai-smell-meter/README.md)는 한국어와 영어 글에서 AI 티를 재고, 고친 글을 출력하는 도구입니다. 엔진(`python3`, 표준 라이브러리만), 스킬(`ai-smell-polish`), 에이전트 정의가 한 벌입니다.
+
+AI 에이전트에게 이렇게 말하면 설치하고 시험까지 스스로 합니다.
+
+```text
+AI 냄새 측정기/ai-smell-meter 폴더의 AGENTS.md를 읽고, 설치하고, 스스로 시험해서 결과를 알려 줘.
+```
+
+직접 쓰려면 이렇게 합니다.
+
+```bash
+python3 "AI 냄새 측정기/ai-smell-meter/bin/ai-smell" analyze 글.md
+python3 "AI 냄새 측정기/ai-smell-meter/bin/ai-smell" polish 글.md > 글.교정.md
+```
+
+`analyze`는 지수와 신호를, `polish`는 고친 글을 출력합니다. 지수는 문체 신호의 밀도이고 AI가 썼을 확률이 아닙니다. 탐지기를 속이는 기능은 없습니다. 부정 대구나 부풀린 서술 같은 구조 문제는 자동으로 고치지 않고, `prompt`가 만든 지시로 에이전트가 고친 뒤 `verify`가 숫자, 주소, 인용이 그대로인지 확인합니다. 한계는 [`docs/limits.md`](AI%20냄새%20측정기/ai-smell-meter/docs/limits.md)에 있습니다.
 
 ## 사용법 (개편 후)
 
@@ -354,9 +375,11 @@ python3 -I -m unittest discover -s scripts/tests
 
 ## 알려진 한계
 
-- 조사 기준일은 2026-11-03입니다. 미출시와 제한 공개 모델 5개(Fable 5.5, Gemini 4 Carbon, GLM-5.5, Grok 4.8, Grok 5)와 Kimi K3.1의 상태는 이날 다시 확인했지만, 검색에 나온 가장 최신 출처는 대체로 10월입니다. 그 뒤 발표는 반영하지 못했고, 일부 공식 사이트는 조사 환경에서 열리지 않았습니다. 그래서 `docs/`의 사양은 부분 확인인 경우가 많습니다. ID, 가격, 날짜는 쓰기 전에 공식 문서로 다시 확인하세요.
+- 조사 기준일은 2026-11-03입니다. 미출시와 제한 공개 모델 5개(Fable 5.5, Gemini 4 Carbon, GLM-5.5, Grok 4.8, Grok 5)와 Kimi K3.1의 상태는 이날 다시 확인했지만, 검색에 나온 가장 최신 출처는 대체로 10월입니다. 그 뒤 발표는 반영하지 못했고, 일부 공식 사이트는 조사 환경에서 열리지 않았습니다. 그래서 `docs/`의 사양은 부분 확인인 경우가 많습니다.
+- 모델마다 `docs/<제공자>/<모델>/xcheck.md`에 사양을 공식 문서 말고 다른 출처로 맞춰 본 결과를 따로 적었습니다. 공식 문서를 직접 읽은 곳은 Claude(모델 목록과 가격 페이지)와 공식 GitHub 저장소(OpenAI·Google SDK 변경 기록의 식별자 추가일, xAI의 시험 코드, Qwen·GLM·Kimi·MiniMax README)뿐이고, 나머지 가격·컨텍스트·라이선스는 2차 출처 여러 곳이 일치하는 정도입니다. `openai.com`, `blog.google`, `ai.google.dev`, `docs.x.ai`, `api-docs.deepseek.com`, `huggingface.co`는 열리지 않았습니다. ID, 가격, 날짜는 쓰기 전에 공식 문서로 다시 확인하세요.
 - 모델별 한국어 문체를 사람이 평가한 독립 자료는 찾지 못했습니다. 한국어 규칙의 수치는 한 프로젝트 저자의 자체 보고이고, 쟀던 모델 버전이 이 저장소의 모델과 다릅니다.
-- 도치는 공개된 근거가 없어 작성자의 관찰에 기댔습니다.
+- 도치는 공개된 근거가 없어 주인장의 관찰에 기댔습니다.
+- AI 냄새 측정기의 지수 구간과 가중치는 직접 쓴 소규모 표본으로 맞췄고 실제 분포로 검증하지 못했습니다. 오탐률은 재지 못했습니다. 파이썬 3.13, 리눅스에서만 돌려 봤고, 각 AI 도구가 설치 경로를 실제로 읽는지는 확인하지 못했습니다.
 
 ## 참고한 공개 프로젝트
 

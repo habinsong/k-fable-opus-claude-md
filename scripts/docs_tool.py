@@ -40,7 +40,7 @@ KO_DOMAINS = ["ko-academic", "ko-everyday", "ko-literary"]
 KO_FAMILIES = ["gpt", "claude", "gemini", "gemma"]
 ALL_DOMAINS = DOMAINS + KO_DOMAINS
 KO_DOC = "korean-writing"
-MODEL_DOC_NAMES = {"README", "overview", "performance", "operations", "critique", "sources", KO_DOC}
+MODEL_DOC_NAMES = {"README", "overview", "performance", "operations", "critique", "sources", "xcheck", KO_DOC}
 MODEL_SOURCE = {"base": "general", "ko": "ko-academic"}
 CONTRACT_KEYWORDS = ["복명복창", "변경 요약", "수정 파일", "실행한 명령", "검증 결과",
                      "남은 리스크", "God-object", "500줄", "한국어", "비판", "재귀",

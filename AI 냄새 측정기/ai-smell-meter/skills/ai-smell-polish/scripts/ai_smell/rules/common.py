@@ -40,6 +40,8 @@ RULES = [
       r"^([ \t]*" + BULLET + r"[ \t]+)\*\*([^*\n]{2,60})\*\*(?=[ \t]*[:：.\-–—]|[ \t]+\S)",
       "불릿마다 굵은 라벨로 시작한다.", w=0.5, min_count=3, tier="strong", repl=r"\1\2", flags=re.M,
       sugg="라벨 굵기를 걷거나 줄글로 푼다."),
+    R("any.format.bold-line", "any", "format", "C", r"^[ \t]*\*\*[^*\n]{2,60}\*\*[ \t]*$",
+      "굵은 글씨만 있는 줄이 제목 구실을 한다.", w=0.3, min_count=3, flags=re.M),
     R("any.format.hashtags", "any", "format", "C", r"(?<![\w#])#[A-Za-z가-힣][\w가-힣]{1,30}(?![\w])",
       "해시태그 묶음.", w=0.3, min_count=5, flags=re.M),
     R("any.format.heading-title-case", "any", "format", "C",

@@ -1,6 +1,6 @@
 # 셸 없이 쓰는 프롬프트
 
-> `python3 bin/ai-smell prompt --chat ko|en`이 만든 것이다. 직접 고치지 말고 `ai_smell/prompt.py`를 고친 뒤 다시 만든다.
+> `python3 bin/ai-smell prompt --chat ko|en`이 만든 것이다. 직접 고치지 말고 `ai_smell/prompt.py`를 고친 뒤 `python3 tools/regen_docs.py`로 다시 만든다.
 > 웹 채팅(ChatGPT, Claude, Gemini 등)에 그대로 붙여 넣고 마지막 `{{...}}` 자리에 글을 넣는다.
 > 이 방식에는 **지수 계산과 대조 검증이 없다.** 모델이 신호를 목록으로 뽑고 고칠 뿐이므로, 보고할 때 "측정 없음"이라고 쓴다.
 > 숫자·주소·고유명사는 고친 글과 원문을 눈으로 대조한다.

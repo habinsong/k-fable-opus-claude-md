@@ -19,6 +19,7 @@ docs/
     ├── operations.md                 운용 (행동 특성, API·하네스·로컬 실행, 데이터·정책)
     ├── critique.md                   비판적 평가, 쓸 때와 쓰지 않을 때
     ├── sources.md                    출처 URL, 확인 수준, 한계
+    ├── xcheck.md                     사양을 공식 문서 말고 다른 출처(공식 저장소, 2차 여러 곳)로 교차 확인한 결과
     ├── domains/<분야>.md             웹·앱·네이티브·하드웨어·펌웨어·웹 리서치·리서치·기술 리서치에서의 이 모델 운용
     └── korean-writing.md             한국어 윤문 3분야의 모델별 조사와 지침 근거 (gpt·claude·gemini·gemma만)
 ```
@@ -29,7 +30,7 @@ docs/
 
 | `md/<계열>/<모델>/` | `docs/<계열>/<모델>/` |
 |---|---|
-| `general.md` | `overview.md`, `performance.md`, `operations.md`, `critique.md`, `sources.md` |
+| `general.md` | `overview.md`, `performance.md`, `operations.md`, `critique.md`, `sources.md`, `xcheck.md` |
 | `web.md`, `app.md`, `native.md`, `hardware.md`, `firmware.md`, `web-research.md`, `research.md`, `tech-research.md` | `domains/<같은 이름>.md` |
 | `ko-academic.md`, `ko-everyday.md`, `ko-literary.md` | `korean-writing.md` 하나 (세 분야의 모델 조사가 같음) |
 

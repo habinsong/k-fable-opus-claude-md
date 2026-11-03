@@ -179,13 +179,14 @@ def rhythm(text: str, masked: str, sents: Sequence[Span], genre: str) -> List[Fi
     out: List[Finding] = []
     ko = [sp for sp in sents if re.search(r"[가-힣]", masked[sp[0]:sp[1]])]
     if len(ko) >= 4:
-        ends = [_core(masked[a:b])[-2:] for a, b in ko]
+        ends = [(_core(masked[a:b])[-3:] if _core(masked[a:b]).endswith("니다") else _core(masked[a:b])[-2:])
+                for a, b in ko]
         i = 0
         while i < len(ends):
             j = i
             while j + 1 < len(ends) and ends[j + 1] == ends[i] and ends[i]:
                 j += 1
-            if j - i + 1 >= 4:
+            if j - i + 1 >= (6 if ends[i].endswith("니다") else 4):
                 out.append(_mk("ko.rhythm.same-ending", "rhythm", "C", ko[j][0], ko[j][1], 0.8, genre,
                                f"같은 어미('{ends[i]}')가 {j - i + 1}문장 연속된다.", lang="ko",
                                text=masked[ko[j][0]:ko[j][1]][:40], sugg="종결 형태와 문장 구조를 바꾼다."))
@@ -215,7 +216,7 @@ def rhythm(text: str, masked: str, sents: Sequence[Span], genre: str) -> List[Fi
         j = i
         while j + 1 < len(firsts) and firsts[j + 1] == firsts[i] and firsts[i]:
             j += 1
-        if j - i + 1 >= 3:
+        if j - i + 1 >= 4:
             out.append(_mk("en.rhythm.same-start", "rhythm", "C", en[j][0], en[j][1], 0.5, genre,
                            f"{j - i + 1} sentences in a row start with '{firsts[i]}'.", lang="en",
                            text=masked[en[j][0]:en[j][1]][:40], sugg="Merge sentences or change the subject."))

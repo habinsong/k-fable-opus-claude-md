@@ -52,6 +52,9 @@
 | `en.signpost.question-opener` | en | 예고·안내 | C | 0.8 | - | Hook opening. |
 | `en.signpost.whether` | en | 예고·안내 | B | 0.8 | - | 'Whether you're A or B' audience sweep. |
 | `en.structure.neg-parallel` | en | 구조 습관 | A | 1.2 | strong | Negative parallelism: knocks down a view nobody held, then states the point. |
+| `en.structure.neg-parallel-noun` | en | 구조 습관 | A | 1.2 | - | Negative parallelism with a noun subject. |
+| `en.structure.isnt-x-but-y` | en | 구조 습관 | B | 0.8 | - | 'isn't the X but the Y' contrast. |
+| `en.structure.on-one-hand` | en | 구조 습관 | C | 0.5 | - | Balanced both-sides frame. |
 | `en.structure.neg-parallel-about` | en | 구조 습관 | A | 1.2 | - | Negative parallelism ('isn't about X, it's about Y'). |
 | `en.structure.not-only` | en | 구조 습관 | B | 0.7 | - | 'Not only X but also Y' frame. |
 | `en.structure.more-than-just` | en | 구조 습관 | B | 1.2 | - | Negative-parallel variant. |
@@ -71,6 +74,8 @@
 | `en.hedging.potentially` | en | 군더더기·유보 | B | 0.7 | standard | Stacked hedge. |
 | `en.hedging.stock-lead` | en | 군더더기·유보 | C | 0.7 | strong | Filler lead-in. |
 | `en.hedging.adverb-lead` | en | 군더더기·유보 | C | 0.5 | strong | Sentence adverb that comments on itself. |
+| `en.hedging.that-said` | en | 군더더기·유보 | C | 0.4 | - | Stock concession opener. |
+| `en.hedging.worth-ing` | en | 군더더기·유보 | B | 0.5 | - | Throat-clearing that points at the next point. |
 | `en.hedging.when-it-comes` | en | 군더더기·유보 | C | 0.4 | - | Wordy topic marker; 'for' or 'with' is usually enough. |
 | `en.hedging.arguably` | en | 군더더기·유보 | C | 0.4 | - | Weasel hedge. |
 | `en.hedging.wordy` | en | 군더더기·유보 | C | 0.3 | standard | Wordier than the plain phrase. |
@@ -143,6 +148,7 @@
 | `ko.puffery.future-close` | ko | 의미 부풀리기 | C | 1.0 | - | 빈 전망 맺음. |
 | `ko.puffery.meaning` | ko | 의미 부풀리기 | B | 0.6 | - | 의미가 크다고만 하고 내용이 없다. |
 | `ko.puffery.precious` | ko | 의미 부풀리기 | C | 0.3 | - | 정형 수식. |
+| `ko.puffery.honestly` | ko | 의미 부풀리기 | C | 0.4 | - | 연출된 솔직함. |
 | `ko.puffery.one-step` | ko | 의미 부풀리기 | C | 1.0 | - | 상투 연결. |
 | `ko.signpost.announce` | ko | 예고·안내 | B | 0.8 | strong | 하겠다는 예고. 하지 않고 말만 한다. |
 | `ko.signpost.lets` | ko | 예고·안내 | B | 0.8 | strong | 권유형 예고. |
@@ -152,6 +158,7 @@
 | `ko.structure.neg-chain` | ko | 구조 습관 | B | 1.2 | - | 부정을 연달아 쌓고 결론을 낸다. |
 | `ko.structure.not-only` | ko | 구조 습관 | C | 0.3 | - | '~뿐만 아니라' 병렬. |
 | `ko.structure.beyond` | ko | 구조 습관 | B | 0.8 | - | '~를 넘어 ~로' 확장 틀. |
+| `ko.structure.on-one-hand` | ko | 구조 습관 | C | 0.5 | - | 양면을 나란히 세우는 틀. |
 | `ko.structure.rather` | ko | 구조 습관 | C | 0.5 | - | 대구의 변종. |
 | `ko.structure.cleft` | ko | 구조 습관 | C | 0.5 | - | 강조 도입. 한 글에 한 번 이하. |
 | `ko.structure.enumerate` | ko | 구조 습관 | C | 0.5 | - | '첫째, 둘째' 기계 나열. |
@@ -188,6 +195,7 @@
 | `any.format.emoji-lead` | any | 서식 신호 | B | 0.5 | standard | 줄머리 이모지(불릿, 제목). |
 | `any.format.emoji-any` | any | 서식 신호 | C | 0.3 | strong | 본문 이모지. |
 | `any.format.bold-lead` | any | 서식 신호 | B | 0.5 | strong | 불릿마다 굵은 라벨로 시작한다. |
+| `any.format.bold-line` | any | 서식 신호 | C | 0.3 | - | 굵은 글씨만 있는 줄이 제목 구실을 한다. |
 | `any.format.hashtags` | any | 서식 신호 | C | 0.3 | - | 해시태그 묶음. |
 | `any.format.heading-title-case` | any | 서식 신호 | C | 0.3 | - | 제목이 모두 대문자로 시작한다(제목식 대문자). |
 | `any.hygiene.nbsp` | any | 보이지 않는 문자 | B | 0.0 | safe | 줄바꿈 없는 공백 문자가 섞였다. |

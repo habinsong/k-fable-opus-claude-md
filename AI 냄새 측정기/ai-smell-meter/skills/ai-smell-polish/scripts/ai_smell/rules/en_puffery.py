@@ -78,7 +78,7 @@ RULES = [
       r"|\bhere(?:'s| is) where it gets (?:interesting|tricky|complicated)\b",
       "Staged reveal."),
     R("en.puffery.honest-answer", "en", "puffery", "C",
-      r"\bthe (?:honest|short|simple|truthful) (?:answer|truth|version)(?: is)?[:,]|\bsit with that\b",
+      r"\bthe (?:honest|short|simple|truthful) (?:answer|truth|version)(?: is\b|[:,])|\bsit with that\b",
       "Anecdotal tic reported for recent assistants; weak evidence."),
 
     # ---- 출처 없는 권위 (인용 표시가 뒤따르면 세지 않는다)
