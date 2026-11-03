@@ -22,16 +22,21 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 # 프로젝트 소개 (2026-11-03 개편)
 
 기존에는 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 3개만 있었습니다.  
-이제는 **제공자 → 모델 → 분야** 3단계 폴더로 나눠서, 모델마다 그 모델에 맞춘 지침 문서를 둡니다.
+이제는 용도에 따라 루트 폴더를 **세 갈래**로 나눴습니다.
 
-```text
-<제공자>/<모델>/<분야>.md      예) claude/opus-5.5/firmware.md
-```
+| 폴더 | 무엇을 두나 | LLM 컨텍스트에 넣나 |
+|---|---|---|
+| [`universal/`](universal/) | 모델에 상관없이 어디에나 쓰는 **범용 지침** (14개) | 넣습니다 |
+| [`md/`](md/)`<제공자>/<모델>/` | 모델마다 따로 만든 **모델별 지침** (366개). 범용 지침에 그 모델에게 하는 지시를 더한 것 | 넣습니다 |
+| [`docs/`](docs/) | 사양, 가격, 벤치마크, 비판, 출처, 확인하지 못한 것 같은 **조사·검증 기록** (352개) | **넣지 않습니다** |
+
+`universal/`과 `md/`에는 근거, 출처 URL, 가격, 벤치마크, 비판을 한 줄도 두지 않습니다. `check`가 이를 오류로 잡습니다.  
+조사 내용이 컨텍스트에 섞이면 모델이 지침을 읽는 데 방해가 되기 때문입니다. 근거가 궁금하면 같은 경로의 `docs/` 문서를 보세요.
 
 한국어로 대답하고, 복명복창으로 시작하고, 비판적으로 따지고, 작게 고치고, 검증하고,  
 검증 못 한 건 솔직히 말하고, 라이선스·저작권·특허·출처를 침해하지 않게 만드는 세팅입니다.
 
-> 오래 보고, 깊게 보고, 한국어로 일하게 만들기 위한 모델별 지침 문서 모음
+> 오래 보고, 깊게 보고, 한국어로 일하게 만들기 위한 지침 문서 모음
 
 ---
 
@@ -46,31 +51,39 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 
 ```text
 .
-├── _shared/
-│   ├── contract.md          # 모든 문서 공통 계약 (정본)
-│   └── domains/             # 분야 규칙 정본 9종
-├── scripts/docs_tool.py     # 공통 블록 주입(sync) / 구조 검사(check)
-├── gpt/        gpt-6-astra · gpt-6.1-sol · gpt-6.1-terra · gpt-6-luna
-├── claude/     fable-5.1 · fable-5.5(미출시) · opus-5.5 · sonnet-5.5 · haiku-5.5
-├── gemini/     gemini-4-argon · gemini-4-carbon(미출시) · gemini-3.8-flash
-├── gemma/      gemma-4-e2b · gemma-4-e4b · gemma-4-12b · gemma-4-26b-a4b · gemma-4-31b   (로컬용)
-├── deepseek/   v4.1-flash-1017
-├── glm/        glm-5.3 · glm-5.3-flash · glm-5.5(미출시)
-├── muse/       muse-spark · muse-wonder
-├── grok/       grok-4.7 · grok-4.8(미출시) · grok-5(미출시)
-├── kimi/       kimi-k3.1
-├── qwen/       qwen3.8-max · qwen3.8-2.4t-a95b · qwen3.8-27b · qwen3.7-max · qwen3.6-27b · qwen3.6-35b-a3b
-└── minimax/    minimax-m3 · minimax-m3.1-flash
+├── universal/                  범용 지침. 파일 하나만 넣어도 쓸 수 있음
+│   ├── contract.md             응답 계약·작업 원칙
+│   ├── general.md  web.md  app.md  native.md  hardware.md  firmware.md
+│   ├── web-research.md  research.md  tech-research.md
+│   └── ko-academic.md  ko-everyday.md  ko-literary.md  ko-core.md   한국어 윤문
+├── md/                         모델별 지침 (분야 문서 9개 + 한국어 윤문 3개)
+│   ├── gpt/        gpt-6-astra · gpt-6.1-sol · gpt-6.1-terra · gpt-6-luna
+│   ├── claude/     fable-5.1 · fable-5.5(미출시) · opus-5.5 · sonnet-5.5 · haiku-5.5
+│   ├── gemini/     gemini-4-argon · gemini-4-carbon(미출시) · gemini-3.8-flash
+│   ├── gemma/      gemma-4-e2b · gemma-4-e4b · gemma-4-12b · gemma-4-26b-a4b · gemma-4-31b   (로컬용)
+│   ├── deepseek/   v4.1-flash-1017
+│   ├── glm/        glm-5.3 · glm-5.3-flash · glm-5.5(미출시)
+│   ├── muse/       muse-spark · muse-wonder
+│   ├── grok/       grok-4.7 · grok-4.8(미출시) · grok-5(미출시)
+│   ├── kimi/       kimi-k3.1
+│   ├── qwen/       qwen3.8-max · qwen3.8-2.4t-a95b · qwen3.8-27b · qwen3.7-max · qwen3.6-27b · qwen3.6-35b-a3b
+│   └── minimax/    minimax-m3 · minimax-m3.1-flash
+├── docs/                       조사·검증 기록 (컨텍스트에 넣지 않음). md/와 같은 경로에 짝이 있음
+│   ├── _common/                공통 조사: 분야 규칙 근거 원본, 한국어 윤문 조사
+│   └── <제공자>/<모델>/        <분야>.md, korean-writing.md
+└── scripts/
+    ├── docs_tool.py            공통 블록 주입(sync)과 구조·분리 검사(check)
+    └── ko_style_probe.py       한국어 문체 신호를 세는 측정 도구
 ```
 
-제공자 11곳, 모델 폴더 35개, 모델 폴더마다 분야 문서 9개이므로 문서는 모두 315개입니다.  
-`gemma/`와 `qwen3.8-27b`·`qwen3.6-*`처럼 로컬로 돌리는 모델은 메모리, 양자화, 런타임, 가중치 라이선스 확인 규칙이 문서에 따로 들어 있습니다.
+제공자 11곳, 모델 폴더 35개입니다. `gemma/`와 `qwen3.8-27b`·`qwen3.6-*`처럼 로컬로 돌리는 모델은 메모리, 양자화, 런타임, 가중치 라이선스 확인 규칙이 `docs/`에 따로 들어 있습니다.  
+**미출시 표기 폴더**는 공식 발표 전이라 스펙을 쓰지 않았습니다. 직전 세대 규칙을 잠정 적용하게 하고, 출시 당일 확인할 항목은 `docs/`에 담았습니다.
 
-모델 폴더마다 분야 문서 9개가 있습니다.
+분야 문서는 이렇습니다.
 
 | 파일 | 분야 |
 |---|---|
-| `general.md` | 범용 (모델 특성 전체 + 일반 개발 규칙) |
+| `general.md` | 범용 (일반 개발 규칙) |
 | `web.md` | 웹 프런트엔드·백엔드 |
 | `app.md` | 모바일 앱 (iOS·Android·크로스플랫폼) |
 | `native.md` | 네이티브 프로그램 (데스크톱·CLI·시스템 SW) |
@@ -79,26 +92,42 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 | `web-research.md` | 웹 리서치 (사실 확인·출처 수집) |
 | `research.md` | 학술·과학 연구 |
 | `tech-research.md` | 기술 선정·타당성·라이선스·특허 조사 |
+| `ko-academic.md` | 한국어 학술·기술 글 윤문 (gpt·claude·gemini·gemma 계열만) |
+| `ko-everyday.md` | 한국어 일상 대화·글 윤문 (같은 계열만) |
+| `ko-literary.md` | 한국어 문학·범용 글쓰기 (같은 계열만) |
 
-**미출시(미출시 표기) 폴더**는 공식 발표 전이라 스펙을 쓰지 않았습니다. 직전 세대 규칙을 잠정 적용하고, 출시 당일 확인할 항목만 담았습니다.
+## 지침 문서 한 개의 구성
 
-## 문서 한 개의 구성
-
-| 절 | 내용 | 작성 방식 |
+| 절 | 내용 | 원본 |
 |---|---|---|
-| 0, 1 | 응답 계약 (복명복창 → 5항목 보고 → 한국어), 작업 원칙 (비판적 검토, 재귀 개선 루프, 정직성, God-object 방지, 라이선스·저작권·특허·출처, 범위·안전) | `_shared/contract.md`에서 주입 |
-| 2 | 이 모델의 특성 또는 이 모델의 해당 분야 운용 | 모델마다 직접 작성 |
-| 3 | 분야 규칙, 시점에 민감한 사실 표, 검증 순서, 금지 | `_shared/domains/<분야>.md`에서 주입 |
-| 4 | 근거와 한계 (출처 URL, 확인 수준) | 모델마다 직접 작성 |
+| 0, 1 | 응답 계약 (복명복창 → 5항목 보고 → 한국어), 작업 원칙 (비판적 검토, 재귀 개선 루프, 정직성, God-object 방지, 라이선스·저작권·특허·출처, 범위·안전, 웹 검색 적극 활용) | `universal/contract.md` |
+| 2 | 이 모델에게 하는 지시 (명령문만) | 모델 폴더의 `general.md` 블록 (한국어 분야는 `ko-academic.md` 블록) |
+| 3 | 분야 규칙, 기준 사실 표, 검증 순서, 금지 | `universal/<분야>.md` |
 
-공통 블록은 정본 한 곳에서 고치고 `sync`로 퍼뜨립니다. 문서 315개에서 같은 규칙이 조금씩 달라지는 걸 막기 위해서입니다. 모델별 내용(2, 4절)은 전부 따로 씁니다.
+`universal/`의 파일은 0, 1절과 3절만 있습니다. 모델과 상관없이 쓰려면 이 파일 하나면 됩니다.
+
+## 한국어 윤문
+
+AI 글에서 티가 나는 것(문장 사이의 흐름과 호흡, 과서술, 사람이 쓰지 않는 말, 인위적인 감정 표현, 대구와 도치)을 줄여서 사람이 쓴 한국어에 가깝게 쓰도록 하는 지침입니다. 세 가지로 나눴습니다.
+
+- **학술·기술**: 논문, 초록, 보고서, 기술 문서 (`ko-academic.md`)
+- **일상**: 메신저, 이메일, 후기, 대화 말투 (`ko-everyday.md`)
+- **문학·범용**: 소설, 수필, 칼럼, 대사 (`ko-literary.md`)
+
+윤문 순환(읽기 → 측정 → 국소 수정 → 재측정 → 보고)의 측정에는 `scripts/ko_style_probe.py`를 씁니다.
+
+```bash
+python3 -I scripts/ko_style_probe.py 원고.txt
+```
+
+**이 측정은 AI 탐지기가 아닙니다.** 정규식으로 신호를 세는 휴리스틱이라 수치가 낮다고 사람이 쓴 글이 되지 않습니다. 조사 근거와 한계(실측 자료가 저자 자체 보고이고 다른 모델 버전으로 잰 것이라는 점, 도치에는 공개 근거가 없다는 점)는 [`docs/_common/korean-writing/`](docs/_common/korean-writing/README.md)에 있습니다.
 
 ## 근거 수준
 
-문서의 모든 사실에는 근거 수준을 붙였습니다.
+`docs/`의 사실에는 근거 수준을 붙였습니다. 정의는 [`docs/README.md`](docs/README.md)에 있습니다.
 
-- **[확인]** 공식 1차 출처(공식 문서, 벤더가 운영하는 저장소)를 이 작업에서 직접 읽음
-- **[부분]** 공식 도메인 검색 스니펫이나 2차 출처(뉴스, 집계, 블로그)로만 확인
+- **[확인]** 공식 1차 출처를 이 작업에서 직접 읽음
+- **[부분]** 검색 스니펫이나 2차 출처(뉴스, 집계, 블로그)로만 확인
 - **[미확인]** 출처가 충돌하거나 루머, 또는 확인 못 함
 
 작성 환경에서 `openai.com`, `ai.google.dev`, `huggingface.co` 같은 호스트는 열리지 않았습니다.  
@@ -108,7 +137,7 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 
 ## 이게 뭔가요?
 
-각 문서는 AI가 다음처럼 행동하도록 유도합니다.
+각 지침 문서는 AI가 다음처럼 행동하도록 유도합니다.
 
 - **첫 마디부터 복명복창**  
   프롬프트 던지자마자 첫 출력을 사용자가 시킨 일 요약·확인부터 하고 시작합니다. 군대처럼 확실하게 알아먹었는지 확인하고 일 시키는 주인장의 군인 시절 습관이 들어갔습니다.  
@@ -129,6 +158,9 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 - **검증 안 한 건 성공이라고 안 하고, 불확실한 건 단정 안 함**  
   [확인] / [부분] / [미확인]으로 구분해서 말하게 합니다.
 
+- **웹 검색을 적극 활용**  
+  기억이 불확실하거나 바뀔 수 있는 사실은 웹 검색과 웹 페이지 가져오기로 직접 확인하게 합니다. 접속이 막히면 우회하지 않고 보고합니다.
+
 - **God Object 방지 및 500줄 룰**  
   특별한 이유 없으면 파일 하나 500줄 넘기지 말 것.  
   그냥 줄 수만 쪼개는 꼼수 쓰지 말고, 폴더랑 파일 딱딱 나눠서 인간이 유지보수 가능하게 만들 것.
@@ -143,7 +175,7 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 
 ## 사용법
 
-1. 쓰는 모델의 폴더에서 분야에 맞는 문서를 고릅니다. 모르겠으면 `general.md`입니다.
+1. 모델에 상관없이 쓰려면 `universal/`에서, 모델에 맞추려면 `md/<제공자>/<모델>/`에서 분야에 맞는 문서를 고릅니다. 모르겠으면 `general.md`입니다.
 2. 프로젝트 루트에 **쓰는 도구가 읽는 이름**으로 복사합니다.
 
 | 도구 | 복사할 이름 | 근거 |
@@ -155,14 +187,15 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 | Kimi Code, Qwen Code, Grok Build, DeepSeek Harness | `AGENTS.md` | [미확인] 도구별 로딩 규칙을 각자 확인 |
 
 ```bash
-cp claude/opus-5.5/general.md /path/to/your/project/CLAUDE.md
-cp gpt/gpt-6-astra/firmware.md /path/to/your/project/AGENTS.md
+cp md/claude/opus-5.5/general.md /path/to/your/project/CLAUDE.md
+cp universal/firmware.md /path/to/your/project/AGENTS.md
 ```
 
 혹시나 노파심에 말씀드리지만 `/path/to/your/project/`이란 경로는 없습니다.  
 여러분의 실제 프로젝트 경로에 넣길 바랍니다.
 
-여러 분야에 걸치면 `general.md`를 기본으로 두고, 해당 분야 문서의 `## 3. 분야 규칙` 부분만 이어 붙이세요.
+여러 분야에 걸치면 `general.md`를 기본으로 두고, 해당 분야 문서의 `## 3. 분야 규칙` 부분만 이어 붙이세요.  
+**`docs/`의 파일은 컨텍스트에 넣지 마세요.** 사람이 근거를 확인하려고 만든 문서입니다.
 
 > 이 문서들은 AI에게 주는 **컨텍스트**이지 강제 설정이 아닙니다. 반드시 막아야 하는 동작(예: `rm -rf`, 강제 푸시, 비밀 파일 읽기)은 도구의 권한·훅 설정으로도 막으세요.
 
@@ -183,14 +216,19 @@ User memory              Saved in ~/.claude/CLAUDE.md
 
 ## 문서를 고칠 때
 
-공통 규칙은 `_shared/`만 고치고 반영합니다. 개별 문서의 공통 블록을 직접 고치지 마세요.
+- 모든 문서에 공통인 규칙: `universal/contract.md`
+- 분야 규칙: `universal/<분야>.md` (한국어 공통 원리는 `universal/ko-core.md`)
+- 모델에게 하는 지시: `md/<제공자>/<모델>/general.md`의 모델 블록 (한국어 분야는 `ko-academic.md`의 블록)
+- 조사·근거·출처: `docs/<제공자>/<모델>/`
+
+공통 블록(계약, 분야 규칙, 모델 블록)은 원본만 고치고 `sync`로 퍼뜨립니다. 개별 문서의 공통 블록을 직접 고치지 마세요.
 
 ```bash
-python3 -I scripts/docs_tool.py sync              # 정본 → 각 문서 주입
-python3 -I scripts/docs_tool.py check --complete  # 구조·한도·누락 검사
+python3 -I scripts/docs_tool.py sync              # 원본 → 각 문서 주입
+python3 -I scripts/docs_tool.py check --complete  # 구조·한도·누락·분리 검사
 ```
 
-`check`가 보는 것: 공통 블록이 정본과 같은지, 파일당 500줄 이하인지, 필수 절과 출처 URL이 있는지, 모델 폴더마다 분야 문서 9개가 다 있는지.  
+`check`가 보는 것: 공통 블록이 원본과 같은지, 파일당 500줄 이하인지, `universal/`·`md/`에 근거 태그·출처 URL·가격·벤치마크 출처·"근거와 한계" 절이 섞이지 않았는지, 모델 폴더마다 분야 문서가 다 있고 `docs/`에 짝이 있는지.  
 이 검사는 **형식**만 봅니다. 내용이 사실인지는 사람이 출처로 확인해야 합니다.
 
 ## 참고한 공개 프로젝트

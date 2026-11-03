@@ -22,5 +22,5 @@
 
 ## 4. 근거와 한계
 - Fairwind 허용 범위: [Fairwind Program](https://deepmind.google/fairwind-program/), [Gemini 4 Carbon: our next frontier model](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/) (검색 스니펫만) [부분]
-- CRA 시점: 이 저장소 `_shared/domains/firmware.md`의 표 [부분]
+- CRA 시점: 이 저장소 `docs/_common/domain-rules/firmware.md`의 표 [부분]
 - 한계: Carbon의 펌웨어 개발 성능에 대한 정보는 없다. 이 문서는 확인 항목 목록이며 모델 특성이 아니다.

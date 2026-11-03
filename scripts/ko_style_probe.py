@@ -8,7 +8,7 @@
 
 한계: 정규식 기반이라 오탐·미탐이 있다. 수치가 낮아도 사람이 쓴 글이 되지는 않는다.
 참고값은 im-not-ai 저자의 자체 보고(사람 60편 대 AI 60편, 편집된 전문 산문)이며
-장르·분량에 따라 달라진다. 근거 수준은 _shared/ko-core.md §3.9를 본다.
+장르·분량에 따라 달라진다. 근거 수준과 한계는 docs/_common/korean-writing/empirical-validation.md를 본다.
 """
 import json
 import re
