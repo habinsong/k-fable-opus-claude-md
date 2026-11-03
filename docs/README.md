@@ -10,20 +10,30 @@
 docs/
 ├── README.md
 ├── _common/                          제공자·모델에 공통인 조사 기록
-│   ├── domain-rules/<분야>.md        분야 규칙의 근거 수준 표기 원본 (분야 9개)
+│   ├── domain-rules/<분야>.md        분야 규칙의 "시점에 민감한 사실" 근거 수준 (행 단위 표, 분야 9개)
 │   └── korean-writing/               한국어 윤문 조사 (AI 말투 도구, 실측, 한국어 원리, 서지)
 └── <계열>/<모델>/
-    ├── <분야>.md                     md/<계열>/<모델>/<분야>.md 의 조사 기록 (분야 9개)
-    └── korean-writing.md             한국어 윤문 3분야(ko-*)의 모델별 조사 기록 (gpt·claude·gemini·gemma만)
+    ├── README.md                     이 모델 조사 기록의 색인
+    ├── overview.md                   위치, 출시·연혁, 사양, 라이선스
+    ├── performance.md                성능 근거 (벤더 수치와 독립 평가를 읽는 법)
+    ├── operations.md                 운용 (행동 특성, API·하네스·로컬 실행, 데이터·정책)
+    ├── critique.md                   비판적 평가, 쓸 때와 쓰지 않을 때
+    ├── sources.md                    출처 URL, 확인 수준, 한계
+    ├── domains/<분야>.md             웹·앱·네이티브·하드웨어·펌웨어·웹 리서치·리서치·기술 리서치에서의 이 모델 운용
+    └── korean-writing.md             한국어 윤문 3분야의 모델별 조사와 지침 근거 (gpt·claude·gemini·gemma만)
 ```
 
-`md/<계열>/<모델>/<분야>.md` 한 개마다 같은 경로의 `docs/<계열>/<모델>/<분야>.md`가 짝으로 있습니다. 한국어 윤문 분야 3개(`ko-academic`, `ko-everyday`, `ko-literary`)는 모델 조사 기록이 같아서 `korean-writing.md` 한 개를 함께 씁니다.
+해당 내용이 없는 주제 파일(예: 성능 근거가 없는 모델의 `performance.md`)은 만들지 않았습니다. `README.md`가 있는 파일만 안내합니다.
 
-## 분야 문서 9개
+## md 문서와의 짝
 
-`general`(범용), `web`, `app`, `native`, `hardware`, `firmware`, `web-research`, `research`, `tech-research`.
+| `md/<계열>/<모델>/` | `docs/<계열>/<모델>/` |
+|---|---|
+| `general.md` | `overview.md`, `performance.md`, `operations.md`, `critique.md`, `sources.md` |
+| `web.md`, `app.md`, `native.md`, `hardware.md`, `firmware.md`, `web-research.md`, `research.md`, `tech-research.md` | `domains/<같은 이름>.md` |
+| `ko-academic.md`, `ko-everyday.md`, `ko-literary.md` | `korean-writing.md` 하나 (세 분야의 모델 조사가 같음) |
 
-각 조사 기록의 절 번호는 짝이 되는 지침 문서의 번호를 따릅니다(§0 응답 계약, §1 작업 원칙, §2 모델 지침, §3 분야 규칙). 그래서 `§2`부터 시작하고 `§4 근거와 한계`로 끝납니다.
+소제목의 번호(2.x)는 주제별로 나누기 전 일반 조사 기록의 번호입니다. `domains/` 문서의 절 번호는 짝이 되는 지침 문서의 번호를 따릅니다(§0 응답 계약, §1 작업 원칙, §2 모델 지침, §3 분야 규칙).
 
 ## 계열과 모델
 

@@ -4,7 +4,7 @@
 > 사람이 읽는 조사 기록이다. LLM 컨텍스트에 넣지 않는다.
 > 컨텍스트용 지침: [`ko-academic`](../../../md/claude/fable-5.1/ko-academic.md) · [`ko-everyday`](../../../md/claude/fable-5.1/ko-everyday.md) · [`ko-literary`](../../../md/claude/fable-5.1/ko-literary.md)
 > 공통 조사(AI 말투 도구, 실측, 한국어 원리): [`docs/_common/korean-writing/`](../../_common/korean-writing/README.md)
-> 이 모델의 일반 조사 기록: [`general.md`](general.md)
+> 이 모델의 일반 조사 기록: [`README.md`](README.md)
 
 ## 1. 이 모델에서 확인한 것 (글쓰기 제어 관점)
 - 입력 $10 / 출력 $50, 컨텍스트 1M, 가장 느린 티어. 기본 effort `high`. Anthropic은 대부분 Opus 5.5로 시작하라고 안내한다 [확인].
@@ -30,5 +30,5 @@
 ## 4. 근거와 한계
 - [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1) [확인]
 - [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) [확인]
-- 이 모델 문서의 사양·가격은 같은 폴더의 `general.md`와 그 출처를 따른다.
+- 이 모델 문서의 사양·가격은 같은 폴더의 [`README.md`](README.md)가 안내하는 문서와 [`sources.md`](sources.md)를 따른다.
 - 한계: 지침을 적용한 실제 출력을 사람이 읽고 평가한 적이 없다. 위 근거는 대부분 공식 가이드의 영어 기준 서술이거나 검색 요약이다.

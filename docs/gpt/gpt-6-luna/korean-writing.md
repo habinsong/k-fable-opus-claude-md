@@ -4,7 +4,7 @@
 > 사람이 읽는 조사 기록이다. LLM 컨텍스트에 넣지 않는다.
 > 컨텍스트용 지침: [`ko-academic`](../../../md/gpt/gpt-6-luna/ko-academic.md) · [`ko-everyday`](../../../md/gpt/gpt-6-luna/ko-everyday.md) · [`ko-literary`](../../../md/gpt/gpt-6-luna/ko-literary.md)
 > 공통 조사(AI 말투 도구, 실측, 한국어 원리): [`docs/_common/korean-writing/`](../../_common/korean-writing/README.md)
-> 이 모델의 일반 조사 기록: [`general.md`](general.md)
+> 이 모델의 일반 조사 기록: [`README.md`](README.md)
 
 ## 1. 이 모델에서 확인한 것 (글쓰기 제어 관점)
 - 입력 $0.10 / 출력 $0.50, '집중된 대량 작업'용 [부분]. 낮은 effort의 정확도와 도구 호출 실패율은 독립 측정이 없고 수치 대부분이 `max` 기준이다 [미확인].
@@ -29,6 +29,6 @@
 ## 4. 근거와 한계
 - [GPT-5.1 prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5-1_prompting_guide) [부분: 검색 요약]
 - [Shaping your agent's personality](https://developers.openai.com/cookbook/examples/gpt-5/prompt_personalities) [부분: 검색 요약]
-- [Using the latest model](https://developers.openai.com/api/docs/guides/latest-model) [부분: 기존 `general.md`에서 확인한 모델 사양]
-- 이 모델 문서의 사양·가격은 같은 폴더의 `general.md`와 그 출처를 따른다.
+- [Using the latest model](https://developers.openai.com/api/docs/guides/latest-model) [부분: 같은 폴더 `overview.md`에서 확인한 모델 사양]
+- 이 모델 문서의 사양·가격은 같은 폴더의 [`README.md`](README.md)가 안내하는 문서와 [`sources.md`](sources.md)를 따른다.
 - 한계: 지침을 적용한 실제 출력을 사람이 읽고 평가한 적이 없다. 위 근거는 대부분 공식 가이드의 영어 기준 서술이거나 검색 요약이다.

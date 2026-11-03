@@ -10,8 +10,12 @@
 루트 폴더:
   universal/                      모델에 상관없이 쓰는 범용 지침. 분야 문서 12개 + contract.md + ko-core.md
   md/<계열>/<모델>/<분야>.md      모델별 지침. 범용 지침 + 모델 전용 지침(§2)
-  docs/<계열>/<모델>/<분야>.md    조사·검증·근거 기록. 컨텍스트에 넣지 않는다.
-  docs/<계열>/<모델>/korean-writing.md   한국어 윤문 3분야(ko-*)의 모델별 조사 기록
+  docs/<계열>/<모델>/             조사·검증·근거 기록. 컨텍스트에 넣지 않는다.
+      README.md                  이 모델의 조사 기록 색인
+      overview · performance · operations · critique .md   md의 general.md 짝(주제별로 나눔)
+      sources.md                 출처와 한계
+      domains/<분야>.md           md의 나머지 분야 8개의 짝
+      korean-writing.md          한국어 윤문 3분야(ko-*)의 모델별 조사 기록
   universal/·md/ 문서에는 근거·출처·가격·벤치마크·비판을 두지 않는다. docs/에 둔다.
 
 원본(정본)의 위치:
@@ -36,6 +40,7 @@ KO_DOMAINS = ["ko-academic", "ko-everyday", "ko-literary"]
 KO_FAMILIES = ["gpt", "claude", "gemini", "gemma"]
 ALL_DOMAINS = DOMAINS + KO_DOMAINS
 KO_DOC = "korean-writing"
+MODEL_DOC_NAMES = {"README", "overview", "performance", "operations", "critique", "sources", KO_DOC}
 MODEL_SOURCE = {"base": "general", "ko": "ko-academic"}
 CONTRACT_KEYWORDS = ["복명복창", "변경 요약", "수정 파일", "실행한 명령", "검증 결과",
                      "남은 리스크", "God-object", "500줄", "한국어", "비판", "재귀",
@@ -288,23 +293,29 @@ def check_docs(errors, warns, complete):
         if miss:
             msg = f"md/{fam}/{model}: 분야 문서 {len(miss)}개 누락 ({', '.join(miss)})"
             (errors if complete else warns).append(msg)
-        pairs = [d for d in have if d in DOMAINS] + ([KO_DOC] if have & set(KO_DOMAINS) else [])
-        for name in pairs:
-            if not (DOCS / fam / model / f"{name}.md").exists():
-                (errors if complete else warns).append(f"docs/{fam}/{model}/{name}.md 없음 (md의 조사 기록 짝)")
-    allowed = set(DOMAINS) | {KO_DOC}
+        mdir = DOCS / fam / model
+        want = ["README.md", "sources.md"] if "general" in have else []
+        want += [f"domains/{d}.md" for d in have if d in DOMAINS and d != "general"]
+        want += ["korean-writing.md"] if have & set(KO_DOMAINS) else []
+        for rel_name in want:
+            if not (mdir / rel_name).exists():
+                (errors if complete else warns).append(f"docs/{fam}/{model}/{rel_name} 없음 (md의 조사 기록 짝)")
     for fam in FAMILIES:
-        for dp in sorted((DOCS / fam).glob("*/*.md")):
-            rel = str(dp.relative_to(ROOT))
-            text = read(dp)
-            if not text.startswith("# "):
-                errors.append(f"{rel}: 첫 줄이 H1 제목이 아님")
-            if dp.stem not in allowed:
-                warns.append(f"{rel}: 짝이 되는 md 분야 이름이 아님")
-            if "http" not in text:
-                errors.append(f"{rel}: 조사 기록에 출처 URL 없음")
-            if len(text.splitlines()) > HARD_LIMIT:
-                errors.append(f"{rel}: {len(text.splitlines())}줄 > {HARD_LIMIT}")
+        for mdir in sorted(p for p in (DOCS / fam).glob("*") if p.is_dir()):
+            for dp in sorted([*mdir.glob("*.md"), *(mdir / "domains").glob("*.md")]):
+                rel = str(dp.relative_to(ROOT))
+                in_domains = dp.parent.name == "domains"
+                text = read(dp)
+                if not text.startswith("# "):
+                    errors.append(f"{rel}: 첫 줄이 H1 제목이 아님")
+                if in_domains and (dp.stem not in DOMAINS or dp.stem == "general"):
+                    warns.append(f"{rel}: 짝이 되는 md 분야 이름이 아님")
+                if not in_domains and dp.stem not in MODEL_DOC_NAMES:
+                    warns.append(f"{rel}: 알려진 조사 기록 이름이 아님 ({', '.join(sorted(MODEL_DOC_NAMES))})")
+                if (in_domains or dp.stem in ("sources", KO_DOC)) and "http" not in text:
+                    errors.append(f"{rel}: 조사 기록에 출처 URL 없음")
+                if len(text.splitlines()) > HARD_LIMIT:
+                    errors.append(f"{rel}: {len(text.splitlines())}줄 > {HARD_LIMIT}")
 
 
 def check(complete, skip_blocks=False):

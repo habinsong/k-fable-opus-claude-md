@@ -4,7 +4,7 @@
 > 사람이 읽는 조사 기록이다. LLM 컨텍스트에 넣지 않는다.
 > 컨텍스트용 지침: [`ko-academic`](../../../md/gemma/gemma-4-26b-a4b/ko-academic.md) · [`ko-everyday`](../../../md/gemma/gemma-4-26b-a4b/ko-everyday.md) · [`ko-literary`](../../../md/gemma/gemma-4-26b-a4b/ko-literary.md)
 > 공통 조사(AI 말투 도구, 실측, 한국어 원리): [`docs/_common/korean-writing/`](../../_common/korean-writing/README.md)
-> 이 모델의 일반 조사 기록: [`general.md`](general.md)
+> 이 모델의 일반 조사 기록: [`README.md`](README.md)
 
 ## 1. 이 모델에서 확인한 것 (글쓰기 제어 관점)
 - MoE. MoE 총 25.2B·활성 약 3.8B, 컨텍스트 256K. 단발 문제와 에이전트 작업의 격차가 크다는 개인 후기가 있다 [부분].
@@ -32,5 +32,5 @@
 - [Gemma 4 프롬프트 형식](https://ai.google.dev/gemma/docs/core/prompt-formatting-gemma4) [부분: 검색 요약]
 - [Gemma 4 소개(Google 코리아 블로그)](https://blog.google/intl/ko-kr/company-news/technology/gemma-4-kr/) [부분]
 - [클리앙 사용 후기](https://www.clien.net/service/board/park/19172196) [부분: 개인 후기]
-- 이 모델 문서의 사양·가격은 같은 폴더의 `general.md`와 그 출처를 따른다.
+- 이 모델 문서의 사양·가격은 같은 폴더의 [`README.md`](README.md)가 안내하는 문서와 [`sources.md`](sources.md)를 따른다.
 - 한계: 지침을 적용한 실제 출력을 사람이 읽고 평가한 적이 없다. 위 근거는 대부분 공식 가이드의 영어 기준 서술이거나 검색 요약이다.

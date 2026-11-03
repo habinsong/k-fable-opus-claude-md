@@ -4,7 +4,7 @@
 > 사람이 읽는 조사 기록이다. LLM 컨텍스트에 넣지 않는다.
 > 컨텍스트용 지침: [`ko-academic`](../../../md/gpt/gpt-6-astra/ko-academic.md) · [`ko-everyday`](../../../md/gpt/gpt-6-astra/ko-everyday.md) · [`ko-literary`](../../../md/gpt/gpt-6-astra/ko-literary.md)
 > 공통 조사(AI 말투 도구, 실측, 한국어 원리): [`docs/_common/korean-writing/`](../../_common/korean-writing/README.md)
-> 이 모델의 일반 조사 기록: [`general.md`](general.md)
+> 이 모델의 일반 조사 기록: [`README.md`](README.md)
 
 ## 1. 이 모델에서 확인한 것 (글쓰기 제어 관점)
 - OpenAI 플래그십 티어. 입력 $10 / 출력 $50(100만 토큰당)으로 보도됐고 6.1 Sol의 5배다 [부분: 집계 사이트].
@@ -23,13 +23,13 @@
 1. 지침: 장문 원고는 마지막에 용어, 시제, 인물 이름, 수치가 처음부터 끝까지 일치하는지 한 번 대조한다.
    - 근거: 티어 위치(가격·용도 설명)에서 끌어낸 운용 권고다. 한국어 윤문 품질의 독립 측정은 없다 [추정]. 장문 원고의 일관성 점검은 긴 컨텍스트 티어의 용도다.
 2. 지침: 지침이 서로 충돌하면 임의로 고르지 않는다. 충돌을 한 줄로 알리고 사용자 요청과 장르를 따른다.
-   - 근거: 기존 `general.md`: 충돌하는 지침이 있으면 멈추거나 방향을 바꾼다는 보고 [부분].
+   - 근거: 같은 폴더의 `operations.md`·`critique.md`: 충돌하는 지침이 있으면 멈추거나 방향을 바꾼다는 보고 [부분].
 3. 지침: 숫자, 고유명사, 인용, 약어, 날짜는 원문 그대로 둔다.
    - 근거: 윤문의 보존 원칙이다. 사실, 수치, 고유명사를 바꾸는 실패를 막는다. 공개 윤문 도구들도 같은 보존 규칙을 둔다(`ai-tell-projects.md` §3).
 
 ## 4. 근거와 한계
 - [GPT-5.1 prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5-1_prompting_guide) [부분: 검색 요약]
 - [Shaping your agent's personality](https://developers.openai.com/cookbook/examples/gpt-5/prompt_personalities) [부분: 검색 요약]
-- [Using the latest model](https://developers.openai.com/api/docs/guides/latest-model) [부분: 기존 `general.md`에서 확인한 모델 사양]
-- 이 모델 문서의 사양·가격은 같은 폴더의 `general.md`와 그 출처를 따른다.
+- [Using the latest model](https://developers.openai.com/api/docs/guides/latest-model) [부분: 같은 폴더 `overview.md`에서 확인한 모델 사양]
+- 이 모델 문서의 사양·가격은 같은 폴더의 [`README.md`](README.md)가 안내하는 문서와 [`sources.md`](sources.md)를 따른다.
 - 한계: 지침을 적용한 실제 출력을 사람이 읽고 평가한 적이 없다. 위 근거는 대부분 공식 가이드의 영어 기준 서술이거나 검색 요약이다.
