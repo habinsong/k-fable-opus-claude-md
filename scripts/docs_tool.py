@@ -277,12 +277,62 @@ def check_md(errors, warns, contract, skip_blocks):
     return count
 
 
+FACT_HEAD = "시점에 민감한 사실"
+FACT_HEDGE = "확정된 사실이 아니라"
+FACT_LEVELS = {"확인", "부분", "미확인", "추정"}
+
+
+def fact_rows(text):
+    """'시점에 민감한 사실' 절의 표 행을 {항목: 셀 목록}으로 돌려준다. 표가 없으면 빈 dict."""
+    if FACT_HEAD not in text:
+        return {}
+    body = text.split(FACT_HEAD, 1)[1].split("\n### ", 1)[0]
+    rows = {}
+    for line in body.splitlines():
+        if line.startswith("| ") and not line.startswith("| 항목"):
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            rows[cells[0]] = cells
+    return rows
+
+
+def check_fact_tables(errors):
+    """universal의 사실 표와 docs/_common/domain-rules의 근거 수준 표가 행 단위로 같은지 본다."""
+    for d in DOMAINS:
+        up = UNIV / f"{d}.md"
+        if not up.exists():
+            continue
+        utext = read(up)
+        urows = fact_rows(utext)
+        if not urows:
+            continue
+        rel = f"universal/{d}.md"
+        if FACT_HEDGE not in utext:
+            errors.append(f"{rel}: 사실 표 위에 '확정된 사실이 아니라 확인의 출발점'이라는 명령문이 없음")
+        dp = DOCS / "_common" / "domain-rules" / f"{d}.md"
+        if not dp.exists():
+            errors.append(f"docs/_common/domain-rules/{d}.md 없음 ({rel}에 사실 표가 있음)")
+            continue
+        drows = {}  # docs 표는 절 제목이 없어 표 행을 직접 읽는다
+        for line in read(dp).splitlines():
+            if line.startswith("| ") and not line.startswith("| 항목"):
+                cells = [c.strip() for c in line.strip().strip("|").split("|")]
+                drows[cells[0]] = cells
+        for item, cells in urows.items():
+            got = drows.get(item)
+            if got is None:
+                errors.append(f"docs/_common/domain-rules/{d}.md: 항목 '{item}'의 근거 수준 행 없음")
+            elif len(got) < 3 or got[2] != cells[1]:
+                errors.append(f"docs/_common/domain-rules/{d}.md: 항목 '{item}'의 내용이 {rel}와 다름")
+            elif got[1] not in FACT_LEVELS:
+                errors.append(f"docs/_common/domain-rules/{d}.md: 항목 '{item}'의 근거 수준 '{got[1]}'이 허용값이 아님")
+        for item in drows:
+            if item not in urows:
+                errors.append(f"docs/_common/domain-rules/{d}.md: 항목 '{item}'이 {rel}에 없음")
+
+
 def check_docs(errors, warns, complete):
     if not (DOCS / "README.md").exists():
         errors.append("docs/README.md 없음")
-    for d in DOMAINS:
-        if not (DOCS / "_common" / "domain-rules" / f"{d}.md").exists():
-            errors.append(f"docs/_common/domain-rules/{d}.md 없음")
     models = {}
     for p in md_files():
         fam, model, dom = parts(p)
@@ -328,6 +378,7 @@ def check(complete, skip_blocks=False):
     contract = check_universal(errors, skip_blocks)
     count = check_md(errors, warns, contract_text() if (UNIV / "contract.md").exists() else contract, skip_blocks)
     check_docs(errors, warns, complete)
+    check_fact_tables(errors)
     for w in warns:
         print("WARN ", w)
     for e in errors:
