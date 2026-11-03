@@ -34,7 +34,7 @@ KO_INTENS = re.compile(r"(?<![가-힣])(?:매우|정말|굉장히|상당히|아�
 EMOTION = ("기뻤", "슬펐", "행복했", "외로웠", "두려웠", "불안했", "벅차", "벅찼", "먹먹", "울컥", "뭉클", "철렁", "눈물이 흘렀",
            "숨이 멎", "가슴이 아렸", "가슴이 미어", "감동", "설렜", "서글펐", "그리웠", "뿌듯", "애틋", "저릿", "찡했", "눈시울",
            "가슴이 뛰", "심장이 뛰", "숨이 막", "온몸이 떨", "마음이 무거웠", "슬퍼졌", "외로워졌", "행복해졌")
-DASH = re.compile("[—―]|(?<=[A-Za-z가-힣]) -- (?=[A-Za-z가-힣])|(?<=[A-Za-z가-힣]) – (?=[A-Za-z가-힣])")
+DASH = re.compile(r"[—―]|(?<=\S)\s*--\s*(?=\S)|(?<=[A-Za-z가-힣])\s*[–]\s*(?=[A-Za-z가-힣])|(?<=[A-Za-z가-힣])\s+-\s+(?=[A-Za-z가-힣])")
 
 
 def _mk(rid: str, cat: str, grade: str, start: int, end: int, w: float, genre: str, note: str, *,
@@ -67,34 +67,42 @@ def _by_para(sents: Sequence[Span], paras: Sequence[Span]) -> List[List[Span]]:
 
 
 def dashes(masked: str, sents: Sequence[Span], units: int, genre: str) -> List[Finding]:
-    """줄표가 3개 이상이면 센다. 한 문장의 한 쌍은 쉼표로(standard), 이어 붙이는 하나는 strong에서 쉼표로."""
+    """줄표(em dash) 남발을 센다. 한국어는 1개부터 번역투, 영어는 3개 이상부터 과다로 본다."""
     hits = list(DASH.finditer(masked))
-    if len(hits) < 3:
+    is_ko = bool(re.search(r"[가-힣]", masked))
+    if len(hits) < (1 if is_ko else 3):
         return []
     out: List[Finding] = []
     per_sentence = {}
     starts = [x[0] for x in sents]
     for m in hits:
-        sp = _sentence_of(sents, starts, m.start())
-        per_sentence.setdefault(sp, []).append(m)
+        per_sentence.setdefault(_sentence_of(sents, starts, m.start()), []).append(m)
     for sp, ms in per_sentence.items():
         for i, m in enumerate(ms):
             s, e = m.start(), m.end()
-            while s > 0 and masked[s - 1] in " \t":
-                s -= 1
-            while e < len(masked) and masked[e] in " \t":
-                e += 1
+            while s > 0 and masked[s - 1] in " \t": s -= 1
+            while e < len(masked) and masked[e] in " \t": e += 1
             nxt = masked[e:e + 1]
             edit = None
+            rid = "ko.trans.em-dash" if is_ko else "any.format.em-dash"
+            cat = "translationese" if is_ko else "format"
             if len(ms) == 2 and sp is not None:
                 inner = masked[ms[0].end():ms[1].start()]
                 if 2 <= len(inner.strip()) <= 80 and not re.search(r"[.!?\n]", inner):
-                    edit = Edit(s, e, ", ", "any.format.em-dash", "standard", before=masked[s:e])
+                    edit = Edit(s, e, ", ", rid, "standard", before=masked[s:e])
+            elif is_ko and s > 0 and masked[s - 1].isalnum():
+                edit = Edit(s, e, ", ", rid, "standard", before=masked[s:e])
             elif len(ms) == 1 and nxt.islower() and s > 0 and masked[s - 1].isalnum():
-                edit = Edit(s, e, ", ", "any.format.em-dash", "strong", before=masked[s:e])
-            out.append(_mk("any.format.em-dash", "format", "B", m.start(), m.end(), 0.4, genre,
-                           "줄표(em dash)가 여러 번 쓰였다.", text=m.group(0).strip(),
+                edit = Edit(s, e, ", ", rid, "strong", before=masked[s:e])
+            note = ("한국어 산문에서 줄표(—)는 번역투이자 어색한 삽입구 흉내이다." if is_ko else "줄표(em dash)가 여러 번 쓰였다.")
+            out.append(_mk(rid, cat, "A" if is_ko else "B", m.start(), m.end(), 0.8 if is_ko else 0.4, genre,
+                           note, text=m.group(0).strip(), lang="ko" if is_ko else "any",
                            sugg="쉼표, 마침표, 괄호로 바꾼다.", edit=edit))
+    if len(hits) >= 3:
+        out.append(_mk("any.structure.em-dash-overuse", "structure", "A", 0, 0, 0.8, genre,
+                       f"줄표(em dash)가 글 전체에 과다하게 남발된다 (총 {len(hits)}건)." if is_ko else
+                       f"Em dashes are excessively used across the text ({len(hits)} occurrences).",
+                       lang="any", sugg="줄표를 쉼표, 괄호, 또는 마침표로 나누어 정리한다."))
     return out
 
 
@@ -178,7 +186,7 @@ def triples(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span]
                sugg="뜻이 요구하는 개수만 남긴다.") for _, s, e, lang in chosen]
     if len(found) >= 4 or len(per_para) >= 3:
         is_ko = any(lang == "ko" for _, _, _, lang in found)
-        out.append(_mk("any.structure.triple-density", "structure", "B", 0, 0, 0.8, genre,
+        out.append(_mk("any.structure.triple-overuse", "structure", "B", 0, 0, 0.8, genre,
                        f"3항 나열이 글 전체에 걸쳐 과다하게 반복된다 (총 {len(found)}건)." if is_ko
                        else f"Lists of three are excessively repeated across the text ({len(found)} occurrences).",
                        lang="any", sugg="나열 항목을 2개로 줄이거나 서술식 문장으로 풀어 쓴다."))
@@ -332,9 +340,8 @@ def register_mix(masked: str, sents: Sequence[Span], paras: Sequence[Span], genr
         kinds = []
         for sp in inside:
             seg = masked[sp[0]:sp[1]]
-            if "|" in seg or seg.lstrip().startswith(("(", "[", "`", "#")):
-                continue  # 표, 괄호 예시, 제목은 말투 비교 대상이 아니다
-            if re.search(r"[\"\u201c\u300c]", seg) or len(re.findall(r"[가-힣]", seg)) < 6:
+            if ("|" in seg or seg.lstrip().startswith(("(", "[", "`", "#")) or
+                    re.search(r"[\"\u201c\u300c]", seg) or len(re.findall(r"[가-힣]", seg)) < 6):
                 continue
             kinds.append((_register(seg), sp))
         have = {k for k, _ in kinds}
@@ -354,8 +361,7 @@ def exclamations(masked: str, sents: Sequence[Span], genre: str) -> List[Finding
         around = next((sp for sp in sents if sp[0] <= pos < sp[1]), (pos, pos + 1))
         return [_mk("any.format.exclaim", "format", "C", pos, pos + 1, 0.4, genre,
                     f"느낌표가 문장 {len(sents)}개에 {n}개이다.", gmap={"everyday": 0.3},
-                    text=masked[around[0]:around[1]][:40],
-                    sugg="느낌표로 감정을 대신하지 않는다. 사용자가 그 문체를 쓸 때만 맞춘다.")]
+                    text=masked[around[0]:around[1]][:40], sugg="느낌표로 감정을 대신하지 않는다.")]
     return []
 
 
@@ -374,11 +380,10 @@ def paragraph_cadence(text: str, masked: str, sents: Sequence[Span], paras: Sequ
         std_s = math.sqrt(sum((s - mean_s) ** 2 for s in s_lens) / n)
         if std_s <= 1.8:
             is_ko = bool(re.search(r"[가-힣]", text))
-            msg = (f"{n}개 문단이 모두 2~6문장으로 분량이 균일하여, 기계적인 정보 분배와 단조로운 호흡을 보인다."
-                   if is_ko else
-                   f"All {n} paragraphs are uniformly 2-6 sentences long, exhibiting robotic cadence and modular information distribution.")
-            sugg = ("한 줄 문단이나 긴 호흡의 문단을 섞어 문단의 호흡과 완급을 조절한다." if is_ko else
-                    "Vary paragraph lengths with short one-line transitions or longer narrative blocks to create natural rhythm.")
+            msg = (f"{n}개 문단이 모두 2~6문장으로 분량이 균일하여 기계적 정보 분배를 보인다." if is_ko
+                   else f"All {n} paragraphs are uniformly 2-6 sentences long with robotic cadence.")
+            sugg = ("한 줄 문단이나 긴 문단을 섞는다." if is_ko
+                    else "Vary paragraph lengths to create natural rhythm.")
             return [_mk("any.structure.uniform-cadence", "structure", "B", 0, 0, 0.8, genre,
                         msg, lang="any", sugg=sugg)]
     return []

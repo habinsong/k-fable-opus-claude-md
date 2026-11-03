@@ -127,6 +127,14 @@ class Analyzers(unittest.TestCase):
         three = "The tool — which is new — works well. It is fast — really fast."
         self.assertNotIn("any.format.em-dash", ids(analyze(two)))
         self.assertIn("any.format.em-dash", ids(analyze(three)))
+        self.assertIn("any.structure.em-dash-overuse", ids(analyze(three)))
+
+    def test_ko_em_dash(self):
+        t = "그 결과는—예상과 완전히 달랐다."
+        self.assertIn("ko.trans.em-dash", ids(analyze(t)))
+        self.assertEqual(polish(t, tier="standard").text, "그 결과는, 예상과 완전히 달랐다.")
+        pair = "그 도구는—새로 만든 것으로—잘 작동한다."
+        self.assertEqual(polish(pair, tier="standard").text, "그 도구는, 새로 만든 것으로, 잘 작동한다.")
 
     def test_em_dash_pair_becomes_commas(self):
         t = "The tool — which is new — works well. It is fast — really fast. Done — truly."
@@ -177,12 +185,12 @@ class Analyzers(unittest.TestCase):
         t = "The test failed on Monday. The fix shipped on Tuesday. Ultimately, the process worked."
         self.assertIn("en.structure.summary-closer", ids(analyze(t)))
 
-    def test_triple_density(self):
+    def test_triple_overuse(self):
         text = ("Item one has speed, quality, and trust.\n\n"
                 "Item two has reach, depth, and scale.\n\n"
                 "Item three brings focus, clarity, and calm.\n\n"
                 "Item four offers power, ease, and value.")
-        self.assertIn("any.structure.triple-density", ids(analyze(text)))
+        self.assertIn("any.structure.triple-overuse", ids(analyze(text)))
 
     def test_paragraph_cadence(self):
         text = ("First topic is covered here in detail. It provides core functionality.\n\n"
