@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""저장소에서 바로 실행하는 진입점: python3 bin/ai-smell analyze 글.md"""
+import os
+import sys
+
+HERE = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, os.path.join(HERE, "..", "skills", "ai-smell-polish", "scripts"))
+
+from ai_smell.cli import main  # noqa: E402
+
+if __name__ == "__main__":
+    sys.exit(main())

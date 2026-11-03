@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""AI 냄새 측정기 실행 파일. 이 파일이 있는 폴더의 ai_smell 패키지를 불러와 실행한다.
+
+사용: python3 ai-smell analyze 글.md | python3 ai-smell polish 글.md | python3 ai-smell selftest
+"""
+import os
+import sys
+
+HERE = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, HERE)
+
+from ai_smell.cli import main  # noqa: E402
+
+if __name__ == "__main__":
+    sys.exit(main())
