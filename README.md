@@ -53,13 +53,18 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 ├── gpt/        gpt-6-astra · gpt-6.1-sol · gpt-6.1-terra · gpt-6-luna
 ├── claude/     fable-5.1 · fable-5.5(미출시) · opus-5.5 · sonnet-5.5 · haiku-5.5
 ├── gemini/     gemini-4-argon · gemini-4-carbon(미출시) · gemini-3.8-flash
+├── gemma/      gemma-4-e2b · gemma-4-e4b · gemma-4-12b · gemma-4-26b-a4b · gemma-4-31b   (로컬용)
 ├── deepseek/   v4.1-flash-1017
 ├── glm/        glm-5.3 · glm-5.3-flash · glm-5.5(미출시)
 ├── muse/       muse-spark · muse-wonder
 ├── grok/       grok-4.7 · grok-4.8(미출시) · grok-5(미출시)
 ├── kimi/       kimi-k3.1
-└── qwen/       qwen3.8 · qwen3.7 · qwen3.6
+├── qwen/       qwen3.8-max · qwen3.8-2.4t-a95b · qwen3.8-27b · qwen3.7-max · qwen3.6-27b · qwen3.6-35b-a3b
+└── minimax/    minimax-m3 · minimax-m3.1-flash
 ```
+
+제공자 11곳, 모델 폴더 35개, 모델 폴더마다 분야 문서 9개이므로 문서는 모두 315개입니다.  
+`gemma/`와 `qwen3.8-27b`·`qwen3.6-*`처럼 로컬로 돌리는 모델은 메모리, 양자화, 런타임, 가중치 라이선스 확인 규칙이 문서에 따로 들어 있습니다.
 
 모델 폴더마다 분야 문서 9개가 있습니다.
 
@@ -86,7 +91,7 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 | 3 | 분야 규칙, 시점에 민감한 사실 표, 검증 순서, 금지 | `_shared/domains/<분야>.md`에서 주입 |
 | 4 | 근거와 한계 (출처 URL, 확인 수준) | 모델마다 직접 작성 |
 
-공통 블록은 정본 한 곳에서 고치고 `sync`로 퍼뜨립니다. 문서 150여 개에서 같은 규칙이 조금씩 달라지는 걸 막기 위해서입니다. 모델별 내용(2, 4절)은 전부 따로 씁니다.
+공통 블록은 정본 한 곳에서 고치고 `sync`로 퍼뜨립니다. 문서 315개에서 같은 규칙이 조금씩 달라지는 걸 막기 위해서입니다. 모델별 내용(2, 4절)은 전부 따로 씁니다.
 
 ## 근거 수준
 
