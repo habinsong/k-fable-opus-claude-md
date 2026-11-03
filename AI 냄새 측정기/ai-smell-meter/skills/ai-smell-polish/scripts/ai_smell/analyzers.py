@@ -298,6 +298,53 @@ def summary_closers(masked: str, sents: Sequence[Span], paras: Sequence[Span], g
     return out
 
 
+_POLITE = re.compile(r"(?<!아)(?:니다|니까)$")
+_PLAIN = re.compile(r"(?:어|아|야|지|네|까|냐|래|게|자|마|라|거든|잖아|군)$")
+
+
+def _register(sentence: str) -> str:
+    core = re.sub(r"[^가-힣]+$", "", sentence)
+    if _POLITE.search(core) or core.endswith("요"):
+        return "polite"
+    if core.endswith("다") or _PLAIN.search(core):
+        return "plain"
+    return "other"
+
+
+def register_mix(masked: str, sents: Sequence[Span], paras: Sequence[Span], genre: str) -> List[Finding]:
+    """한 문단 안에 존댓말과 평어 종결이 섞이면 센다(universal/ko-everyday.md, ko-academic.md). 따옴표 문장은 뺀다."""
+    out: List[Finding] = []
+    for inside in _by_para(sents, paras):
+        kinds = []
+        for sp in inside:
+            seg = masked[sp[0]:sp[1]]
+            if "|" in seg or seg.lstrip().startswith(("(", "[", "`", "#")):
+                continue  # 표, 괄호 예시, 제목은 말투 비교 대상이 아니다
+            if re.search(r"[\"\u201c\u300c]", seg) or len(re.findall(r"[가-힣]", seg)) < 6:
+                continue
+            kinds.append((_register(seg), sp))
+        have = {k for k, _ in kinds}
+        if {"polite", "plain"} <= have:
+            first_other = next(sp for k, sp in kinds if k != kinds[0][0] and k in ("polite", "plain"))
+            out.append(_mk("ko.register.mixed", "rhythm", "C", first_other[0], first_other[1], 0.5, genre,
+                           "한 문단 안에 존댓말과 평어가 섞였다.", lang="ko", gmap={"literary": 0.3},
+                           text=masked[first_other[0]:first_other[1]][:40],
+                           sugg="문단의 말투를 하나로 맞춘다. 의도한 섞임이면 그대로 둔다."))
+    return out
+
+
+def exclamations(masked: str, sents: Sequence[Span], genre: str) -> List[Finding]:
+    n = masked.count("!") + masked.count("\uff01")
+    if n >= 3 and sents and n / len(sents) >= 0.25:
+        pos = min(i for i in (masked.find("!"), masked.find("\uff01")) if i >= 0)
+        around = next((sp for sp in sents if sp[0] <= pos < sp[1]), (pos, pos + 1))
+        return [_mk("any.format.exclaim", "format", "C", pos, pos + 1, 0.4, genre,
+                    f"느낌표가 문장 {len(sents)}개에 {n}개이다.", gmap={"everyday": 0.3},
+                    text=masked[around[0]:around[1]][:40],
+                    sugg="느낌표로 감정을 대신하지 않는다. 사용자가 그 문체를 쓸 때만 맞춘다.")]
+    return []
+
+
 def run_all(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span], units: int,
             genre: str) -> List[Finding]:
     out: List[Finding] = []
@@ -309,4 +356,6 @@ def run_all(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span]
     out += intensifiers(text, masked, units, genre)
     out += layout(masked, units, genre)
     out += summary_closers(masked, sents, paras, genre)
+    out += register_mix(masked, sents, paras, genre)
+    out += exclamations(masked, sents, genre)
     return out

@@ -161,6 +161,18 @@ class Analyzers(unittest.TestCase):
         self.assertIn("ko.emotion.told", ids(analyze(t, genre="literary")))
         self.assertNotIn("ko.emotion.told", ids(analyze("그날 가슴이 먹먹해졌다.")))
 
+    def test_register_mix(self):
+        mixed = "안녕하세요. 어제 보내 주신 자료 잘 받았습니다. 내일 회의에서 보자. 그럼 수고해."
+        clean = "안녕하세요. 어제 보내 주신 자료 잘 받았습니다. 내일 회의에서 뵙겠습니다."
+        self.assertIn("ko.register.mixed", ids(analyze(mixed)))
+        self.assertNotIn("ko.register.mixed", ids(analyze(clean)))
+        quoted = '그는 "내일 보자."라고 말했다. 나는 "알겠습니다."라고 답했습니다. 우리는 웃었다.'
+        self.assertNotIn("ko.register.mixed", ids(analyze(quoted)))
+
+    def test_exclamations(self):
+        self.assertIn("any.format.exclaim", ids(analyze("좋아요! 최고예요! 정말 멋져요! 가요!")))
+        self.assertNotIn("any.format.exclaim", ids(analyze("좋아요! 오늘은 비가 옵니다. 우산을 챙기세요.")))
+
     def test_summary_closer(self):
         t = "The test failed on Monday. The fix shipped on Tuesday. Ultimately, the process worked."
         self.assertIn("en.structure.summary-closer", ids(analyze(t)))

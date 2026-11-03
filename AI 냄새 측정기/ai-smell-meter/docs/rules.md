@@ -160,6 +160,7 @@
 | `ko.structure.beyond` | ko | 구조 습관 | B | 0.8 | - | '~를 넘어 ~로' 확장 틀. |
 | `ko.structure.on-one-hand` | ko | 구조 습관 | C | 0.5 | - | 양면을 나란히 세우는 틀. |
 | `ko.structure.rather` | ko | 구조 습관 | C | 0.5 | - | 대구의 변종. |
+| `ko.structure.postposed` | ko | 구조 습관 | C | 0.4 | - | 서술어 뒤에 부사를 붙이는 도치('했다, 조용히.'). |
 | `ko.structure.cleft` | ko | 구조 습관 | C | 0.5 | - | 강조 도입. 한 글에 한 번 이하. |
 | `ko.structure.enumerate` | ko | 구조 습관 | C | 0.5 | - | '첫째, 둘째' 기계 나열. |
 | `ko.structure.summary-open` | ko | 구조 습관 | B | 0.6 | - | 앞 내용을 되풀이하는 맺음 문단. |

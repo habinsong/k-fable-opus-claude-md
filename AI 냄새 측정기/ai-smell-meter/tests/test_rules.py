@@ -54,6 +54,7 @@ CASES = [
     ("ko.trans.double-passive", "결과가 보여진다.", "결과가 보인다."),
     ("ko.trans.double-passive-doe", "비용이 감소되어진다.", "비용이 감소된다."),
     ("ko.vocab.eval-b", "혁신적인 방법을 썼다.", "새로운 방법을 썼다."),
+    ("ko.structure.postposed", "그는 떠났다, 조용히.", "그는 떠났다. 조용히 문을 닫았다."),
     ("ko.sycophancy.apology-thanks",
      "죄송합니다. 감사합니다. 정말 감사합니다. 죄송합니다.", "죄송합니다. 늦었습니다."),
 ]
