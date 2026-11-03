@@ -1,7 +1,7 @@
 # 규칙 적용 시험 기록
 
 > 사람이 읽는 조사 기록이다. LLM 컨텍스트에 넣지 않는다.
-> 기준일 2026-11-03. 이 기록은 `universal/ko-*.md`의 규칙을 실제 글에 적용해 보고 `scripts/ko_style_probe.py`로 전후를 잰 것이다.
+> 이 기록은 `universal/ko-*.md`의 규칙을 실제 글에 적용해 보고 `scripts/ko_style_probe.py`로 전후를 비교한 것이다.
 
 ## 이 시험이 보여 주는 것과 보여 주지 못하는 것
 

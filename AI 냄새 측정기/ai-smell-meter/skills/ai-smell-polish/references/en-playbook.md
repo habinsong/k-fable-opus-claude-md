@@ -31,6 +31,15 @@
 | Overused words (delve, tapestry, intricate, pivotal, showcase, underscore, ...) | Plain word or cut. A single occurrence is not evidence |
 | Formatting tells (emoji bullets, bold lead-ins on every bullet, decorative headings, many em dashes) | Prose where prose fits; keep lists for real lists; commas or periods for dashes |
 | Wordy phrases ("in order to", "due to the fact that", "utilize") | "to", "because", "use" |
+| Inflation cliches ("adds depth to", "adds a touch of") | "deepens", "brings", or describe the concrete fact |
+| Coupling phrases ("paired with", "coupled with", "hand in hand with", "two sides of the same coin") | "with", "closely related", or state the actual relation |
+| Abstract measuring ("gauge the impact/value/sentiment") | "assess", "measure" |
+| Signalling rhetoric ("sends a clear signal that", "serves as a signal that") | "indicates that", "shows that" |
+| Spreading verbs ("propagate across", "dissemination of") | "spread across", "distribution of" |
+| Overused "seamless" ("seamlessly integrates", "seamless automation") | drop "seamlessly" ("integrates"), "automation" |
+| Abstract metrics ("happiness index", "trust score") | "level", or state the condition directly |
+| Density buzzwords ("high information density", "dense with") | "rich detail", "rich in" |
+| Embedding slang ("hardcoded directly into", "baked into") | "written into", "built into" |
 
 ## Genre
 

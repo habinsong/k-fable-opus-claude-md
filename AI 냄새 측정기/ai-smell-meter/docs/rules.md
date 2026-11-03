@@ -22,14 +22,14 @@
 | `en.puffery.testament` | en | 의미 부풀리기 | B | 1.0 | - | Inflates a small fact into a symbol. |
 | `en.puffery.vital-role` | en | 의미 부풀리기 | B | 1.0 | - | Importance asserted instead of shown. |
 | `en.puffery.underscores` | en | 의미 부풀리기 | B | 1.0 | - | Sentence announces its own significance. |
-| `en.puffery.tapestry` | en | 의미 부풀리기 | B | 1.0 | - | Stock metaphor. |
+| `en.puffery.tapestry` | en | 의미 부풀리기 | B | 1.0 | standard | Stock metaphor. |
 | `en.puffery.todays-world` | en | 의미 부풀리기 | B | 1.0 | standard | Generic scene-setting opener. |
 | `en.puffery.evolving-landscape` | en | 의미 부풀리기 | B | 1.0 | - | Stock phrase for change. |
-| `en.puffery.navigate` | en | 의미 부풀리기 | B | 1.0 | - | Navigation metaphor. |
+| `en.puffery.navigate` | en | 의미 부풀리기 | B | 1.0 | standard | Navigation metaphor. |
 | `en.puffery.beacon` | en | 의미 부풀리기 | C | 1.0 | - | Monument metaphor. |
 | `en.puffery.paving` | en | 의미 부풀리기 | B | 1.0 | - | Stock phrase for 'enables'. |
-| `en.puffery.unlock` | en | 의미 부풀리기 | B | 1.0 | - | Stock phrase. |
-| `en.puffery.game-changer` | en | 의미 부풀리기 | B | 1.0 | - | Hype word. |
+| `en.puffery.unlock` | en | 의미 부풀리기 | B | 1.0 | standard | Stock phrase. |
+| `en.puffery.game-changer` | en | 의미 부풀리기 | B | 1.0 | standard | Hype word. |
 | `en.puffery.future-bright` | en | 의미 부풀리기 | B | 1.0 | - | Empty forward-looking close. |
 | `en.puffery.only-time` | en | 의미 부풀리기 | C | 1.0 | - | Empty forward-looking close. |
 | `en.puffery.lasting` | en | 의미 부풀리기 | C | 1.0 | - | Legacy cliche. |
@@ -51,6 +51,11 @@
 | `en.signpost.the-x-question` | en | 예고·안내 | B | 0.8 | - | Self-posed question answered at once. |
 | `en.signpost.question-opener` | en | 예고·안내 | C | 0.8 | - | Hook opening. |
 | `en.signpost.whether` | en | 예고·안내 | B | 0.8 | - | 'Whether you're A or B' audience sweep. |
+| `en.puffery.adds-depth` | en | 의미 부풀리기 | B | 1.0 | standard | Stock depth/nuance inflation. |
+| `en.puffery.signal` | en | 의미 부풀리기 | B | 1.0 | standard | Stock signalling rhetoric. |
+| `en.puffery.abstract-index` | en | 의미 부풀리기 | B | 1.0 | standard | Abstract metric jargon in prose. |
+| `en.puffery.density` | en | 의미 부풀리기 | B | 1.0 | standard | Pretentious density phrasing. |
+| `en.puffery.paradigm-shift` | en | 의미 부풀리기 | B | 1.0 | standard | Cliché buzzword for major change. |
 | `en.structure.neg-parallel` | en | 구조 습관 | A | 1.2 | strong | Negative parallelism: knocks down a view nobody held, then states the point. |
 | `en.structure.neg-parallel-noun` | en | 구조 습관 | A | 1.2 | - | Negative parallelism with a noun subject. |
 | `en.structure.isnt-x-but-y` | en | 구조 습관 | B | 0.8 | - | 'isn't the X but the Y' contrast. |
@@ -62,7 +67,7 @@
 | `en.structure.no-no-just` | en | 구조 습관 | B | 1.2 | - | 'No X. No Y. Just Z.' triple. |
 | `en.structure.not-a-but-a` | en | 구조 습관 | B | 1.2 | - | 'Not a X, but a Y' frame. |
 | `en.structure.participial-tail` | en | 구조 습관 | B | 1.2 | strong | Tail clause that announces significance ('..., highlighting its importance'). |
-| `en.structure.copula` | en | 구조 습관 | B | 1.2 | strong | Fancy verb where 'is' works. |
+| `en.structure.copula` | en | 구조 습관 | B | 1.2 | standard | Fancy verb where 'is' works. |
 | `en.structure.boasts` | en | 구조 습관 | B | 1.2 | strong | 'Boasts' for 'has'. |
 | `en.structure.considered` | en | 구조 습관 | C | 1.2 | - | Vague framing. |
 | `en.structure.summary-open` | en | 구조 습관 | B | 0.6 | - | Paragraph restates what was just said. |
@@ -70,6 +75,7 @@
 | `en.structure.false-concession` | en | 구조 습관 | C | 1.2 | - | 'While X has limits, it is still great' frame. |
 | `en.structure.false-range` | en | 구조 습관 | C | 1.2 | - | Range with no real scale. |
 | `en.structure.staged-honest` | en | 구조 습관 | C | 1.2 | - | Staged candor. |
+| `en.structure.paired-with` | en | 구조 습관 | B | 1.2 | standard | Overused coupling phrase. |
 | `en.hedging.note-that` | en | 군더더기·유보 | B | 0.7 | standard | Throat-clearing before the actual statement. |
 | `en.hedging.potentially` | en | 군더더기·유보 | B | 0.7 | standard | Stacked hedge. |
 | `en.hedging.stock-lead` | en | 군더더기·유보 | C | 0.7 | strong | Filler lead-in. |
@@ -81,10 +87,10 @@
 | `en.hedging.wordy` | en | 군더더기·유보 | C | 0.3 | standard | Wordier than the plain phrase. |
 | `en.vocab.notably-lead` | en | 과다 어휘 | A | 0.8 | strong | Sentence adverb that comments on itself. |
 | `en.vocab.delve` | en | 과다 어휘 | A | 0.8 | - | Peak 'LLM word' in academic prose. |
-| `en.vocab.delve-into` | en | 과다 어휘 | A | 0.8 | strong | Peak 'LLM word' in academic prose. |
+| `en.vocab.delve-into` | en | 과다 어휘 | A | 0.8 | standard | Peak 'LLM word' in academic prose. |
 | `en.vocab.tapestry` | en | 과다 어휘 | A | 0.8 | - | Stock metaphor. |
 | `en.vocab.showcase` | en | 과다 어휘 | A | 0.8 | - | Overused verb ('show'). |
-| `en.vocab.showcase-fix` | en | 과다 어휘 | A | 0.8 | strong | Overused verb ('show'). |
+| `en.vocab.showcase-fix` | en | 과다 어휘 | A | 0.8 | standard | Overused verb ('show'). |
 | `en.vocab.underscore` | en | 과다 어휘 | A | 0.8 | - | Overused verb ('show', 'stress'). |
 | `en.vocab.intricate` | en | 과다 어휘 | A | 0.8 | - | Overused adjective. |
 | `en.vocab.pivotal` | en | 과다 어휘 | A | 0.8 | strong | Overused adjective ('key'). |
@@ -123,6 +129,11 @@
 | `en.vocab.ecosystem` | en | 과다 어휘 | C | 0.5 | - | Abstract container noun. |
 | `en.vocab.dynamic` | en | 과다 어휘 | C | 0.4 | - | Vague intensifier. |
 | `en.vocab.era-2026` | en | 과다 어휘 | C | 0.5 | - | Reported as a recent assistant tic (anecdotal). |
+| `en.vocab.gauge` | en | 과다 어휘 | B | 0.8 | standard | Abstract measuring metaphor ('gauge the impact'). |
+| `en.vocab.propagate` | en | 과다 어휘 | B | 0.8 | standard | Pretentious spreading verb in prose. |
+| `en.vocab.seamless-action` | en | 과다 어휘 | B | 0.8 | standard | Overused 'seamless' buzzword with verbs. |
+| `en.vocab.automatically` | en | 과다 어휘 | B | 0.8 | standard | Unnecessary 'automatically' modifier. |
+| `en.vocab.hardcode` | en | 과다 어휘 | B | 0.8 | standard | Slang verb for embedding or baking in. |
 | `ko.residue.opener` | ko | 챗봇 잔재 | A | 1.0 | standard | 챗봇식 수락 서두. |
 | `ko.residue.hope-helps` | ko | 챗봇 잔재 | A | 1.0 | standard | 챗봇식 맺음 인사. |
 | `ko.residue.ask-more` | ko | 챗봇 잔재 | A | 1.0 | standard | 더 도울 일을 묻는 맺음. |
@@ -150,6 +161,9 @@
 | `ko.puffery.precious` | ko | 의미 부풀리기 | C | 0.3 | - | 정형 수식. |
 | `ko.puffery.honestly` | ko | 의미 부풀리기 | C | 0.4 | - | 연출된 솔직함. |
 | `ko.puffery.one-step` | ko | 의미 부풀리기 | C | 1.0 | - | 상투 연결. |
+| `ko.puffery.deohada` | ko | 의미 부풀리기 | B | 0.7 | standard | '~를 더하다': 깊이·가치·매력 등 추상 명사에 '더하다'를 붙이는 상투구. |
+| `ko.puffery.jisu` | ko | 의미 부풀리기 | B | 0.6 | standard | '~지수': 추상적 대상에 '지수(index)'를 붙여 객관성을 가장하는 표현. |
+| `ko.puffery.mildo` | ko | 의미 부풀리기 | B | 0.6 | standard | '밀도': 깊이나 짜임새를 '밀도(density)'로 은유하는 상투적 표현. |
 | `ko.signpost.announce` | ko | 예고·안내 | B | 0.8 | strong | 하겠다는 예고. 하지 않고 말만 한다. |
 | `ko.signpost.lets` | ko | 예고·안내 | B | 0.8 | strong | 권유형 예고. |
 | `ko.signpost.qa` | ko | 예고·안내 | C | 0.8 | - | 스스로 묻고 바로 답하는 틀. |
@@ -185,10 +199,17 @@
 | `ko.trans.one-of` | ko | 번역투 | C | 0.3 | - | '~중 하나' 번역투. |
 | `ko.trans.case` | ko | 번역투 | C | 0.2 | - | '~의 경우' 반복. |
 | `ko.trans.jeok` | ko | 번역투 | C | 0.12 | - | '~적' 체인. |
+| `ko.trans.jaeda` | ko | 번역투 | B | 0.7 | standard | '재다': 물리적 길이가 아닌 추상적 격차·비용·오류율·수치를 '재다'로 표현한 번역투. |
+| `ko.trans.jeonpa` | ko | 번역투 | B | 0.6 | standard | '전파하다/전파되다': 확산·전달·공유를 기계적으로 '전파(propagate/disseminate)'로 쓴 번역투. |
+| `ko.trans.jadong` | ko | 번역투 | B | 0.5 | standard | '자동으로': '스스로'나 '알아서'로 충분한 자리에 'automatically'를 직역한 표현. |
 | `ko.vocab.sino-b` | ko | 과다 어휘 | B | 0.5 | - | 한자어 학술 동사. 2018→2026년 논문 초록에서 급증한 계열(arXiv 2609.07447). |
 | `ko.vocab.sino-c` | ko | 과다 어휘 | C | 0.4 | - | 한자어 동사 묶음. |
 | `ko.vocab.eval-b` | ko | 과다 어휘 | B | 0.7 | - | 평가 형용사. 숫자와 비교 대상 없이 칭찬만 한다. |
 | `ko.vocab.eval-c` | ko | 과다 어휘 | C | 0.4 | - | 평가 형용사. |
+| `ko.vocab.jjak` | ko | 과다 어휘 | B | 0.7 | standard | '짝'/'짝짓다': 둘의 대응이나 연계를 인위적으로 '짝'으로 표현한 번역투. |
+| `ko.vocab.ssang` | ko | 과다 어휘 | B | 0.6 | standard | '쌍을 이루다': 둘의 병렬·대응을 상투적으로 표현한 어구. |
+| `ko.vocab.sinho` | ko | 과다 어휘 | B | 0.6 | standard | '신호': 징후·단서·특징을 '신호(signal)'로 직역한 번역투. |
+| `ko.vocab.bakda` | ko | 과다 어휘 | B | 0.6 | standard | '박다/박아 넣다': 거칠거나 비격식적인 삽입·하드코딩 표현 상투구. |
 | `any.markup.oaicite` | any | 누출된 마크업 | A | 1.0 | safe | 누출된 인용 토큰. |
 | `any.markup.turn-ref` | any | 누출된 마크업 | A | 1.0 | safe | 누출된 도구 참조 토큰. |
 | `any.markup.private-use` | any | 누출된 마크업 | A | 1.0 | safe | 비공개 영역 인용 표지. |

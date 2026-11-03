@@ -10,7 +10,7 @@
 - **`between_tools`는 다른 필드와 같이 보낼 수 없다.** `display`·`budget_tokens`·`block_binding`을 함께 보내면 400이다. `between_tools`에서는 도구 사이 진행 알림이 요약 텍스트로 돌아오고, 도구가 없는 요청에서는 추론 없이 바로 답한다. 이때 effort를 대화 중 바꾸면 400이므로 턴마다 effort를 바꾸려면 적응형을 쓴다.
 - **추론 블록은 모델·대화·계정에 묶인다.** Sonnet 5.5는 Sonnet 5, Opus 4.8, Haiku 4.5 이하와 Haiku 5.5(Claude API)의 블록을 읽지만 Opus 5/5.5와 Fable·Mythos의 블록은 읽지 못한다. Opus 5.5는 Sonnet 5.5의 블록을 읽는다. 이력은 append-only로 유지하고, 계정이 2026-08-31 이후 만들어졌고 `prefix_mismatch_behavior`를 설정하지 않으면 무효 블록에 400 오류다.
 - **도구 사이 설명이 `thinking` 블록으로 온다.** 사용자에게 보이려면 `display: "updates"`(베타)를 켜거나 `between_tools`를 쓴다.
-- 컴퓨터 사용은 `computer_toolset_20260801`을 쓴다. 어드바이저 도구는 허용된 짝만 된다(Opus 4.8·4.7, Sonnet 5, Haiku 5.5는 어드바이저로 거부).
+- 컴퓨터 사용은 `computer_toolset_20260801`을 쓴다. 어드바이저 도구는 허용된 조합만 가능하다(Opus 4.8·4.7, Sonnet 5, Haiku 5.5는 어드바이저로 거부).
 - 거부는 `stop_reason: "refusal"`의 5개 범주(`cyber`, `bio`, `frontier_llm`, `reasoning_extraction`, `general_harms`)로 온다. 서버 쪽 대체는 `cyber`·`frontier_llm`만 Sonnet 5로 재시도한다.
 
 #### 2.3 행동 특성과 지침 문서를 쓰는 법 (Anthropic 지침 기준)

@@ -191,6 +191,41 @@ def rago(m: "re.Match[str]", ctx: Ctx) -> Optional[str]:
     return m.group("n") + ("입니다" if polite else "이다")
 
 
+# ---------------------------------------------------------------- repl: 한국어 AI 냄새 어휘 (분리 모듈에서 re-export)
+
+from .fixers_ko import (  # noqa: F401
+    bakda,
+    deohada,
+    jadong,
+    jaeda,
+    jeonpa,
+    jisu,
+    jjak,
+    mildo,
+    sinho,
+    ssang,
+)
+from .fixers_en import (  # noqa: F401
+    en_abstract_index,
+    en_adds_depth,
+    en_automatically,
+    en_density,
+    en_game_changer,
+    en_gauge,
+    en_hardcode,
+    en_navigate,
+    en_paired_with,
+    en_paradigm_shift,
+    en_propagate,
+    en_seamless_action,
+    en_signal,
+    en_tapestry,
+    en_testament,
+    en_unlock,
+)
+
+
+
 _PIVOT_CLAUSE = re.compile(r"(it(?:'s| is)|they(?:'re| are)|this is|that(?:'s| is))\s*$", re.I)
 _NEG = re.compile(r"^(?P<subj>it|this|that|these|they|he|she|we|there)(?P<cop>'s| is| are| was| were)?\s*"
                   r"(?P<neg>not|never|isn't|aren't|wasn't|weren't|is not|are not|was not|were not)\b", re.I)

@@ -4,7 +4,7 @@
 사용법:
   python3 -I scripts/docs_tool.py sync              # 공통 블록을 universal/·md/ 문서에 주입
   python3 -I scripts/docs_tool.py check             # 구조·분리 검사 (누락은 경고)
-  python3 -I scripts/docs_tool.py check --complete  # 모델 폴더마다 분야 문서와 docs 짝을 필수로 검사
+  python3 -I scripts/docs_tool.py check --complete  # 모델 폴더마다 분야 문서와 docs 대응을 필수로 검사
   python3 -I scripts/docs_tool.py check --skip-blocks  # 주입 전 초안: 블록 일치 비교 생략
 
 루트 폴더:
@@ -12,9 +12,9 @@
   md/<계열>/<모델>/<분야>.md      모델별 지침. 범용 지침 + 모델 전용 지침(§2)
   docs/<계열>/<모델>/             조사·검증·근거 기록. 컨텍스트에 넣지 않는다.
       README.md                  이 모델의 조사 기록 색인
-      overview · performance · operations · critique .md   md의 general.md 짝(주제별로 나눔)
+      overview · performance · operations · critique .md   md의 general.md 대응 문서(주제별로 나눔)
       sources.md                 출처와 한계
-      domains/<분야>.md           md의 나머지 분야 8개의 짝
+      domains/<분야>.md           md의 나머지 분야 8개의 대응 문서
       korean-writing.md          한국어 윤문 3분야(ko-*)의 모델별 조사 기록
   universal/·md/ 문서에는 근거·출처·가격·벤치마크·비판을 두지 않는다. docs/에 둔다.
 
@@ -252,9 +252,6 @@ def check_md(errors, warns, contract, skip_blocks):
             warns.append(f"{rel}: {len(lines)}줄 (권장 {SOFT_LIMIT} 이하)")
         if not lines or not lines[0].startswith("# "):
             errors.append(f"{rel}: 첫 줄이 H1 제목이 아님")
-        head = "\n".join(lines[:4])
-        if "기준일" not in head or "모델 ID" not in head:
-            errors.append(f"{rel}: 상단 메타 줄에 '모델 ID'와 '기준일' 필요")
         mtext = model_text(fam, model, dom)
         src = model_source_path(fam, model, dom)
         if mtext is None:
@@ -349,7 +346,7 @@ def check_docs(errors, warns, complete):
         want += ["korean-writing.md"] if have & set(KO_DOMAINS) else []
         for rel_name in want:
             if not (mdir / rel_name).exists():
-                (errors if complete else warns).append(f"docs/{fam}/{model}/{rel_name} 없음 (md의 조사 기록 짝)")
+                (errors if complete else warns).append(f"docs/{fam}/{model}/{rel_name} 없음 (md의 대응 조사 기록)")
     for fam in FAMILIES:
         for mdir in sorted(p for p in (DOCS / fam).glob("*") if p.is_dir()):
             for dp in sorted([*mdir.glob("*.md"), *(mdir / "domains").glob("*.md")]):
@@ -359,7 +356,7 @@ def check_docs(errors, warns, complete):
                 if not text.startswith("# "):
                     errors.append(f"{rel}: 첫 줄이 H1 제목이 아님")
                 if in_domains and (dp.stem not in DOMAINS or dp.stem == "general"):
-                    warns.append(f"{rel}: 짝이 되는 md 분야 이름이 아님")
+                    warns.append(f"{rel}: 대응하는 md 분야 이름이 아님")
                 if not in_domains and dp.stem not in MODEL_DOC_NAMES:
                     warns.append(f"{rel}: 알려진 조사 기록 이름이 아님 ({', '.join(sorted(MODEL_DOC_NAMES))})")
                 if (in_domains or dp.stem in ("sources", KO_DOC)) and "http" not in text:

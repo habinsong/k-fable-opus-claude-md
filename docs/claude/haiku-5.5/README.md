@@ -1,12 +1,6 @@
 # Claude Haiku 5.5 — 조사 기록 색인
-> 제공자: Anthropic · 모델 ID: `claude-haiku-5-5` · 기준일: 2026-11-03 · 근거 표기: [확인]·[부분]·[미확인] (정의는 §1.3)
 
-> 사람이 읽는 조사 기록이다. LLM 컨텍스트에 넣지 않는다.
-> 컨텍스트용 지침: [`md/claude/haiku-5.5/general.md`](../../../md/claude/haiku-5.5/general.md)
-> 소제목의 번호(2.x)는 주제별로 나누기 전 일반 조사 기록의 번호다. 문장 속 `§2.x`는 그 번호를 가리킨다.
-
-Anthropic 공식 문서(models overview, What's new, Prompting Claude Haiku 5.5, Effort)를 직접 읽고 쓴 내용이다. 별도 표기가 없으면 [확인]이다.
-
+Anthropic 공식 문서(models overview, What's new, Prompting Claude Haiku 5.5, Effort)를 직접 열람하여 정리한 내용이다. 별도 표기가 없으면 [확인]이다.
 
 ## 문서
 

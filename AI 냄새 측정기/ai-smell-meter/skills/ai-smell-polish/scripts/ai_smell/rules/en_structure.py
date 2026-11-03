@@ -61,7 +61,7 @@ RULES = [
       sugg="Delete the tail unless it adds a checkable fact."),
     R("en.structure.copula", "en", "structure", "B",
       r"\b(?P<v>serves|serve|served|stands|stand|stood)\s+as\s+(?P<art>an?|the)\b",
-      "Fancy verb where 'is' works.", tier="strong", repl=fx.copula),
+      "Fancy verb where 'is' works.", tier="standard", repl=fx.copula),
     R("en.structure.boasts", "en", "structure", "B", r"\bboast(?:s|ed|ing)? (?=(?:an?|the|over|more|nearly|some|\d)\b)",
       "'Boasts' for 'has'.", tier="strong",
       repl=lambda m, c: {"boasts": "has ", "boast": "have ", "boasted": "had ", "boasting": "having "}.get(
@@ -86,4 +86,9 @@ RULES = [
       "Range with no real scale."),
     R("en.structure.staged-honest", "en", "structure", "C",
       r"\b(?:honestly|frankly|candidly|truthfully)\?[ \t]", "Staged candor."),
+    # ---- 10개 상투 개념 대응
+    R("en.structure.paired-with", "en", "structure", "B",
+      r"\b(?:paired with|coupled with|hand in hand with|two sides of the same coin)\b",
+      "Overused coupling phrase.", tier="standard", repl=fx.en_paired_with,
+      sugg="Use 'with' or state the concrete relationship directly."),
 ]

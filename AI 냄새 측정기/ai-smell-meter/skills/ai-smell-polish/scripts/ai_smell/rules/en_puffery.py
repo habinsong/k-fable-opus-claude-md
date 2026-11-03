@@ -26,7 +26,7 @@ RULES = [
       "Sentence announces its own significance.", sugg="Delete or replace with the concrete consequence."),
     R("en.puffery.tapestry", "en", "puffery", "B",
       r"\b(?:rich|vibrant|intricate|complex|diverse|woven) tapestry\b", "Stock metaphor.",
-      sugg="Name the actual parts."),
+      tier="standard", repl=fx.en_tapestry, sugg="Name the actual parts."),
     R("en.puffery.todays-world", "en", "puffery", "B",
       r"\bin (?:today's|the modern|this|our) (?:" + WORLD + r"[ \t]+){1,2}" + NOUN + r"\b,?[ \t]*",
       "Generic scene-setting opener.", tier="standard", repl="", recap=True, fix_guard=fx.at_sentence_start,
@@ -36,15 +36,18 @@ RULES = [
       "Stock phrase for change.", sugg="Use the specific change (what, when)."),
     R("en.puffery.navigate", "en", "puffery", "B",
       r"\bnavigat(?:e|es|ed|ing) (?:the |this |these |today's )?(?:complexit(?:y|ies)|challenges|intricacies|"
-      r"landscape|nuances|waters|maze|terrain)\b", "Navigation metaphor.", sugg="Say what is being done."),
+      r"landscape|nuances|waters|maze|terrain)\b", "Navigation metaphor.",
+      tier="standard", repl=fx.en_navigate, sugg="Say what is being done."),
     R("en.puffery.beacon", "en", "puffery", "C",
       r"\b(?:a |the )?(?:beacon|cornerstone|bedrock|linchpin|hallmark) of\b", "Monument metaphor."),
     R("en.puffery.paving", "en", "puffery", "B", r"\bpav(?:e|es|ed|ing) the way (?:for|to)\b",
       "Stock phrase for 'enables'.", sugg="Use a plain verb and name the result."),
     R("en.puffery.unlock", "en", "puffery", "B",
       r"\bunlock(?:s|ed|ing)? (?:the |its |their |your )?(?:full |true |hidden |untapped |immense |incredible )?"
-      r"(?:potential|power|possibilities|value|secrets?)\b", "Stock phrase."),
-    R("en.puffery.game-changer", "en", "puffery", "B", r"\bgame[- ]chang(?:er|ing)\b", "Hype word."),
+      r"(?:potential|power|possibilities|value|secrets?)\b", "Stock phrase.",
+      tier="standard", repl=fx.en_unlock),
+    R("en.puffery.game-changer", "en", "puffery", "B", r"\bgame[- ]chang(?:er|ing)\b", "Hype word.",
+      tier="standard", repl=fx.en_game_changer),
     R("en.puffery.future-bright", "en", "puffery", "B",
       r"\bthe future (?:looks|is|remains|seems) (?:incredibly |very )?(?:bright|promising|exciting)\b"
       r"|\bthe possibilities are (?:endless|limitless|boundless)\b|\bendless possibilities\b",
@@ -120,4 +123,25 @@ RULES = [
     R("en.signpost.whether", "en", "signpost", "B",
       r"\bwhether you(?:'re| are) (?:an? |just |new |already |looking |trying )[^.!?\n]{0,60}?"
       r"(?:\bor\b|,)[^.!?\n]{0,60},", "'Whether you're A or B' audience sweep."),
+    # ---- 10개 상투 개념 대응
+    R("en.puffery.adds-depth", "en", "puffery", "B",
+      r"\b(?:add|adds|added|adding)\s+(?:depth\s+to|nuance\s+to|a\s+touch\s+of)\b",
+      "Stock depth/nuance inflation.", tier="standard", repl=fx.en_adds_depth,
+      sugg="Use a direct verb (e.g. 'deepens') or describe the concrete detail."),
+    R("en.puffery.signal", "en", "puffery", "B",
+      r"\b(?:send(?:s|ed|ing)?\s+a\s+(?:clear\s+|strong\s+)?signal\s+that|"
+      r"serves?\s+as\s+a\s+(?:clear\s+|strong\s+)?signal\s+that|"
+      r"a\s+clear\s+signal\s+that)\b",
+      "Stock signalling rhetoric.", tier="standard", repl=fx.en_signal,
+      sugg="Say what it actually shows or indicates."),
+    R("en.puffery.abstract-index", "en", "puffery", "B",
+      r"\b(?:happiness|trust|satisfaction|wellbeing|positivity)\s+(?:index|score)\b",
+      "Abstract metric jargon in prose.", tier="standard", repl=fx.en_abstract_index,
+      sugg="Use concrete words like 'level' or describe the condition directly."),
+    R("en.puffery.density", "en", "puffery", "B",
+      r"\b(?:high(?:er)?\s+information\s+density|dense\s+with\s+[A-Za-z]+)\b",
+      "Pretentious density phrasing.", tier="standard", repl=fx.en_density,
+      sugg="Say 'rich detail' or 'rich in ...' instead."),
+    R("en.puffery.paradigm-shift", "en", "puffery", "B", r"\bparadigm\s+shift\b",
+      "Cliché buzzword for major change.", tier="standard", repl=fx.en_paradigm_shift),
 ]

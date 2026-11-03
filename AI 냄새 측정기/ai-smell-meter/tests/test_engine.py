@@ -269,6 +269,39 @@ class Polish(unittest.TestCase):
         t = "- Certainly! Let me know if you have any questions.\n- Real item here.\n"
         self.assertEqual(polish(t, tier="standard").text, "- Real item here.\n")
 
+    def test_korean_ai_smell_fixes(self):
+        cases = {
+            "이 작품은 서사에 깊이를 더한다.": "이 작품은 서사에 더 깊게 한다.",
+            "팀원들의 행복 지수가 올라갔다.": "팀원들의 행복도가 올라갔다.",
+            "밀도 있는 구성을 보여준다.": "짜임새 있는 구성을 보여준다.",
+            "우리 과제로 오류율을 잰다.": "우리 과제로 오류율을 비교한다.",
+            "새로운 기술을 전파한다.": "새로운 기술을 전달한다.",
+            "파일이 자동으로 생성된다.": "파일이 알아서 생성된다.",
+            "두 모델을 짝지어 비교한다.": "두 모델을 맞추어 비교한다.",
+            "두 요소가 쌍을 이루어 나타난다.": "두 요소가 함께 나타난다.",
+            "문체 신호를 감지하여 분석한다.": "문체 특징을 감지하여 분석한다.",
+            "코드에 값을 박아 넣는다.": "코드에 값을 직접 넣는다.",
+        }
+        for src, want in cases.items():
+            self.assertEqual(polish(src, tier="standard").text, want, src)
+
+    def test_english_ai_smell_fixes(self):
+        cases = {
+            "The update adds depth to our workflow.": "The update deepens our workflow.",
+            "Speed, paired with accuracy, is crucial.": "Speed, with accuracy, is crucial.",
+            "We should gauge the impact of the rollout.": "We should assess the impact of the rollout.",
+            "The announcement sends a clear signal that change is coming.": "The announcement indicates that change is coming.",
+            "The updates propagate across the cluster.": "The updates spread across the cluster.",
+            "The pipeline automatically generates the report.": "The pipeline generates the report.",
+            "The employee happiness index improved this quarter.": "The employee happiness level improved this quarter.",
+            "The article has high information density.": "The article has rich detail.",
+            "The key is hardcoded directly into the script.": "The key is written directly into the script.",
+            "This discovery represents a paradigm shift.": "This discovery represents a major shift.",
+            "The design seamlessly integrates with existing apps.": "The design integrates with existing apps.",
+        }
+        for src, want in cases.items():
+            self.assertEqual(polish(src, tier="standard").text, want, src)
+
 
 if __name__ == "__main__":
     unittest.main()
