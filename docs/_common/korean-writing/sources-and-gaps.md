@@ -19,7 +19,7 @@ digitalmarketer.co.kr, discuss.pytorch.kr, koreancenter.or.kr, blog.pebblous.ai,
 
 | 요구 | 지침 위치 | 근거 문서 | 근거 수준 |
 |---|---|---|---|
-| 자연스러운 기술적 표현(논문) | `universal/ko-academic.md` §3.10 | [`language-principles.md`](language-principles.md) §1·§6, [`rules-with-evidence/academic.md`](rules-with-evidence/academic.md) | 한다체 규범은 관행(추정) |
+| 자연스러운 기술적 표현(논문) | `universal/ko-academic.md` §3.10 | [`language-principles.md`](language-principles.md) §1·§6 | 한다체 규범은 관행(추정) |
 | 일상 대화·글 | `universal/ko-everyday.md` §3.10 | `language-principles.md` §1(구어 종결), `empirical-validation.md` | [부분] |
 | 문학 | `universal/ko-literary.md` §3.10 | `language-principles.md` §4·§5 | 문체 평가는 개인 평 |
 | 문장 사이의 흐름과 호흡 | `ko-core.md` §3.3 | `empirical-validation.md` §2·§4 | [부분], 편집 효과 가능 |

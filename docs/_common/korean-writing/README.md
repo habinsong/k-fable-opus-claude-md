@@ -12,7 +12,6 @@
 | [`language-principles.md`](language-principles.md) | 한국어 문장 원리, 번역투 문헌, 문장 부호, 사전·규범, 명저·서지, 문체 평가 |
 | [`vendor-writing-guides.md`](vendor-writing-guides.md) | 모델 제공자의 프롬프트 가이드 중 글쓰기와 관련된 내용 |
 | [`sources-and-gaps.md`](sources-and-gaps.md) | 열람하지 못한 출처, 확인하지 못한 것, 사용자 요구 항목별 근거 지도 |
-| [`rules-with-evidence/`](rules-with-evidence/) | 지침(`universal/ko-*.md`)의 근거 표기 포함 초안 원본. 규칙마다 어디까지 믿을 수 있는지 보인다 |
 
 모델별 조사는 `docs/<계열>/<모델>/korean-writing.md`에 있다(gpt, claude, gemini, gemma 17개 모델).
 
