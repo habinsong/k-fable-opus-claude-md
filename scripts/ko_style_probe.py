@@ -30,7 +30,7 @@ EMOTION = ("기뻤", "슬펐", "행복했", "외로웠", "두려웠", "불안했
 STRONG = [
     ("부정 대구 후보", re.compile(r"(?<!뿐만 )(?<!뿐 )(?<!다름 )아니라|[이가]\s*아니다[.!]"),
      "사람 0.6 / AI 5.8 (1천자당, 자체 실측)"),
-    ("당위 서술", re.compile(r"해야\s*(?:한다|합니다|하며)|필요가\s*(?:있다|있습니다)"),
+    ("당위 서술", re.compile(r"(?:해야|되어야|돼야|하여야)\s*(?:한다|합니다|하며|함)|필요가\s*(?:있다|있습니다)"),
      "AI가 사람의 3.7배(자체 실측)"),
     ("'~적' 표현", re.compile(r"[가-힣]적(?:인)?\s"), "'~적 N' 체인이 1.6배(자체 실측)"),
 ]
@@ -104,7 +104,10 @@ def triple_lists(sents):
     n = 0
     for s in sents:
         parts = [x.strip() for x in re.split(r"[,，]", s.rstrip(".!?… "))]
-        if len(parts) == 3 and all(1 <= len(x) <= 18 for x in parts):
+        if len(parts) != 3 or not all(1 <= len(x) <= 18 for x in parts[:2]):
+            continue
+        # 마지막 덩어리는 '그리고/및'으로 열리면 길어도 3항 나열로 본다
+        if len(parts[2]) <= 18 or parts[2].startswith(("그리고", "및")):
             n += 1
     return n
 

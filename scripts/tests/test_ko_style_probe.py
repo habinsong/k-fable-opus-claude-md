@@ -70,6 +70,15 @@ class StructureTest(unittest.TestCase):
         self.assertEqual(kp.triple_lists(["사과와 배를 샀다."]), 0)
         self.assertEqual(kp.triple_lists(["사과, 배를 샀다."]), 0)
 
+    def test_duty_includes_passive_form(self):
+        # 회귀: '확보되어야 한다'를 놓치던 누락
+        out = kp.measure("효율과 정확성이 확보되어야 한다. 점검을 해야 한다.")
+        self.assertEqual(out["근거 있는 신호(1천자당)"]["당위 서술"]["횟수"], 2)
+
+    def test_triple_list_with_long_last_part(self):
+        self.assertEqual(kp.triple_lists(["효율성, 정확성, 그리고 확장성이 모두 확보되어야 한다."]), 1)
+        self.assertEqual(kp.triple_lists(["사과, 배, 아주 길고 복잡하게 이어지는 마지막 덩어리라서 나열이 아니다."]), 0)
+
     def test_code_fence_ignored(self):
         text = "평범한 문장이다.\n```\n이것은 도구가 아니라 코드다\n```\n"
         self.assertEqual(neg(text), 0)

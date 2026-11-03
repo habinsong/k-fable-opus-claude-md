@@ -125,6 +125,8 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 
 ## 사용법
 
+> **개편 안내**: 이 구간의 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`는 지금 저장소에 없어서 아래 `cp` 명령은 그대로 쓸 수 없습니다. [사용법 (개편 후)](#사용법-개편-후)를 따르세요.
+
 프로젝트 루트에 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 를 복사하면 됩니다.
 
 ```bash
@@ -265,7 +267,7 @@ git switch -c 내-플젝명
 |---|---|
 | `gpt` | `gpt-6-astra`, `gpt-6-luna`, `gpt-6.1-sol`, `gpt-6.1-terra` |
 | `claude` | `fable-5.1`, `fable-5.5`(미출시), `haiku-5.5`, `opus-5.5`, `sonnet-5.5` |
-| `gemini` | `gemini-3.8-flash`, `gemini-4-argon`, `gemini-4-carbon`(미출시) |
+| `gemini` | `gemini-3.8-flash`, `gemini-4-argon`, `gemini-4-carbon`(제한 공개) |
 | `gemma` | `gemma-4-12b`, `gemma-4-26b-a4b`, `gemma-4-31b`, `gemma-4-e2b`, `gemma-4-e4b` |
 | `deepseek` | `v4.1-flash-1017` |
 | `glm` | `glm-5.3`, `glm-5.3-flash`, `glm-5.5`(미출시) |
@@ -275,7 +277,7 @@ git switch -c 내-플젝명
 | `qwen` | `qwen3.6-27b`, `qwen3.6-35b-a3b`, `qwen3.7-max`, `qwen3.8-2.4t-a95b`, `qwen3.8-27b`, `qwen3.8-max` |
 | `minimax` | `minimax-m3`, `minimax-m3.1-flash` |
 
-미출시 모델은 공식 발표 전이라 사양을 적지 않았습니다. 직전 모델의 규칙을 임시로 적용합니다. `gemma`와 `qwen3.8-27b`, `qwen3.6-*`처럼 로컬에서 돌리는 모델은 메모리, 양자화, 런타임, 가중치 라이선스 확인 규칙이 `docs/`에 따로 있습니다.
+미출시와 제한 공개 모델은 일반 사용 사양이 확인되지 않아 적지 않았습니다. 직전 모델의 규칙을 임시로 적용합니다. `gemma`와 `qwen3.8-27b`, `qwen3.6-*`처럼 로컬에서 돌리는 모델은 메모리, 양자화, 런타임, 가중치 라이선스 확인 규칙이 `docs/`에 따로 있습니다.
 
 분야 문서는 모델마다 같은 이름으로 있습니다. `general`, `web`, `app`, `native`, `hardware`, `firmware`, `web-research`, `research`, `tech-research` 아홉 개입니다. 한국어 윤문용 `ko-academic`, `ko-everyday`, `ko-literary`는 GPT, Claude, Gemini, Gemma 계열에만 있습니다.
 
@@ -309,7 +311,7 @@ AI가 쓴 한국어에서 티가 나는 부분을 줄이는 지침입니다. 문
 python3 -I scripts/ko_style_probe.py 원고.txt
 ```
 
-이 도구는 AI 탐지기가 아닙니다. 정규식으로 문체 신호를 세는 휴리스틱이라서 수치가 낮아도 사람이 쓴 글이 되지는 않습니다. 근거와 한계는 [`docs/_common/korean-writing/`](docs/_common/korean-writing/README.md)에 정리했습니다. 이 규칙을 적용한 출력을 사람이 읽고 평가해 본 적은 아직 없습니다.
+이 도구는 AI 탐지기가 아닙니다. 정규식으로 문체 신호를 세는 휴리스틱이라서 수치가 낮아도 사람이 쓴 글이 되지는 않습니다. 근거와 한계는 [`docs/_common/korean-writing/`](docs/_common/korean-writing/README.md)에 정리했습니다. 이 규칙을 적용한 출력을 사람이 읽고 평가해 본 적은 아직 없습니다. 작성자가 직접 적용해 전후를 잰 시험 3건이 [시험 기록](docs/_common/korean-writing/trial-log.md)에 있고, 거기서 찾은 도구 누락과 규칙 모순은 고쳤습니다. 사람 평가 절차도 그 파일에 적어 뒀습니다.
 
 ## 사용법 (개편 후)
 
@@ -352,7 +354,7 @@ python3 -I -m unittest discover -s scripts/tests
 
 ## 알려진 한계
 
-- 조사 기준일은 2026-11-03입니다. 검색 범위는 대체로 10월까지였고, 일부 공식 사이트는 조사 환경에서 열리지 않았습니다. 그래서 `docs/`의 사양은 부분 확인인 경우가 많습니다. ID, 가격, 날짜는 쓰기 전에 공식 문서로 다시 확인하세요.
+- 조사 기준일은 2026-11-03입니다. 미출시와 제한 공개 모델 5개(Fable 5.5, Gemini 4 Carbon, GLM-5.5, Grok 4.8, Grok 5)와 Kimi K3.1의 상태는 이날 다시 확인했지만, 검색에 나온 가장 최신 출처는 대체로 10월입니다. 그 뒤 발표는 반영하지 못했고, 일부 공식 사이트는 조사 환경에서 열리지 않았습니다. 그래서 `docs/`의 사양은 부분 확인인 경우가 많습니다. ID, 가격, 날짜는 쓰기 전에 공식 문서로 다시 확인하세요.
 - 모델별 한국어 문체를 사람이 평가한 독립 자료는 찾지 못했습니다. 한국어 규칙의 수치는 한 프로젝트 저자의 자체 보고이고, 쟀던 모델 버전이 이 저장소의 모델과 다릅니다.
 - 도치는 공개된 근거가 없어 작성자의 관찰에 기댔습니다.
 
