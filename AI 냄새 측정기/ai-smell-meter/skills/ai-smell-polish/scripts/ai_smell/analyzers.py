@@ -5,8 +5,9 @@
 """
 from __future__ import annotations
 
-import re
 import bisect
+import math
+import re
 from typing import List, Optional, Sequence, Tuple
 
 from .model import Edit, Finding, weigh
@@ -20,17 +21,19 @@ EN_ADDITIVE = {"moreover", "furthermore", "additionally", "in addition", "likewi
 KO_TRANS = re.compile(r"(?P<w>또한|아울러|더불어|나아가|게다가|뿐만\s*아니라|이와\s*함께|이에\s*따라|이를\s*통해|특히|"
                       r"무엇보다|한편|따라서|결과적으로|결국|즉|다시\s*말해|요컨대|반면|그럼에도)(?![가-힣])[,，]?[ \t]*")
 KO_ADDITIVE = {"또한", "아울러", "더불어", "나아가", "게다가"}
-EN_TRIPLE = re.compile(r"\b(?:the |a |an )?[\w'’-]+(?: [\w'’-]+)?, (?:the |a |an )?[\w'’-]+(?: [\w'’-]+)?,? "
-                       r"(?:and|or) (?:the |a |an )?[\w'’-]+(?: [\w'’-]+)?\b")
+_T_BAN = r"(?!(?:so|but|while|because|although|if|when|that|which|where|as|since|though|with|without|from|into|to|for|after|before)\b)"
+_T_WORD = r"(?:[\w'’/-]+(?:[&/][\w'’/-]+)?)"
+_T_ITEM = rf"(?:{_T_BAN}{_T_WORD}(?:\s+{_T_WORD}){{0,2}})"
+TRAILING_PREP = re.compile(r"\s+(?:in|on|at|to|for|with|from|by|about|instead|across|through|before|after|without|into)\b.*$", re.I)
+EN_TRIPLE = re.compile(rf"\b(?P<first>{_T_ITEM}),\s+(?P<second>{_T_ITEM}),?\s+(?:and|or)\s+(?P<third>{_T_ITEM})\b", re.I)
 EN_INTENS = re.compile(r"\b(?:very|really|truly|genuinely|incredibly|extremely|highly|deeply|profoundly|"
                        r"absolutely|undoubtedly|remarkably|exceptionally|tremendously)\b[ \t]?", re.I)
 EN_INTENS_DROP = {"truly", "genuinely", "incredibly", "extremely", "remarkably", "exceptionally",
                   "tremendously", "profoundly", "undoubtedly"}
 KO_INTENS = re.compile(r"(?<![가-힣])(?:매우|정말|굉장히|상당히|아주|너무|엄청|대단히|극도로|무척)(?![가-힣])[ \t]?")
-EMOTION = ("기뻤", "슬펐", "행복했", "외로웠", "두려웠", "불안했", "벅차", "벅찼", "먹먹", "울컥", "뭉클", "철렁",
-           "눈물이 흘렀", "숨이 멎", "가슴이 아렸", "가슴이 미어", "감동", "설렜", "서글펐", "그리웠", "뿌듯",
-           "애틋", "저릿", "찡했", "눈시울", "가슴이 뛰", "심장이 뛰", "숨이 막", "온몸이 떨", "마음이 무거웠",
-           "슬퍼졌", "외로워졌", "행복해졌")
+EMOTION = ("기뻤", "슬펐", "행복했", "외로웠", "두려웠", "불안했", "벅차", "벅찼", "먹먹", "울컥", "뭉클", "철렁", "눈물이 흘렀",
+           "숨이 멎", "가슴이 아렸", "가슴이 미어", "감동", "설렜", "서글펐", "그리웠", "뿌듯", "애틋", "저릿", "찡했", "눈시울",
+           "가슴이 뛰", "심장이 뛰", "숨이 막", "온몸이 떨", "마음이 무거웠", "슬퍼졌", "외로워졌", "행복해졌")
 DASH = re.compile("[—―]|(?<=[A-Za-z가-힣]) -- (?=[A-Za-z가-힣])|(?<=[A-Za-z가-힣]) – (?=[A-Za-z가-힣])")
 
 
@@ -129,12 +132,12 @@ def transitions(text: str, masked: str, sents: Sequence[Span], paras: Sequence[S
 
 
 def triples(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span], genre: str) -> List[Finding]:
-    """A, B, 그리고 C 꼴의 3항 나열. 문서에 3번 이상이거나 한 문단에 2번 이상일 때만 센다."""
+    """A, B, 그리고 C 꼴의 3항 나열. 문서에 2번 이상이거나 한 문단에 2번 이상일 때 센다."""
     found: List[Tuple[Span, int, int, str]] = []
     for sp in sents:
         seg = masked[sp[0]:sp[1]]
         if "\x00" in seg or seg.lstrip().startswith("|") or " | " in seg:
-            continue                      # 코드·표는 산문 나열이 아니다
+            continue
         if re.search(r"[가-힣]", seg):
             parts = [x.strip() for x in re.split(r"[,，]", seg.rstrip(".!?… "))]
             if len(parts) == 3 and not re.search(r"\d", seg):
@@ -145,12 +148,14 @@ def triples(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span]
                     found.append((sp, sp[0], sp[1], "ko"))
         else:
             for m in EN_TRIPLE.finditer(seg):
-                body = m.group(0)
-                items = re.split(r",\s*(?:and |or )?|\s+(?:and|or)\s+", body)
-                if re.search(r"\d", body) or all(i.strip()[:1].isupper() for i in items):
+                first, second, third = m.group("first").strip(), m.group("second").strip(), m.group("third").strip()
+                third_clean = TRAILING_PREP.sub("", third).strip()
+                items = [first, second, third_clean]
+                if all(re.match(r"^\d+$", i.strip()) for i in items) or all(i.strip()[:1].isupper() for i in items):
                     continue
-                found.append((sp, sp[0] + m.start(), sp[0] + m.end(), "en"))
-    if not found:
+                end_pos = m.start() + len(m.group(0)) - (len(third) - len(third_clean))
+                found.append((sp, sp[0] + m.start(), sp[0] + end_pos, "en"))
+    if not found or len(found) < 2:
         return []
     per_para = {}
     pstarts = [x[0] for x in paras]
@@ -159,16 +164,25 @@ def triples(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span]
         if i >= 0 and item[1] < paras[i][1]:
             per_para.setdefault(i, []).append(item)
     chosen: List[Tuple[Span, int, int, str]] = []
-    if len(found) >= 3:
+    if len(found) >= 4 or len(per_para) >= 3:
+        chosen = found
+    elif len(found) >= 3:
         chosen = found[1:]
     else:
         for items in per_para.values():
             if len(items) >= 2:
                 chosen.extend(items[1:])
-    return [_mk(f"{lang}.structure.triple", "structure", "B", s, e, 0.5, genre,
-                "3항 나열이 반복된다." if lang == "ko" else "Repeated lists of three.",
-                gmap={"academic": 0.7}, text=text[s:e][:60], lang=lang,
-                sugg="뜻이 요구하는 개수만 남긴다.") for _, s, e, lang in chosen]
+    out = [_mk(f"{lang}.structure.triple", "structure", "B", s, e, 0.6, genre,
+               "3항 나열이 반복된다." if lang == "ko" else "Repeated lists of three.",
+               gmap={"academic": 0.7}, text=text[s:e][:60], lang=lang,
+               sugg="뜻이 요구하는 개수만 남긴다.") for _, s, e, lang in chosen]
+    if len(found) >= 4 or len(per_para) >= 3:
+        is_ko = any(lang == "ko" for _, _, _, lang in found)
+        out.append(_mk("any.structure.triple-density", "structure", "B", 0, 0, 0.8, genre,
+                       f"3항 나열이 글 전체에 걸쳐 과다하게 반복된다 (총 {len(found)}건)." if is_ko
+                       else f"Lists of three are excessively repeated across the text ({len(found)} occurrences).",
+                       lang="any", sugg="나열 항목을 2개로 줄이거나 서술식 문장으로 풀어 쓴다."))
+    return out
 
 
 def _core(s: str) -> str:
@@ -345,17 +359,36 @@ def exclamations(masked: str, sents: Sequence[Span], genre: str) -> List[Finding
     return []
 
 
+def paragraph_cadence(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span], genre: str) -> List[Finding]:
+    """문단마다 문장 수와 길이가 2~6문장으로 거의 일정하여 기계적인 정보 분배를 보이는 경우를 센다."""
+    body_paras = [p for p in paras if not masked[p[0]:p[1]].strip().startswith(
+        ("#", ">", "|", "```", "<!--", "- ", "* ", "1. ", "2. ", "3. "))]
+    if len(body_paras) < 4:
+        return []
+    p_sents = _by_para(sents, body_paras)
+    s_lens = [len(g) for g in p_sents]
+    w_lens = [len(masked[ps:pe].split()) for ps, pe in body_paras]
+    n = len(body_paras)
+    if all(2 <= s <= 6 for s in s_lens) and all(8 <= w <= 120 for w in w_lens):
+        mean_s = sum(s_lens) / n
+        std_s = math.sqrt(sum((s - mean_s) ** 2 for s in s_lens) / n)
+        if std_s <= 1.8:
+            is_ko = bool(re.search(r"[가-힣]", text))
+            msg = (f"{n}개 문단이 모두 2~6문장으로 분량이 균일하여, 기계적인 정보 분배와 단조로운 호흡을 보인다."
+                   if is_ko else
+                   f"All {n} paragraphs are uniformly 2-6 sentences long, exhibiting robotic cadence and modular information distribution.")
+            sugg = ("한 줄 문단이나 긴 호흡의 문단을 섞어 문단의 호흡과 완급을 조절한다." if is_ko else
+                    "Vary paragraph lengths with short one-line transitions or longer narrative blocks to create natural rhythm.")
+            return [_mk("any.structure.uniform-cadence", "structure", "B", 0, 0, 0.8, genre,
+                        msg, lang="any", sugg=sugg)]
+    return []
+
+
 def run_all(text: str, masked: str, sents: Sequence[Span], paras: Sequence[Span], units: int,
             genre: str) -> List[Finding]:
-    out: List[Finding] = []
-    out += dashes(masked, sents, units, genre)
-    out += transitions(text, masked, sents, paras, genre, {})
-    out += triples(text, masked, sents, paras, genre)
-    out += rhythm(text, masked, sents, genre)
-    out += emotion(masked, paras, genre)
-    out += intensifiers(text, masked, units, genre)
-    out += layout(masked, units, genre)
-    out += summary_closers(masked, sents, paras, genre)
-    out += register_mix(masked, sents, paras, genre)
-    out += exclamations(masked, sents, genre)
-    return out
+    return (dashes(masked, sents, units, genre) + transitions(text, masked, sents, paras, genre, {}) +
+            triples(text, masked, sents, paras, genre) + rhythm(text, masked, sents, genre) +
+            emotion(masked, paras, genre) + intensifiers(text, masked, units, genre) +
+            layout(masked, units, genre) + summary_closers(masked, sents, paras, genre) +
+            register_mix(masked, sents, paras, genre) + exclamations(masked, sents, genre) +
+            paragraph_cadence(text, masked, sents, paras, genre))

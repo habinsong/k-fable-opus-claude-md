@@ -177,6 +177,27 @@ class Analyzers(unittest.TestCase):
         t = "The test failed on Monday. The fix shipped on Tuesday. Ultimately, the process worked."
         self.assertIn("en.structure.summary-closer", ids(analyze(t)))
 
+    def test_triple_density(self):
+        text = ("Item one has speed, quality, and trust.\n\n"
+                "Item two has reach, depth, and scale.\n\n"
+                "Item three brings focus, clarity, and calm.\n\n"
+                "Item four offers power, ease, and value.")
+        self.assertIn("any.structure.triple-density", ids(analyze(text)))
+
+    def test_paragraph_cadence(self):
+        text = ("First topic is covered here in detail. It provides core functionality.\n\n"
+                "Second module handles storage and backups. It runs reliably every night.\n\n"
+                "Third component manages user requests. It processes transactions quickly.\n\n"
+                "Fourth layer connects to external services. It monitors network health.")
+        self.assertIn("any.structure.uniform-cadence", ids(analyze(text)))
+        var_text = ("First topic is introduced here.\n\n"
+                    "Second module handles all database records, migrations, indexing, and clustering operations "
+                    "across hundreds of regional worker nodes, ensuring uninterrupted data flow and high availability "
+                    "under heavy loads. It also monitors network health continuously.\n\n"
+                    "Third works.\n\n"
+                    "Fourth connects.")
+        self.assertNotIn("any.structure.uniform-cadence", ids(analyze(var_text)))
+
 
 class Polish(unittest.TestCase):
     def test_golden(self):
