@@ -5,6 +5,7 @@
   python3 -I scripts/docs_tool.py sync            # 공통 블록을 정본에서 각 문서로 주입
   python3 -I scripts/docs_tool.py check           # 구조 검사 (누락 분야 문서는 경고)
   python3 -I scripts/docs_tool.py check --complete  # 모델 폴더마다 분야 문서 9개 필수
+  python3 -I scripts/docs_tool.py check --skip-blocks  # 주입 전 초안: 블록 일치 비교 생략
 
 문서 위치: <계열>/<모델>/<분야>.md   정본: _shared/contract.md, _shared/domains/<분야>.md
 """
@@ -67,7 +68,7 @@ def sync():
     return 0
 
 
-def check(complete):
+def check(complete, skip_blocks=False):
     errors, warns = [], []
     contract_path = ROOT / "_shared" / "contract.md"
     if not contract_path.exists():
@@ -109,7 +110,7 @@ def check(complete):
             m = block_re(name).search(text)
             if not m:
                 errors.append(f"{rel}: {name} 블록 마커 없음")
-            elif m.group(2).strip("\n") != body:
+            elif not skip_blocks and m.group(2).strip("\n") != body:
                 errors.append(f"{rel}: {name} 블록이 정본과 다름 (sync 필요)")
         outside = block_re("contract").sub("", block_re("domain").sub("", text))
         for h in ("## 2. ", "## 4. 근거와 한계"):
@@ -142,7 +143,7 @@ def main(argv):
     if len(argv) >= 2 and argv[1] == "sync":
         return sync()
     if len(argv) >= 2 and argv[1] == "check":
-        return check("--complete" in argv)
+        return check("--complete" in argv, "--skip-blocks" in argv)
     print(__doc__)
     return 2
 
