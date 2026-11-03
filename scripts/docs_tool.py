@@ -19,7 +19,8 @@ DOMAINS = ["general", "web", "app", "native", "hardware", "firmware",
            "web-research", "research", "tech-research"]
 CONTRACT_KEYWORDS = ["복명복창", "변경 요약", "수정 파일", "실행한 명령", "검증 결과",
                      "남은 리스크", "God-object", "500줄", "한국어", "비판", "재귀",
-                     "라이선스", "저작권", "특허", "출처", "[확인]", "[미확인]"]
+                     "라이선스", "저작권", "특허", "출처", "[확인]", "[미확인]",
+                     "웹 검색", "웹 페이지 가져오기"]
 HARD_LIMIT = 500
 SOFT_LIMIT = 260
 
