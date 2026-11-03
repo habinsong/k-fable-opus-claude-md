@@ -1,28 +1,34 @@
 #!/usr/bin/env python3
-"""LLM 컨텍스트용 지침(md/)과 사람이 읽는 조사 기록(docs/)을 관리한다.
+"""LLM 컨텍스트용 지침(universal/, md/)과 사람이 읽는 조사 기록(docs/)을 관리한다.
 
 사용법:
-  python3 -I scripts/docs_tool.py sync              # 계약·모델·분야 블록을 md/ 문서에 주입
+  python3 -I scripts/docs_tool.py sync              # 공통 블록을 universal/·md/ 문서에 주입
   python3 -I scripts/docs_tool.py check             # 구조·분리 검사 (누락은 경고)
   python3 -I scripts/docs_tool.py check --complete  # 모델 폴더마다 분야 문서와 docs 짝을 필수로 검사
   python3 -I scripts/docs_tool.py check --skip-blocks  # 주입 전 초안: 블록 일치 비교 생략
 
-구조:
-  md/<계열>/<모델>/<분야>.md      컨텍스트에 넣는 지침. 근거·출처·가격·벤치마크·비판을 두지 않는다.
+루트 폴더:
+  universal/                      모델에 상관없이 쓰는 범용 지침. 분야 문서 12개 + contract.md + ko-core.md
+  md/<계열>/<모델>/<분야>.md      모델별 지침. 범용 지침 + 모델 전용 지침(§2)
   docs/<계열>/<모델>/<분야>.md    조사·검증·근거 기록. 컨텍스트에 넣지 않는다.
   docs/<계열>/<모델>/korean-writing.md   한국어 윤문 3분야(ko-*)의 모델별 조사 기록
-  _shared/                       md 문서의 원본(계약, 분야 규칙, 모델 지침). 컨텍스트에 직접 넣지 않는다.
-한국어 윤문 분야(ko-*)는 KO_FAMILIES 계열에만 있다. 분야 원본의 <!-- INCLUDE:ko-core -->는
-_shared/ko-core.md 내용으로 펼쳐서 주입한다.
+  universal/·md/ 문서에는 근거·출처·가격·벤치마크·비판을 두지 않는다. docs/에 둔다.
+
+원본(정본)의 위치:
+  계약            universal/contract.md          → 모든 범용·모델별 문서의 <!-- BEGIN:contract --> 블록
+  한국어 공통 원리 universal/ko-core.md           → universal/ko-*.md 의 <!-- BEGIN:ko-core --> 블록
+  분야 규칙       universal/<분야>.md            → md/<계열>/<모델>/<분야>.md 의 <!-- BEGIN:domain --> 블록
+  모델 전용 지침  md/<계열>/<모델>/general.md 의 <!-- BEGIN:model --> 블록 → 같은 모델의 다른 분야 문서
+                 (한국어 분야는 md/<계열>/<모델>/ko-academic.md 의 블록 → ko-everyday, ko-literary)
 """
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+UNIV = ROOT / "universal"
 MD = ROOT / "md"
 DOCS = ROOT / "docs"
-SHARED = ROOT / "_shared"
 FAMILIES = ["gpt", "claude", "gemini", "deepseek", "glm", "muse", "grok", "kimi", "qwen", "gemma", "minimax"]
 DOMAINS = ["general", "web", "app", "native", "hardware", "firmware",
            "web-research", "research", "tech-research"]
@@ -30,12 +36,12 @@ KO_DOMAINS = ["ko-academic", "ko-everyday", "ko-literary"]
 KO_FAMILIES = ["gpt", "claude", "gemini", "gemma"]
 ALL_DOMAINS = DOMAINS + KO_DOMAINS
 KO_DOC = "korean-writing"
-INCLUDE_KO_CORE = "<!-- INCLUDE:ko-core -->"
+MODEL_SOURCE = {"base": "general", "ko": "ko-academic"}
 CONTRACT_KEYWORDS = ["복명복창", "변경 요약", "수정 파일", "실행한 명령", "검증 결과",
                      "남은 리스크", "God-object", "500줄", "한국어", "비판", "재귀",
                      "라이선스", "저작권", "특허", "출처", "[확인]", "[미확인]",
                      "웹 검색", "웹 페이지 가져오기"]
-# 사용자가 요구한 항목이 한국어 공통 지침에서 빠지면 검사가 실패한다.
+# 사용자가 요구한 항목이 한국어 공통 원리에서 빠지면 검사가 실패한다.
 KO_CORE_KEYWORDS = ["흐름", "호흡", "과서술", "대구", "도치", "감정", "번역투",
                     "윤문 순환", "측정", "라이선스"]
 # 컨텍스트로 들어가는 글에 있으면 안 되는 리서치 표지. 계약의 근거 수준 정의(§1.3)만 예외다.
@@ -58,26 +64,36 @@ def read(p):
     return p.read_text(encoding="utf-8")
 
 
-def canonical():
-    contract = read(SHARED / "contract.md").strip("\n")
-    core_path = SHARED / "ko-core.md"
-    core = read(core_path).strip("\n") if core_path.exists() else ""
-    domains = {}
-    for d in ALL_DOMAINS:
-        p = SHARED / "domains" / f"{d}.md"
-        if p.exists():
-            domains[d] = read(p).strip("\n").replace(INCLUDE_KO_CORE, core)
-    return contract, domains
+def block_of(text, name):
+    m = block_re(name).search(text)
+    return m.group(2).strip("\n") if m else None
 
 
-def model_source(fam, model, domain):
-    suffix = ".ko.md" if domain in KO_DOMAINS else ".md"
-    return SHARED / "models" / fam / f"{model}{suffix}"
+def strip_blocks(text, names):
+    for n in names:
+        text = block_re(n).sub("", text)
+    return text
 
 
-def model_text(fam, model, domain):
-    p = model_source(fam, model, domain)
-    return read(p).strip("\n") if p.exists() else None
+def from_marker(text, marker):
+    i = text.find(marker)
+    return text[i:].strip("\n") if i >= 0 else ""
+
+
+def contract_text():
+    return from_marker(read(UNIV / "contract.md"), "## 0.")
+
+
+def ko_core_text():
+    t = read(UNIV / "ko-core.md")
+    m = re.search(r"^### ", t, re.M)
+    return t[m.start():].strip("\n") if m else ""
+
+
+def domain_part(d):
+    """범용 문서에서 계약 블록 뒤의 분야 규칙 본문. ko-core 표식은 걷어 낸다."""
+    part = from_marker(read(UNIV / f"{d}.md"), "## 3. 분야 규칙")
+    return re.sub(r"<!-- (?:BEGIN|END):ko-core -->\n?", "", part).strip("\n")
 
 
 def md_files():
@@ -88,6 +104,16 @@ def md_files():
 
 def parts(p):
     return p.parent.parent.name, p.parent.name, p.stem
+
+
+def model_source_path(fam, model, domain):
+    kind = "ko" if domain in KO_DOMAINS else "base"
+    return MD / fam / model / f"{MODEL_SOURCE[kind]}.md"
+
+
+def model_text(fam, model, domain):
+    p = model_source_path(fam, model, domain)
+    return block_of(read(p), "model") if p.exists() else None
 
 
 def research_hits(text, skip_tags=False):
@@ -101,26 +127,50 @@ def research_hits(text, skip_tags=False):
     return hits
 
 
+def inject(text, name, body):
+    rx = block_re(name)
+    if not rx.search(text):
+        return None
+    return rx.sub(lambda m: m.group(1) + body + "\n" + m.group(3), text, count=1)
+
+
 def sync():
-    contract, domains = canonical()
+    contract = contract_text()
+    ko_core = ko_core_text() if (UNIV / "ko-core.md").exists() else ""
     changed = 0
+    for d in ALL_DOMAINS:
+        p = UNIV / f"{d}.md"
+        if not p.exists():
+            continue
+        text = read(p)
+        new = inject(text, "contract", contract)
+        if new is None:
+            print(f"ERROR {p.relative_to(ROOT)}: BEGIN/END:contract 마커 없음")
+            return 1
+        if d in KO_DOMAINS:
+            new = inject(new, "ko-core", ko_core)
+            if new is None:
+                print(f"ERROR {p.relative_to(ROOT)}: BEGIN/END:ko-core 마커 없음")
+                return 1
+        if new != text:
+            p.write_text(new, encoding="utf-8")
+            changed += 1
     for p in md_files():
         fam, model, dom = parts(p)
-        if dom not in domains:
-            print(f"SKIP  {p.relative_to(ROOT)} (분야 원본 없음: {dom})")
+        if dom not in ALL_DOMAINS or not (UNIV / f"{dom}.md").exists():
+            print(f"SKIP  {p.relative_to(ROOT)} (범용 지침 없음: {dom})")
             continue
         mtext = model_text(fam, model, dom)
-        if mtext is None:
-            print(f"ERROR {p.relative_to(ROOT)}: 모델 지침 원본 없음 ({model_source(fam, model, dom).relative_to(ROOT)})")
+        if not mtext:
+            print(f"ERROR {p.relative_to(ROOT)}: 모델 지침 원본 블록이 비어 있음 ({model_source_path(fam, model, dom).relative_to(ROOT)})")
             return 1
         text = read(p)
         new = text
-        for name, body in (("contract", contract), ("model", mtext), ("domain", domains[dom])):
-            rx = block_re(name)
-            if not rx.search(new):
+        for name, body in (("contract", contract), ("model", mtext), ("domain", domain_part(dom))):
+            new = inject(new, name, body)
+            if new is None:
                 print(f"ERROR {p.relative_to(ROOT)}: BEGIN/END:{name} 마커 없음")
                 return 1
-            new = rx.sub(lambda m: m.group(1) + body + "\n" + m.group(3), new, count=1)
         if new != text:
             p.write_text(new, encoding="utf-8")
             changed += 1
@@ -128,40 +178,56 @@ def sync():
     return 0
 
 
-def check_shared(errors, contract, domains):
-    contract_path = SHARED / "contract.md"
-    for kw in CONTRACT_KEYWORDS:
-        if kw not in contract:
-            errors.append(f"_shared/contract.md: 필수 키워드 누락 '{kw}'")
-    for hit in research_hits(contract, skip_tags=True):
-        errors.append(f"_shared/contract.md: 리서치 표지 {hit}")
-    for d in ALL_DOMAINS:
-        rel = f"_shared/domains/{d}.md"
-        if d not in domains:
-            errors.append(f"{rel} 없음")
-            continue
-        if not domains[d].startswith("## 3. 분야 규칙"):
-            errors.append(f"{rel}: '## 3. 분야 규칙'으로 시작해야 함")
-        if INCLUDE_KO_CORE in domains[d]:
-            errors.append(f"{rel}: ko-core 포함 마커가 펼쳐지지 않음")
-        for hit in research_hits(domains[d]):
-            errors.append(f"{rel}: 컨텍스트 지침에 리서치 표지 {hit}")
-    core_path = SHARED / "ko-core.md"
-    if not core_path.exists():
-        errors.append("_shared/ko-core.md 없음")
+def check_universal(errors, skip_blocks):
+    for need in ["contract.md", "ko-core.md"] + [f"{d}.md" for d in ALL_DOMAINS]:
+        if not (UNIV / need).exists():
+            errors.append(f"universal/{need} 없음")
+    if (UNIV / "contract.md").exists():
+        contract = contract_text()
+        for kw in CONTRACT_KEYWORDS:
+            if kw not in contract:
+                errors.append(f"universal/contract.md: 필수 키워드 누락 '{kw}'")
+        for hit in research_hits(contract, skip_tags=True):
+            errors.append(f"universal/contract.md: 리서치 표지 {hit}")
     else:
-        core = read(core_path)
+        contract = ""
+    if (UNIV / "ko-core.md").exists():
+        core = read(UNIV / "ko-core.md")
         for kw in KO_CORE_KEYWORDS:
             if kw not in core:
-                errors.append(f"_shared/ko-core.md: 필수 키워드 누락 '{kw}'")
-    extra = [core_path] if core_path.exists() else []
-    for f in [contract_path, *extra, *(SHARED / "domains").glob("*.md"), *(SHARED / "models").glob("*/*.md")]:
+                errors.append(f"universal/ko-core.md: 필수 키워드 누락 '{kw}'")
+        for hit in research_hits(core):
+            errors.append(f"universal/ko-core.md: 컨텍스트 지침에 리서치 표지 {hit}")
+        ko_core = ko_core_text()
+    else:
+        ko_core = ""
+    for f in sorted(UNIV.glob("*.md")):
         n = len(read(f).splitlines())
         if n > HARD_LIMIT:
-            errors.append(f"{f.relative_to(ROOT)}: {n}줄 > {HARD_LIMIT}")
+            errors.append(f"universal/{f.name}: {n}줄 > {HARD_LIMIT}")
+    for d in ALL_DOMAINS:
+        p = UNIV / f"{d}.md"
+        if not p.exists():
+            continue
+        rel = f"universal/{d}.md"
+        text = read(p)
+        if "## 3. 분야 규칙" not in text:
+            errors.append(f"{rel}: '## 3. 분야 규칙' 절 없음")
+        if not text.startswith("# "):
+            errors.append(f"{rel}: 첫 줄이 H1 제목이 아님")
+        checks = [("contract", contract)] + ([("ko-core", ko_core)] if d in KO_DOMAINS else [])
+        for name, body in checks:
+            got = block_of(text, name)
+            if got is None:
+                errors.append(f"{rel}: {name} 블록 마커 없음")
+            elif not skip_blocks and got != body:
+                errors.append(f"{rel}: {name} 블록이 원본과 다름 (sync 필요)")
+        for hit in research_hits(strip_blocks(text, ["contract"])):
+            errors.append(f"{rel}: 컨텍스트 지침에 리서치 표지 {hit}")
+    return contract
 
 
-def check_md(errors, warns, contract, domains, skip_blocks):
+def check_md(errors, warns, contract, skip_blocks):
     count = 0
     for p in md_files():
         count += 1
@@ -185,23 +251,21 @@ def check_md(errors, warns, contract, domains, skip_blocks):
         if "기준일" not in head or "모델 ID" not in head:
             errors.append(f"{rel}: 상단 메타 줄에 '모델 ID'와 '기준일' 필요")
         mtext = model_text(fam, model, dom)
+        src = model_source_path(fam, model, dom)
         if mtext is None:
-            errors.append(f"{rel}: 모델 지침 원본 없음 ({model_source(fam, model, dom).relative_to(ROOT)})")
+            errors.append(f"{rel}: 모델 지침 원본 파일 없음 ({src.relative_to(ROOT)})")
         elif not mtext.startswith("## 2. "):
-            errors.append(f"{model_source(fam, model, dom).relative_to(ROOT)}: '## 2. '로 시작해야 함")
-        want = {"contract": contract, "model": mtext, "domain": domains.get(dom, "")}
-        for name, body in want.items():
-            m = block_re(name).search(text)
-            if not m:
+            errors.append(f"{src.relative_to(ROOT)}: 모델 지침 블록이 '## 2. '로 시작해야 함")
+        domain = domain_part(dom) if (UNIV / f"{dom}.md").exists() else ""
+        for name, body in (("contract", contract), ("model", mtext), ("domain", domain)):
+            got = block_of(text, name)
+            if got is None:
                 errors.append(f"{rel}: {name} 블록 마커 없음")
-            elif not skip_blocks and body is not None and m.group(2).strip("\n") != body:
+            elif not skip_blocks and body is not None and got != body:
                 errors.append(f"{rel}: {name} 블록이 원본과 다름 (sync 필요)")
-        outside_contract = block_re("contract").sub("", text)
-        for hit in research_hits(outside_contract):
+        for hit in research_hits(strip_blocks(text, ["contract"])):
             errors.append(f"{rel}: 컨텍스트 문서에 리서치 표지 {hit} — docs/로 옮긴다")
-        own = text
-        for name in ("contract", "model", "domain"):
-            own = block_re(name).sub("", own)  # 공통 블록 안의 지침 문장(예: TODO를 남기지 않는다)은 제외
+        own = strip_blocks(text, ["contract", "model", "domain"])
         for bad in ("TODO", "TBD", "[PROJECT_NAME]"):
             if bad in own:
                 errors.append(f"{rel}: 자리표시자 '{bad}' 남아 있음")
@@ -226,8 +290,7 @@ def check_docs(errors, warns, complete):
             (errors if complete else warns).append(msg)
         pairs = [d for d in have if d in DOMAINS] + ([KO_DOC] if have & set(KO_DOMAINS) else [])
         for name in pairs:
-            dp = DOCS / fam / model / f"{name}.md"
-            if not dp.exists():
+            if not (DOCS / fam / model / f"{name}.md").exists():
                 (errors if complete else warns).append(f"docs/{fam}/{model}/{name}.md 없음 (md의 조사 기록 짝)")
     allowed = set(DOMAINS) | {KO_DOC}
     for fam in FAMILIES:
@@ -246,15 +309,13 @@ def check_docs(errors, warns, complete):
 
 def check(complete, skip_blocks=False):
     errors, warns = [], []
-    if not (SHARED / "contract.md").exists():
-        print("ERROR _shared/contract.md 없음")
-        return 1
     for fam in FAMILIES:
         if (ROOT / fam).exists():
             errors.append(f"{fam}/: 옛 위치다. md/{fam}/ 와 docs/{fam}/ 로 나눈다")
-    contract, domains = canonical()
-    check_shared(errors, contract, domains)
-    count = check_md(errors, warns, contract, domains, skip_blocks)
+    if (ROOT / "_shared").exists():
+        errors.append("_shared/: 없앤 폴더다. 범용 지침은 universal/, 모델 지침은 md/에 둔다")
+    contract = check_universal(errors, skip_blocks)
+    count = check_md(errors, warns, contract_text() if (UNIV / "contract.md").exists() else contract, skip_blocks)
     check_docs(errors, warns, complete)
     for w in warns:
         print("WARN ", w)
