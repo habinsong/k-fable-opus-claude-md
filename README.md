@@ -3,6 +3,9 @@
 **2026-08-15**  
 Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 시작했고 지금도 우리고 있습니다.
 
+> **2026-11-03 개편 안내**  
+> 아래 글은 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 세 파일 시절에 쓴 것이라 파일 이름과 사용법이 지금과 다릅니다. 현재 구조와 사용법은 [개편 후 구조](#개편-후-구조-2026-11-03)를 보세요.
+
 ---
 # 시작하기 앞서 사실을 말합니다. 
 **Fable 5** 은 똑부러지게 작업합니다. 토큰과 비용을 먹으며 작업은 나누고 제대로 똑부러지게 하는 편입니다. 무엇보다 재미로도, 미학적으로도 깔끔합니다.  
@@ -16,27 +19,23 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 
 **Deepseek V4 Pro / Flash** 그리고 **GLM 5.1/5.2/5.3** 등 **중국산 LLM** 에서는 사용을 추천하지 않습니다. 벤치맥싱으로 이루어진 SLOP 이니까요. 프로젝트를 철저히 복구 불가능하게 망치고 공든 탑을 무너트리고 싶으시면 사용하시면 됩니다. 
 
-> 위 구간은 2026-08-15 시점 작성자의 사용 경험담입니다. 이 저장소의 문서들은 이 의견을 근거로 쓰지 않았고, 모델별 사실은 아래 "근거 수준" 규칙에 따라 출처를 확인해서 썼습니다.
 
 ---
-# 프로젝트 소개 (2026-11-03 개편)
+# 프로젝트 소개
+**Fable 5**가 먹은 토큰 사용량에 충격 먹은 사람이  
+**GPT-5.6 Sol Max** 와 **Fable 5 Max** 로 깎아 만든 **Fable 5** 그리고 **Opus 5** 용 `CLAUDE.md`  
+그리고 이 `CLAUDE.md`를 기반으로 만든 **GPT-5.6 Sol** 용 `AGENTS.md`  
+**GPT-5.6-Sol** 과 **Fable 5 / Opus 5** 에 최적화 되어 있습니다.  
+물론, 우리의 모자란 **Gemini** 를 위해서도 만들었습니다 (`GEMINI.md`).  
 
-기존에는 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 3개만 있었습니다.  
-이제는 용도에 따라 루트 폴더를 **세 갈래**로 나눴습니다.
+한국어로 대답하고, 헛짓 줄이고, 작게 고치고, 검증하고,  
+위험한 명령은 조심하게 만드는 세팅입니다.  
 
-| 폴더 | 무엇을 두나 | LLM 컨텍스트에 넣나 |
-|---|---|---|
-| [`universal/`](universal/) | 모델에 상관없이 어디에나 쓰는 **범용 지침** (14개) | 넣습니다 |
-| [`md/`](md/)`<제공자>/<모델>/` | 모델마다 따로 만든 **모델별 지침** (366개). 범용 지침에 그 모델에게 하는 지시를 더한 것 | 넣습니다 |
-| [`docs/`](docs/) | 사양, 가격, 벤치마크, 비판, 출처, 확인하지 못한 것 같은 **조사·검증 기록** (352개) | **넣지 않습니다** |
+추론 강도는 high, xhigh, max 에서 모두 좋지만, 적당히 high 로 타협을 봅시다.  
+왜냐하면 추론 강도를 올릴수록 돈은 더 나가고, 더 잘 될 거라는 보장이 없으니까요.  
 
-`universal/`과 `md/`에는 근거, 출처 URL, 가격, 벤치마크, 비판을 한 줄도 두지 않습니다. `check`가 이를 오류로 잡습니다.  
-조사 내용이 컨텍스트에 섞이면 모델이 지침을 읽는 데 방해가 되기 때문입니다. 근거가 궁금하면 같은 경로의 `docs/` 문서를 보세요.
-
-한국어로 대답하고, 복명복창으로 시작하고, 비판적으로 따지고, 작게 고치고, 검증하고,  
-검증 못 한 건 솔직히 말하고, 라이선스·저작권·특허·출처를 침해하지 않게 만드는 세팅입니다.
-
-> 오래 보고, 깊게 보고, 한국어로 일하게 만들기 위한 지침 문서 모음
+> Fable 5처럼 오래 보고, Opus처럼 깊게 보고,  
+> 한국어로 일하게 만들기 위한 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`
 
 ---
 
@@ -47,157 +46,95 @@ Fable 5 모델 제공 중단 전에 미리 야물딱지게 뽑아서 우리기 �
 
 ---
 
-## 폴더 구조
-
-```text
-.
-├── universal/                  범용 지침. 파일 하나만 넣어도 쓸 수 있음
-│   ├── contract.md             응답 계약·작업 원칙
-│   ├── general.md  web.md  app.md  native.md  hardware.md  firmware.md
-│   ├── web-research.md  research.md  tech-research.md
-│   └── ko-academic.md  ko-everyday.md  ko-literary.md  ko-core.md   한국어 윤문
-├── md/                         모델별 지침 (분야 문서 9개 + 한국어 윤문 3개)
-│   ├── gpt/        gpt-6-astra · gpt-6.1-sol · gpt-6.1-terra · gpt-6-luna
-│   ├── claude/     fable-5.1 · fable-5.5(미출시) · opus-5.5 · sonnet-5.5 · haiku-5.5
-│   ├── gemini/     gemini-4-argon · gemini-4-carbon(미출시) · gemini-3.8-flash
-│   ├── gemma/      gemma-4-e2b · gemma-4-e4b · gemma-4-12b · gemma-4-26b-a4b · gemma-4-31b   (로컬용)
-│   ├── deepseek/   v4.1-flash-1017
-│   ├── glm/        glm-5.3 · glm-5.3-flash · glm-5.5(미출시)
-│   ├── muse/       muse-spark · muse-wonder
-│   ├── grok/       grok-4.7 · grok-4.8(미출시) · grok-5(미출시)
-│   ├── kimi/       kimi-k3.1
-│   ├── qwen/       qwen3.8-max · qwen3.8-2.4t-a95b · qwen3.8-27b · qwen3.7-max · qwen3.6-27b · qwen3.6-35b-a3b
-│   └── minimax/    minimax-m3 · minimax-m3.1-flash
-├── docs/                       조사·검증 기록 (컨텍스트에 넣지 않음). md/와 같은 경로에 짝이 있음
-│   ├── _common/                공통 조사: 분야 규칙 근거 원본, 한국어 윤문 조사
-│   └── <제공자>/<모델>/        <분야>.md, korean-writing.md
-└── scripts/
-    ├── docs_tool.py            공통 블록 주입(sync)과 구조·분리 검사(check)
-    └── ko_style_probe.py       한국어 문체 신호를 세는 측정 도구
-```
-
-제공자 11곳, 모델 폴더 35개입니다. `gemma/`와 `qwen3.8-27b`·`qwen3.6-*`처럼 로컬로 돌리는 모델은 메모리, 양자화, 런타임, 가중치 라이선스 확인 규칙이 `docs/`에 따로 들어 있습니다.  
-**미출시 표기 폴더**는 공식 발표 전이라 스펙을 쓰지 않았습니다. 직전 세대 규칙을 잠정 적용하게 하고, 출시 당일 확인할 항목은 `docs/`에 담았습니다.
-
-분야 문서는 이렇습니다.
-
-| 파일 | 분야 |
-|---|---|
-| `general.md` | 범용 (일반 개발 규칙) |
-| `web.md` | 웹 프런트엔드·백엔드 |
-| `app.md` | 모바일 앱 (iOS·Android·크로스플랫폼) |
-| `native.md` | 네이티브 프로그램 (데스크톱·CLI·시스템 SW) |
-| `hardware.md` | 회로·PCB·HDL |
-| `firmware.md` | MCU·RTOS·부트로더·OTA |
-| `web-research.md` | 웹 리서치 (사실 확인·출처 수집) |
-| `research.md` | 학술·과학 연구 |
-| `tech-research.md` | 기술 선정·타당성·라이선스·특허 조사 |
-| `ko-academic.md` | 한국어 학술·기술 글 윤문 (gpt·claude·gemini·gemma 계열만) |
-| `ko-everyday.md` | 한국어 일상 대화·글 윤문 (같은 계열만) |
-| `ko-literary.md` | 한국어 문학·범용 글쓰기 (같은 계열만) |
-
-## 지침 문서 한 개의 구성
-
-| 절 | 내용 | 원본 |
-|---|---|---|
-| 0, 1 | 응답 계약 (복명복창 → 5항목 보고 → 한국어), 작업 원칙 (비판적 검토, 재귀 개선 루프, 정직성, God-object 방지, 라이선스·저작권·특허·출처, 범위·안전, 웹 검색 적극 활용) | `universal/contract.md` |
-| 2 | 이 모델에게 하는 지시 (명령문만) | 모델 폴더의 `general.md` 블록 (한국어 분야는 `ko-academic.md` 블록) |
-| 3 | 분야 규칙, 기준 사실 표, 검증 순서, 금지 | `universal/<분야>.md` |
-
-`universal/`의 파일은 0, 1절과 3절만 있습니다. 모델과 상관없이 쓰려면 이 파일 하나면 됩니다.
-
-## 한국어 윤문
-
-AI 글에서 티가 나는 것(문장 사이의 흐름과 호흡, 과서술, 사람이 쓰지 않는 말, 인위적인 감정 표현, 대구와 도치)을 줄여서 사람이 쓴 한국어에 가깝게 쓰도록 하는 지침입니다. 세 가지로 나눴습니다.
-
-- **학술·기술**: 논문, 초록, 보고서, 기술 문서 (`ko-academic.md`)
-- **일상**: 메신저, 이메일, 후기, 대화 말투 (`ko-everyday.md`)
-- **문학·범용**: 소설, 수필, 칼럼, 대사 (`ko-literary.md`)
-
-윤문 순환(읽기 → 측정 → 국소 수정 → 재측정 → 보고)의 측정에는 `scripts/ko_style_probe.py`를 씁니다.
-
-```bash
-python3 -I scripts/ko_style_probe.py 원고.txt
-```
-
-**이 측정은 AI 탐지기가 아닙니다.** 정규식으로 신호를 세는 휴리스틱이라 수치가 낮다고 사람이 쓴 글이 되지 않습니다. 조사 근거와 한계(실측 자료가 저자 자체 보고이고 다른 모델 버전으로 잰 것이라는 점, 도치에는 공개 근거가 없다는 점)는 [`docs/_common/korean-writing/`](docs/_common/korean-writing/README.md)에 있습니다.
-
-## 근거 수준
-
-`docs/`의 사실에는 근거 수준을 붙였습니다. 정의는 [`docs/README.md`](docs/README.md)에 있습니다.
-
-- **[확인]** 공식 1차 출처를 이 작업에서 직접 읽음
-- **[부분]** 검색 스니펫이나 2차 출처(뉴스, 집계, 블로그)로만 확인
-- **[미확인]** 출처가 충돌하거나 루머, 또는 확인 못 함
-
-작성 환경에서 `openai.com`, `ai.google.dev`, `huggingface.co` 같은 호스트는 열리지 않았습니다.  
-그래서 해당 제공자의 모델 사양은 [부분]인 경우가 많습니다. **ID, 가격, 날짜는 쓰기 전에 공식 문서로 다시 확인하세요.**
-
----
-
 ## 이게 뭔가요?
 
-각 지침 문서는 AI가 다음처럼 행동하도록 유도합니다.
+`CLAUDE.md`는 Claude Code용 프로젝트 설정 파일입니다.  
+`AGENTS.md`는 Codex용 프로젝트 설정 파일입니다.  
+`GEMINI.md`는 Antigravity용 프로젝트 설정 파일입니다.  
+
+이 레포의 설정 파일들은 AI가 다음처럼 행동하도록 유도합니다.
 
 - **첫 마디부터 복명복창**  
   프롬프트 던지자마자 첫 출력을 사용자가 시킨 일 요약·확인부터 하고 시작합니다. 군대처럼 확실하게 알아먹었는지 확인하고 일 시키는 주인장의 군인 시절 습관이 들어갔습니다.  
   LLM에게 복명복창을 시키는 진짜 이유는 요구사항을 컨텍스트에 확실하게 주입해서, 모델이 혼자만의 헛된 추론이나 망상, 자의적인 추측과 가설을 펼치지 못하게 꽉 틀어쥐기 위함입니다.
 
-- **끝은 5항목 보고**  
-  변경 요약 / 수정 파일 / 실행한 명령 / 검증 결과 / 남은 리스크. 실행 안 한 검증은 "미실행"이라고 써야 합니다.
-
-- **비판적으로 작업**  
-  요청도, 기존 코드도, 자기 계획도, 검색 결과도 의심합니다. 벤더 벤치마크는 주장으로만 취급합니다.
-
 - **한국어 존댓말로 답변**  
   (한국인은 예의가 최우선이니까요.)
 
-- **작게 고치고 검증하는 재귀 루프**  
-  읽고, 가설 하나, 최소 변경, 최소 검증, 실패하면 원인부터 다시. 무거운 전체 검증은 마지막에 한 번.
+- **코드 수정 전 기존 구조 확인**  
+  (+ 플젝이 개박살 나는 것 최소한의 방지)  
+  (- 반복 검증을 하며 어느 순간 실수를 찾을 수도 있습니다.)
 
-- **검증 안 한 건 성공이라고 안 하고, 불확실한 건 단정 안 함**  
-  [확인] / [부분] / [미확인]으로 구분해서 말하게 합니다.
+- **요청 범위 밖 헛추상화 금지**  
+  (+ 과하게 만들어서 오히려 덜어내지 않게)
 
-- **웹 검색을 적극 활용**  
-  기억이 불확실하거나 바뀔 수 있는 사실은 웹 검색과 웹 페이지 가져오기로 직접 확인하게 합니다. 접속이 막히면 우회하지 않고 보고합니다.
+- **필요한 부분만 작게 수정**  
+  (- 가끔 냄새나는 걸 버리는 게 아닌 덮으려고 하지만,,,)
+
+- **검증 실행 후 실패하면 재수정 루프**  
+  검증 안 돌리고 성공했다고 뻥치는 것 금지.  
+  에러 터지면 될 때까지 가설 세우고 다시 고치고 재검증.
 
 - **God Object 방지 및 500줄 룰**  
   특별한 이유 없으면 파일 하나 500줄 넘기지 말 것.  
   그냥 줄 수만 쪼개는 꼼수 쓰지 말고, 폴더랑 파일 딱딱 나눠서 인간이 유지보수 가능하게 만들 것.
 
-- **라이선스·저작권·특허·출처 침해 금지**  
-  가져오기 전에 라이선스 확인, 출처 표기, 특허는 존속 여부 확인(법률 자문은 아님), 출처·인용 날조 금지.
-
-- **필요한 곳만 손대는 정밀 수정, 시크릿·위험 명령 보호**  
+- **시크릿, 홈 디렉토리, 위험 명령 보호**  
   (+ 컴퓨터를 개작살내면 안 되니까요.)
+
+- **긴 작업에서도 목표를 잃지 않게 유지**  
+  (+ 그런 편이더라구요.)  
+  (- 다만, 개발이 좀 더딜 수 있습니다.)
+
+- **웹 검색을 통한 검증**  
+  (+ 라이선스, 특허, 저작권 생각하며 가져오도록 유도... 확인과 검증은 사람의 몫.)  
+  (- 각종 문제를 피하겠지만 주석에서 뽀록날 수도 있으니 직접 눈으로 확인하십쇼.)
+
+---
+
+## 주요 특징
+
+- **한국어 우선 답변 및 첫 줄 복명복창**  
+  프롬프트 입력 즉시 첫 출력에서 요구사항부터 복명복창하고, 모든 설명과 보고는 한국어 존댓말로 작성합니다. 예의와 확인, 책임, 신뢰가 최우선이라는 주인장의 군대 문화가 들어갔습니다.  
+  무엇보다 복명복창으로 컨텍스트를 먼저 고정해야 LLM이 혼자만의 망상과 헛추론, 근거 없는 가설에 빠지는 걸 막을 수 있습니다.
+
+- **군더더기 없는 보고 (말 줄이기)**  
+  장황한 설명보다 복명복창 후 원인, 변경 내용, 검증 결과, 남은 리스크를 우선합니다.  
+  선보고 후조치 스타일입니다.
+
+- **필요한 곳만 손대는 정밀 수정**  
+  옆 파일 정리, 불필요한 리팩토링, 과한 추상화를 막습니다.  
+  "기본에 충실하자", "내 할 일이라도 똑바로 하자." : 동일하게 주인장의 군대 문화가 들어갔습니다. 
+
+- **검증 실패 시 재수정 루프**  
+  `typecheck`, `lint`, `test`, `build` 같은 검증을 거치고, 실패하면 원인 파악해서 다시 고치는 루프를 돕니다.  
+  얼렁뚱땅 성공했다고 치고 넘어가는 꼬라지를 막는 겁니다.
+
+- **모듈형 구조 (500줄 제한 룰)**  
+  단일 파일 500줄 제한. 무지성 거대 파일 생성을 막고, 책임별로 세부 파일과 폴더를 쪼개 사람이 유지보수할 수 있게 지킵니다.
+
+- **안전 가드레일 (보안 보호)**  
+  `.env`, SSH 키, AWS 설정 같은 민감 파일과 위험 명령을 조심하게 만듭니다.  
+  '바이브 코딩' 하다가 최소한 내 돈과 개인정보는 털리면 안 되니까요.
+
+- **장기 작업 목표 유지**  
+  큰 작업에서도 원래 목표를 잃지 않고 작은 단위의 완성 루프로 나눠서 차근차근 진행합니다.  
+  막 만들다가는 빠꾸가 안 되고 토큰만 몇 배로 태우니까요.
 
 ---
 
 ## 사용법
 
-1. 모델에 상관없이 쓰려면 `universal/`에서, 모델에 맞추려면 `md/<제공자>/<모델>/`에서 분야에 맞는 문서를 고릅니다. 모르겠으면 `general.md`입니다.
-2. 프로젝트 루트에 **쓰는 도구가 읽는 이름**으로 복사합니다.
-
-| 도구 | 복사할 이름 | 근거 |
-|---|---|---|
-| Claude Code | `CLAUDE.md` (또는 `AGENTS.md`) | [확인] Claude Code 메모리 문서: `AGENTS.md`도 대체로 읽음 |
-| Codex | `AGENTS.md` | [부분] |
-| Antigravity CLI | `AGENTS.md` | [부분] `GEMINI.md`는 하위 호환이며 `AGENTS.md`로 개명 권장이라는 안내가 있음 |
-| Gemini CLI | `GEMINI.md` | [확인] 다만 README에서 Gemini 4 이후는 최적화 대상이 아니라고 밝힘 |
-| Kimi Code, Qwen Code, Grok Build, DeepSeek Harness | `AGENTS.md` | [미확인] 도구별 로딩 규칙을 각자 확인 |
+프로젝트 루트에 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 를 복사하면 됩니다.
 
 ```bash
-cp md/claude/opus-5.5/general.md /path/to/your/project/CLAUDE.md
-cp universal/firmware.md /path/to/your/project/AGENTS.md
+cp CLAUDE.md /path/to/your/project/CLAUDE.md
+cp AGENTS.md /path/to/your/project/AGENTS.md
+cp GEMINI.md /path/to/your/project/GEMINI.md
 ```
 
 혹시나 노파심에 말씀드리지만 `/path/to/your/project/`이란 경로는 없습니다.  
 여러분의 실제 프로젝트 경로에 넣길 바랍니다.
-
-여러 분야에 걸치면 `general.md`를 기본으로 두고, 해당 분야 문서의 `## 3. 분야 규칙` 부분만 이어 붙이세요.  
-**`docs/`의 파일은 컨텍스트에 넣지 마세요.** 사람이 근거를 확인하려고 만든 문서입니다.
-
-> 이 문서들은 AI에게 주는 **컨텍스트**이지 강제 설정이 아닙니다. 반드시 막아야 하는 동작(예: `rm -rf`, 강제 푸시, 비밀 파일 읽기)은 도구의 권한·훅 설정으로도 막으세요.
 
 Claude Code에서 메모리 로드 상태를 확인합니다.
 
@@ -212,43 +149,41 @@ Project memory           Saved in ./CLAUDE.md
 User memory              Saved in ~/.claude/CLAUDE.md
 ```
 
+**Codex / Antigravity**도 비슷하게 각자 설정 파일을 인식합니다.
+
 ---
 
-## 문서를 고칠 때
+## Claude Code 추천 설정
 
-- 모든 문서에 공통인 규칙: `universal/contract.md`
-- 분야 규칙: `universal/<분야>.md` (한국어 공통 원리는 `universal/ko-core.md`)
-- 모델에게 하는 지시: `md/<제공자>/<모델>/general.md`의 모델 블록 (한국어 분야는 `ko-academic.md`의 블록)
-- 조사·근거·출처: `docs/<제공자>/<모델>/`
+전역 메모리는 짧게 두고, 프로젝트 메모리는 길게 두는 구성을 추천합니다.
 
-공통 블록(계약, 분야 규칙, 모델 블록)은 원본만 고치고 `sync`로 퍼뜨립니다. 개별 문서의 공통 블록을 직접 고치지 마세요.
-
-```bash
-python3 -I scripts/docs_tool.py sync              # 원본 → 각 문서 주입
-python3 -I scripts/docs_tool.py check --complete  # 구조·한도·누락·분리 검사
+```text
+~/.claude/CLAUDE.md      # 짧은 개인 전역 규칙
+./CLAUDE.md              # 프로젝트별 긴 규칙
 ```
 
-`check`가 보는 것: 공통 블록이 원본과 같은지, 파일당 500줄 이하인지, `universal/`·`md/`에 근거 태그·출처 URL·가격·벤치마크 출처·"근거와 한계" 절이 섞이지 않았는지, 모델 폴더마다 분야 문서가 다 있고 `docs/`에 짝이 있는지.  
-이 검사는 **형식**만 봅니다. 내용이 사실인지는 사람이 출처로 확인해야 합니다.
+전역 메모리에는 이런 정도만 두는 편이 좋습니다.
 
-## 참고한 공개 프로젝트
+```md
+# 전역 Claude Code 규칙
 
-문장을 가져오지 않고 **구조와 패턴만** 참고했습니다.
+- 모든 일반 답변은 한국어 존댓말로 작성한다.
+- 코드, 명령어, 파일 경로, API 이름, 로그는 원문을 유지한다.
+- 작업 전 기존 코드를 먼저 읽고, 추측으로 수정하지 않는다.
+- 수정 후 가능한 검증 명령을 실행한다.
+- 검증하지 않은 내용은 성공했다고 말하지 않는다.
+- 위험한 삭제, 강제 푸시, 시크릿 접근은 사용자 허가 없이 하지 않는다.
+```
 
-- [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli) `GEMINI.md`: 무거운 검증은 마지막에, 조건부 규칙, 규칙에 이유 병기
-- [langchain-ai/langchain](https://github.com/langchain-ai/langchain) `AGENTS.md`: 공개 API 보존, 모델 ID는 공식 문서로 확인, 코드가 소스 오브 트루스
-- [vercel/next.js](https://github.com/vercel/next.js) `AGENTS.md`: 단계적 공개, 출력 1회 캡처 후 분석, 비밀 취급
-- [microsoft/vscode](https://github.com/microsoft/vscode) `.github/copilot-instructions.md`: 비례 검증, 계층 규칙
-- [MoonshotAI/kimi-code](https://github.com/MoonshotAI/kimi-code) `AGENTS.md`: 루트에는 핵심 규칙만, 심각도 구분
-- [agentsmd/agents.md](https://github.com/agentsmd/agents.md): AGENTS.md 형식
-- [Claude Code 메모리 문서](https://code.claude.com/docs/en/memory): 지침은 컨텍스트, 강제는 훅
+- 어차피 이 전역 메모리는 별 의미 없습니다...  
+  플젝별로 써보다가 계속 **오류** 터지는 것과 계속하는 **실수**를 막을 내용을 넣으세요.
 
 ---
 
 ## 핵심 철학
 
 이 파일들의 목적은 LLM을 “똑똑한 척하는 말 많은 도구”가 아니라  
-**정확히 복명복창하고, 코드 먼저 읽고, 비판적으로 따지고, 작게 고치고, 검증하고, 정직하게 보고하는 작업자**처럼 굴리게 만드는 것입니다.
+**정확히 복명복창하고, 코드 먼저 읽고, 작게 고치고, 검증하고, 정직하게 보고하는 작업자**처럼 굴리게 만드는 것입니다.
 
 원칙은 단순합니다.
 
@@ -260,7 +195,7 @@ python3 -I scripts/docs_tool.py check --complete  # 구조·한도·누락·분�
 
 ## 주의사항
 
-이 문서들은 만능 부적이 아닙니다.
+이 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`는 만능 부적이 아닙니다.
 
 프로젝트 구조, 권한 설정, 모델 상태, 사용자의 지시 방식에 따라 결과는 달라질 수 있습니다.
 
@@ -295,6 +230,144 @@ git switch -c 내-플젝명
 ```
 
 단, 오래된 Git 환경이라면(거의 없겠지만) `checkout -b`가 호환성은 더 좋습니다.
+
+---
+
+# 개편 후 구조 (2026-11-03)
+
+개편 전에는 `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` 세 파일이 전부였습니다. 지금은 지침을 모델마다 따로 두고, 조사 기록은 지침과 떼어 놨습니다. 루트에는 폴더가 세 개 있습니다.
+
+| 폴더 | 내용 | LLM 컨텍스트에 넣나 |
+|---|---|---|
+| [`universal/`](universal/) | 모델에 상관없이 쓰는 범용 지침. 파일 하나만 넣어도 쓸 수 있습니다 | 넣습니다 |
+| [`md/`](md/) `<제공자>/<모델>/` | 모델별 지침. 범용 지침에 그 모델에게 하는 지시를 더했습니다 | 넣습니다 |
+| [`docs/`](docs/) | 사양, 가격, 벤치마크, 비판, 출처, 확인하지 못한 것을 적은 조사 기록 | 넣지 않습니다 |
+
+`universal/`과 `md/`에는 출처 URL, 근거 태그, 가격, 벤치마크, 비판을 두지 않습니다. 이런 내용이 컨텍스트에 섞이면 모델이 지침을 읽는 데 방해가 됩니다. `scripts/docs_tool.py check`가 위반을 오류로 잡습니다. 근거가 궁금하면 `docs/`에서 같은 경로의 문서를 여세요.
+
+```text
+.
+├── universal/               범용 지침
+│   ├── contract.md          응답 계약과 작업 원칙
+│   ├── general.md  web.md  app.md  native.md  hardware.md  firmware.md
+│   ├── web-research.md  research.md  tech-research.md
+│   └── ko-academic.md  ko-everyday.md  ko-literary.md  ko-core.md
+├── md/<제공자>/<모델>/       모델별 지침 (분야 문서 9개, 한국어 윤문 3개)
+├── docs/                    조사·검증 기록
+│   ├── _common/             공통 조사
+│   └── <제공자>/<모델>/      README, overview, performance, operations, critique, sources, domains/, korean-writing
+└── scripts/                 docs_tool.py, ko_style_probe.py, tests/
+```
+
+## 제공자와 모델
+
+| 폴더 | 모델 |
+|---|---|
+| `gpt` | `gpt-6-astra`, `gpt-6-luna`, `gpt-6.1-sol`, `gpt-6.1-terra` |
+| `claude` | `fable-5.1`, `fable-5.5`(미출시), `haiku-5.5`, `opus-5.5`, `sonnet-5.5` |
+| `gemini` | `gemini-3.8-flash`, `gemini-4-argon`, `gemini-4-carbon`(미출시) |
+| `gemma` | `gemma-4-12b`, `gemma-4-26b-a4b`, `gemma-4-31b`, `gemma-4-e2b`, `gemma-4-e4b` |
+| `deepseek` | `v4.1-flash-1017` |
+| `glm` | `glm-5.3`, `glm-5.3-flash`, `glm-5.5`(미출시) |
+| `muse` | `muse-spark`, `muse-wonder` |
+| `grok` | `grok-4.7`, `grok-4.8`(미출시), `grok-5`(미출시) |
+| `kimi` | `kimi-k3.1` |
+| `qwen` | `qwen3.6-27b`, `qwen3.6-35b-a3b`, `qwen3.7-max`, `qwen3.8-2.4t-a95b`, `qwen3.8-27b`, `qwen3.8-max` |
+| `minimax` | `minimax-m3`, `minimax-m3.1-flash` |
+
+미출시 모델은 공식 발표 전이라 사양을 적지 않았습니다. 직전 모델의 규칙을 임시로 적용합니다. `gemma`와 `qwen3.8-27b`, `qwen3.6-*`처럼 로컬에서 돌리는 모델은 메모리, 양자화, 런타임, 가중치 라이선스 확인 규칙이 `docs/`에 따로 있습니다.
+
+분야 문서는 모델마다 같은 이름으로 있습니다. `general`, `web`, `app`, `native`, `hardware`, `firmware`, `web-research`, `research`, `tech-research` 아홉 개입니다. 한국어 윤문용 `ko-academic`, `ko-everyday`, `ko-literary`는 GPT, Claude, Gemini, Gemma 계열에만 있습니다.
+
+## 지침 문서 한 개의 구성
+
+| 절 | 내용 | 원본 |
+|---|---|---|
+| 0, 1 | 응답 계약과 작업 원칙 | `universal/contract.md` |
+| 2 | 그 모델에게 하는 지시 | `md/<제공자>/<모델>/general.md`의 모델 블록 |
+| 3 | 분야 규칙 | `universal/<분야>.md` |
+
+계약에는 이런 것이 들어 있습니다.
+
+- 작업을 마치면 변경 요약, 수정 파일, 실행한 명령, 검증 결과, 남은 리스크 순으로 보고합니다. 실행하지 않은 검증은 "미실행"이라고 씁니다.
+- 요청, 기존 코드, 자기 계획, 검색 결과를 모두 의심합니다. 벤더 벤치마크는 주장으로만 다룹니다.
+- 확인한 정도를 확인, 부분, 미확인으로 구분해서 말하고, 불확실한 내용은 단정하지 않습니다.
+- 바뀔 수 있는 사실은 웹 검색과 웹 페이지 가져오기로 직접 확인합니다. 접속이 막히면 우회하지 않고 보고합니다.
+- 라이선스, 저작권, 특허, 출처를 확인하고 침해하지 않습니다. 출처와 인용을 지어내지 않습니다.
+
+## 한국어 윤문
+
+AI가 쓴 한국어에서 티가 나는 부분을 줄이는 지침입니다. 문장 사이의 흐름과 호흡, 과서술, 사람이 쓰지 않는 말, 인위적인 감정 표현, 대구와 도치를 다룹니다. 글의 종류에 따라 세 문서로 나눴습니다.
+
+- `ko-academic.md`: 논문, 초록, 보고서, 기술 문서
+- `ko-everyday.md`: 메신저, 이메일, 후기, 대화 말투
+- `ko-literary.md`: 소설, 수필, 칼럼, 대사
+
+윤문은 읽기, 측정, 국소 수정, 재측정, 보고 순으로 돕니다. 측정에는 `scripts/ko_style_probe.py`를 씁니다.
+
+```bash
+python3 -I scripts/ko_style_probe.py 원고.txt
+```
+
+이 도구는 AI 탐지기가 아닙니다. 정규식으로 문체 신호를 세는 휴리스틱이라서 수치가 낮아도 사람이 쓴 글이 되지는 않습니다. 근거와 한계는 [`docs/_common/korean-writing/`](docs/_common/korean-writing/README.md)에 정리했습니다. 이 규칙을 적용한 출력을 사람이 읽고 평가해 본 적은 아직 없습니다.
+
+## 사용법 (개편 후)
+
+1. 모델에 상관없이 쓰려면 `universal/`에서, 모델에 맞추려면 `md/<제공자>/<모델>/`에서 분야에 맞는 문서를 고릅니다. 모르겠으면 `general.md`입니다.
+2. 프로젝트 루트에 쓰는 도구가 읽는 이름으로 복사합니다.
+
+| 도구 | 복사할 이름 | 근거 |
+|---|---|---|
+| Claude Code | `CLAUDE.md` (또는 `AGENTS.md`) | Claude Code 메모리 문서에서 확인. `AGENTS.md`도 대체로 읽습니다 |
+| Codex | `AGENTS.md` | 부분 확인 |
+| Antigravity CLI | `AGENTS.md` | 부분 확인. `GEMINI.md`는 하위 호환이고 `AGENTS.md`로 바꾸라는 안내가 있습니다 |
+| Gemini CLI | `GEMINI.md` | 확인. 다만 README에서 Gemini 4 이후는 최적화 대상이 아니라고 밝힙니다 |
+| Kimi Code, Qwen Code, Grok Build, DeepSeek Harness | `AGENTS.md` | 미확인. 도구별 로딩 규칙을 각자 확인하세요 |
+
+```bash
+cp md/claude/opus-5.5/general.md /path/to/your/project/CLAUDE.md
+cp universal/firmware.md /path/to/your/project/AGENTS.md
+```
+
+여러 분야에 걸치면 `general.md`를 기본으로 두고 해당 분야 문서의 `## 3. 분야 규칙` 부분을 이어 붙입니다. `docs/`의 파일은 컨텍스트에 넣지 마세요. 이 문서들은 컨텍스트이지 강제 설정이 아니므로, `rm -rf`나 강제 푸시 같은 동작은 도구의 권한과 훅으로도 막으세요.
+
+## 문서를 고칠 때
+
+| 고칠 것 | 위치 |
+|---|---|
+| 모든 문서의 공통 규칙 | `universal/contract.md` |
+| 분야 규칙 | `universal/<분야>.md` (한국어 공통 원리는 `universal/ko-core.md`) |
+| 모델에게 하는 지시 | `md/<제공자>/<모델>/general.md`의 모델 블록 (한국어는 `ko-academic.md`) |
+| 조사, 근거, 출처 | `docs/<제공자>/<모델>/` |
+
+공통 블록은 원본만 고치고 `sync`로 퍼뜨립니다. 개별 문서의 공통 블록은 직접 고치지 마세요.
+
+```bash
+python3 -I scripts/docs_tool.py sync
+python3 -I scripts/docs_tool.py check --complete
+python3 -I -m unittest discover -s scripts/tests
+```
+
+`check`는 형식만 봅니다. 공통 블록이 원본과 같은지, 파일이 500줄 이하인지, 지침 문서에 근거와 출처가 섞이지 않았는지, 모델마다 필요한 문서와 `docs/` 짝이 있는지를 확인합니다. 내용이 사실인지는 직접 출처로 확인하세요.
+
+## 알려진 한계
+
+- 조사 기준일은 2026-11-03입니다. 검색 범위는 대체로 10월까지였고, 일부 공식 사이트는 조사 환경에서 열리지 않았습니다. 그래서 `docs/`의 사양은 부분 확인인 경우가 많습니다. ID, 가격, 날짜는 쓰기 전에 공식 문서로 다시 확인하세요.
+- 모델별 한국어 문체를 사람이 평가한 독립 자료는 찾지 못했습니다. 한국어 규칙의 수치는 한 프로젝트 저자의 자체 보고이고, 쟀던 모델 버전이 이 저장소의 모델과 다릅니다.
+- 도치는 공개된 근거가 없어 작성자의 관찰에 기댔습니다.
+
+## 참고한 공개 프로젝트
+
+문장과 코드를 가져오지 않고 구조와 패턴만 참고했습니다.
+
+- [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli) `GEMINI.md`: 무거운 검증은 마지막에, 조건부 규칙, 규칙에 이유 병기
+- [langchain-ai/langchain](https://github.com/langchain-ai/langchain) `AGENTS.md`: 공개 API 보존, 모델 ID는 공식 문서로 확인, 코드가 기준
+- [vercel/next.js](https://github.com/vercel/next.js) `AGENTS.md`: 단계적 공개, 출력 1회 캡처 후 분석, 비밀 취급
+- [microsoft/vscode](https://github.com/microsoft/vscode) `.github/copilot-instructions.md`: 비례 검증, 계층 규칙
+- [MoonshotAI/kimi-code](https://github.com/MoonshotAI/kimi-code) `AGENTS.md`: 루트에는 핵심 규칙만, 심각도 구분
+- [agentsmd/agents.md](https://github.com/agentsmd/agents.md): AGENTS.md 형식
+- [Claude Code 메모리 문서](https://code.claude.com/docs/en/memory): 지침은 컨텍스트이고 강제는 훅
+- 한국어 윤문: [im-not-ai](https://github.com/epoko77-ai/im-not-ai), [k-skill](https://github.com/NomaDamas/k-skill), [yoonmoon](https://github.com/amondnet/yoonmoon), [humanizer-ko](https://github.com/daleseo/korean-skills), [blader/humanizer](https://github.com/blader/humanizer) (모두 MIT)
 
 ---
 
