@@ -22,8 +22,10 @@ MD_PREFIX = re.compile(r"^\s*(?:#{1,6}\s+|[-*+]\s+|\d+[.)]\s+|>\s?)", re.M)
 EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿]")
 SENT_SPLIT = re.compile(r"(?<=[.!?…。])[\"'”’)\]]*\s+|\n+")
 CONNECTORS = ("또한", "따라서", "즉", "나아가", "게다가")
-EMOTION = ("기뻤", "슬펐", "행복했", "외로웠", "두려웠", "불안했", "벅차", "먹먹", "울컥",
-           "뭉클", "철렁", "쿵", "눈물이 흘렀", "숨이 멎", "가슴이 아렸", "감동", "설렜")
+EMOTION = ("기뻤", "슬펐", "행복했", "외로웠", "두려웠", "불안했", "벅차", "벅찼", "먹먹", "울컥",
+           "뭉클", "철렁", "쿵", "눈물이 흘렀", "숨이 멎", "가슴이 아렸", "가슴이 미어", "감동", "설렜",
+           "서글펐", "그리웠", "뿌듯", "애틋", "저릿", "찡했", "눈시울", "가슴이 뛰", "심장이 뛰",
+           "숨이 막", "온몸이 떨", "마음이 무거웠", "슬퍼졌", "외로워졌", "행복해졌")
 # (이름, 정규식, 설명). 설명은 출력에 그대로 붙는다.
 STRONG = [
     ("부정 대구 후보", re.compile(r"(?<!뿐만 )(?<!뿐 )(?<!다름 )아니라|[이가]\s*아니다[.!]"),
@@ -97,6 +99,16 @@ def longest_true_run(flags):
     return best
 
 
+def triple_lists(sents):
+    """쉼표로 짧은 세 덩어리가 이어지는 문장(3항 나열 후보)의 수."""
+    n = 0
+    for s in sents:
+        parts = [x.strip() for x in re.split(r"[,，]", s.rstrip(".!?… "))]
+        if len(parts) == 3 and all(1 <= len(x) <= 18 for x in parts):
+            n += 1
+    return n
+
+
 def measure(raw):
     text = clean(raw)
     chars = len(re.sub(r"\s", "", text))
@@ -135,6 +147,7 @@ def measure(raw):
     out["번역투 후보(어색한 곳에만 고침)"] = {name: len(rx.findall(text)) for name, rx in TRANSLATIONESE}
     out["대구·도치 후보(사용자 관찰, 공개 근거 [미확인])"] = {
         name: len(rx.findall(text)) for name, rx in INVERSION}
+    out["대구·도치 후보(사용자 관찰, 공개 근거 [미확인])"]["3항 나열 후보(짧은 쉼표 세 덩어리)"] = triple_lists(sents)
     emo = sum(text.count(w) for w in EMOTION)
     out["감정 직접 서술 후보(AI 특유 근거 없음)"] = {"횟수": emo, "1천자당": per_k(emo, chars)}
     regs = [register(s) for s in sents]
