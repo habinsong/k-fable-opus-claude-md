@@ -141,13 +141,13 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="ai-smell", description="AI 냄새 측정기: 한국어·영어 윤문 엔진 (측정 + 교정문 출력)")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    a = sub.add_parser("analyze", help="AI 냄새 지수와 신호 목록을 출력한다")
+    a = sub.add_parser("analyze", help="AI 냄새 점수와 검출 항목 목록을 출력한다")
     _common(a)
     a.add_argument("--format", choices=("text", "json"), default="text")
     a.add_argument("--top", type=int, default=12, help="보여 줄 신호 수")
-    a.add_argument("--all", action="store_true", help="신호를 모두 보인다")
+    a.add_argument("--all", action="store_true", help="검출 항목을 모두 보인다")
     a.add_argument("--protect-quotes", action="store_true", help="긴 따옴표 안의 글을 건드리지 않는다")
-    a.add_argument("--fail-above", type=int, metavar="N", help="지수가 N보다 크면 종료 코드 1")
+    a.add_argument("--fail-above", type=int, metavar="N", help="점수가 N보다 크면 종료 코드 1")
     a.set_defaults(fn=cmd_analyze)
 
     c = sub.add_parser("polish", help="교정문을 출력한다(표준 출력). 요약은 표준 오류로 나간다")
@@ -161,7 +161,7 @@ def build_parser() -> argparse.ArgumentParser:
     c.add_argument("--format", choices=("text", "json"), default="text")
     c.set_defaults(fn=cmd_polish)
 
-    v = sub.add_parser("verify", help="원문과 윤문본을 대조한다(사실 보존, 변경률, 새 신호)")
+    v = sub.add_parser("verify", help="원문과 윤문본을 대조한다(사실 보존, 변경률, 새 결함)")
     v.add_argument("original")
     v.add_argument("revised")
     v.add_argument("--genre", choices=GENRES, default="general")

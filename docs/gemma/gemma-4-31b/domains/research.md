@@ -7,7 +7,7 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 밀집 약 31B, AIME 2026 89.2%·GPQA Diamond 84.3%·MMLU-Pro 85.2%(추론 모드, 도구 없음, 모델 카드를 인용한 2차 출처), 독립 지수 39(2026-04 버전, 이후 척도 충돌), 연구 보조 독립 평가 없음.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 밀집 약 31B, AIME 2026 89.2%·GPQA Diamond 84.3%·MMLU-Pro 85.2%(추론 모드, 도구 없음, 모델 카드를 인용한 2차 출처), 독립 평가 점수 39(2026-04 버전, 이후 척도 충돌), 연구 보조 독립 평가 없음.
 
 - **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 수학·과학 문제 점수는 높게 보도됐으나 모델 카드를 인용한 2차 출처 수치이고 추론 모드·도구 없음 조건이다. [부분] 같은 점수대의 경쟁 모델(Qwen 3.5 27B: GPQA Diamond 85.5%, MMLU-Pro 86.1%)이 있어 변별력도 크지 않다. 시험 문제 풀이 점수는 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 새 가설·증명·통계 해석은 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다. 연구 보조 정확도에 대한 독립 평가는 찾지 못했다. [미확인]
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
@@ -20,6 +20,6 @@
 
 ## 4. 근거와 한계
 - 벤치마크(모델 카드 인용, 추론 모드·도구 없음)와 Qwen 3.5 비교: [DataLearner: Gemma 4 31B](https://www.datalearner.com/en/ai-models/pretrained-models/gemma-4-31b), [Gemma 4 benchmarks (gemma4all)](https://gemma4all.com/blog/gemma-4-benchmarks-performance), [AI Brew: Gemma 4 31B](https://aibrew-io.pages.dev/en/models/gemma-4-31b) [부분: 2차]
-- 독립 지수(버전 충돌): [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know), [26B A4B vs 31B 비교](https://artificialanalysis.ai/models/comparisons/gemma-4-26b-a4b-vs-gemma-4-31b) (스니펫만) [부분, 충돌]
+- 독립 평가 점수(버전 충돌): [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know), [26B A4B vs 31B 비교](https://artificialanalysis.ai/models/comparisons/gemma-4-26b-a4b-vs-gemma-4-31b) (스니펫만) [부분, 충돌]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 이 모델의 연구 보조 정확도를 측정한 독립 자료가 없다. 모델 카드 원문을 열지 못해 벤치마크 조건은 2차 출처를 따랐다.

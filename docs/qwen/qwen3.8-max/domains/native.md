@@ -7,12 +7,12 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/native.md`](../../../_common/domain-rules/native.md)
 
 ## 2. 이 모델의 네이티브 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용(빌드 둘), 벤더 코딩 수치는 외부 에이전트 하네스 기반, 독립 지수가 스냅샷마다 다름, 출력 토큰 소비 많음, C/C++·Rust 평가 없음.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용(빌드 둘), 벤더 코딩 수치는 외부 에이전트 하네스 기반, 독립 평가 점수가 스냅샷마다 다름, 출력 토큰 소비 많음, C/C++·Rust 평가 없음.
 
 **개발 보조로 쓸 때**
 - **벤더 수치의 조건을 읽는다.** Terminal-Bench 2.1 86.6(Claude Opus 4.8·Fable 5 84.6, GPT-5.6 Sol 88.8)은 Alibaba 내부 실행이고 코딩 벤치마크를 Anthropic의 에이전트 하네스에서 돌렸다는 서술이 있다. 같은 하네스에서 모든 모델을 돌렸다는 점은 공정성의 근거이지만 모델 능력과 하네스 효과를 나누어 볼 수 없다. 우리 하네스에서 같은 점수를 기대하지 않는다. [부분: 벤더 주장]
 - **C++·Rust·시스템 코드의 언어별 평가는 찾지 못했다.** [미확인] 메모리 관리, 동시성, 수명, ABI는 문법이 맞아도 틀리기 쉬우므로 핵심 변경에는 쓰지 않고, 쓴다면 sanitizer(ASan·UBSan·TSan)와 테스트를 지시문으로 강제한다. 핵심 변경은 `claude/sonnet-5.5` 이상, `gpt-6.1-sol`, `gemini-4-argon` 문서를 따르거나 우리 코드로 같은 과제를 비교한다.
-- **독립 지수를 인용할 때 빌드와 버전을 명시한다.** 56에서 58로 상향되고 페이지에 따라 45~58이 보이며 0902 빌드의 지수 실행 출력 토큰이 약 1.9억 개였다. 같은 이름의 `0803`과 `0902`는 다른 스냅샷이다. [부분, 충돌]
+- **독립 평가 점수를 인용할 때 빌드와 버전을 명시한다.** 56에서 58로 상향되고 페이지에 따라 45~58이 보이며 0902 빌드의 벤치마크 실행 출력 토큰이 약 1.9억 개였다. 같은 이름의 `0803`과 `0902`는 다른 스냅샷이다. [부분, 충돌]
 - **에이전트 루프에 안전장치를 먼저 둔다.** 파괴적 명령 차단(권한·훅), 작업 디렉터리 격리, 시간·토큰 한도를 설정하고, 완료 보고는 빌드·테스트·sanitizer 출력과 `git diff`로 확인한다. 테스트·경고·sanitizer 설정이 바뀌었는지도 확인한다. 억제 지시문을 넣거나 검사를 끄는 제안은 따르지 않는다.
 - **추론 모드의 입력·출력 한도를 시험한다.** 추론을 켜면 입력 한도가 줄고(991K→983K) 최대 출력이 131,000 또는 65,536으로 서술이 갈린다. 긴 코드 생성이 잘리지 않는지 실제 값으로 확인한다. [부분, 충돌]
 - **긴 컨텍스트에 기대지 않는다.** 100만 토큰이어도 관련 함수·호출부·오류 메시지·빌드 설정만 주는 편이 지연·비용에서 낫다. [추정]
@@ -24,5 +24,5 @@
 
 ## 4. 근거와 한계
 - 벤더 수치·하네스: [DataNorth: Qwen3.8-Max 출시](https://datanorth.ai/news/alibaba-releases-qwen3-8-max), [Baseten: Qwen 3.8 Max](https://www.baseten.co/blog/qwen-38-max-alibaba-frontier-reasoning-model/) (스니펫만) [부분: 벤더 주장]
-- 독립 지수·토큰: [Artificial Analysis: Qwen3.8 Max (0902)](https://artificialanalysis.ai/models/qwen3-8-max), [Artificial Analysis: Qwen3.8 Max (0803)](https://artificialanalysis.ai/models/qwen3-8-max-0803) (스니펫만) [부분, 충돌]
+- 독립 평가 점수·토큰: [Artificial Analysis: Qwen3.8 Max (0902)](https://artificialanalysis.ai/models/qwen3-8-max), [Artificial Analysis: Qwen3.8 Max (0803)](https://artificialanalysis.ai/models/qwen3-8-max-0803) (스니펫만) [부분, 충돌]
 - 한계: 언어별 시스템 코드 평가와 도구 호출 오류율의 독립 자료가 없다.

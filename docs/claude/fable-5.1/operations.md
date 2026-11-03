@@ -5,7 +5,7 @@
 > 컨텍스트용 지침: [`md/claude/fable-5.1/general.md`](../../../md/claude/fable-5.1/general.md)
 > 소제목의 번호(2.x)는 주제별로 나누기 전 일반 조사 기록의 번호다. 문장 속 `§2.x`는 그 번호를 가리킨다.
 
-#### 2.2 API·하네스를 직접 만들 때 (Claude Code·Agent SDK 사용자는 자동 처리됨)
+#### 2.2 API·하네스를 직접 만들 때 (Claude Code·Agent SDK 사용자는 알아서 처리됨)
 - **적응형 추론이 항상 켜져 있다.** `thinking: {"type":"disabled"}`와 `budget_tokens` 방식은 400 오류다. `temperature`·`top_p`·`top_k` 지정과 어시스턴트 프리필도 400이다.
 - **강제 도구 호출이 없다.** `tool_choice`의 `any`·`tool`은 400이다. 스키마 보장은 `strict: true` 도구 사용이나 structured outputs로 하고, 도구를 쓰게 하려면 프롬프트에 언제 쓰는지 적는다.
 - **대화 이력은 append-only로 유지한다.** thinking 블록은 앞의 시스템 프롬프트·도구·이전 메시지가 하나도 바뀌지 않았을 때만 유효하다. 이전 턴을 고치거나, 요청마다 넣었다 지우는 알림을 쓰거나, `system`·`tools`를 중간에 다시 만들면 뒤의 thinking이 무효가 되고 캐시도 깨진다. 턴 단위 알림은 turn-scoped system message(베타)로 보낸다. 2026-08-31 이후 만든 계정은 무효 블록에 400 오류가 기본이다.

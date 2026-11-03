@@ -21,6 +21,6 @@
 
 ## 4. 근거와 한계
 - 사양·컨텍스트: [Morph: Qwen 3.8 27B](https://www.morphllm.com/qwen-3-8), [Qubrid: Qwen3.8-27B 개발자 가이드](https://www.qubrid.com/blog/qwen38-27b-api-benchmarks-pricing-and-the-complete-developer-guide) (스니펫만) [부분]
-- 독립 지수(노력 단계별): [Artificial Analysis: Qwen3.8 27B](https://artificialanalysis.ai/de/models/qwen3-8-27b), [Qwen3.8 27B (non-reasoning)](https://artificialanalysis.ai/de/models/qwen3-8-27b-non-reasoning), [Qwen3.8 27B (low)](https://artificialanalysis.ai/de/models/qwen3-8-27b-low) (스니펫만) [부분, 충돌]
+- 독립 평가 점수(노력 단계별): [Artificial Analysis: Qwen3.8 27B](https://artificialanalysis.ai/de/models/qwen3-8-27b), [Qwen3.8 27B (non-reasoning)](https://artificialanalysis.ai/de/models/qwen3-8-27b-non-reasoning), [Qwen3.8 27B (low)](https://artificialanalysis.ai/de/models/qwen3-8-27b-low) (스니펫만) [부분, 충돌]
 - 이전 세대 도구 호출 후기: [InsiderLLM: 로컬 모델 함수 호출](https://insiderllm.com/guides/function-calling-local-llms/) (스니펫만) [부분: 개인 후기, 이전 세대]
 - 한계: 이 모델의 환각·인용 정확도·인젝션 방어율의 독립 자료가 없다.

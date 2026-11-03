@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 744B급 MoE, 독립 지수 60 또는 45(버전 충돌, 일부 페이지 추정치 표기), 벤더 벤치마크는 미확인, 환각률 값 미확인, 연구 보조 독립 평가 없음, 데이터 처리 조건 미확인.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 744B급 MoE, 독립 평가 점수 60 또는 45(버전 충돌, 일부 페이지 추정치 표기), 벤더 벤치마크는 미확인, 환각률 값 미확인, 연구 보조 독립 평가 없음, 데이터 처리 조건 미확인.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 지수가 평균 이상이라는 사실(최대 노력 60, 비교군 중앙값 35라는 서술)은 일반 능력 지표이고, 같은 모델이 다른 페이지에서 45(지수 v4.3.2)로 나오며 "독립 평가 예정(추정치)" 표기도 있다. 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도에 대한 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 평가 점수가 평균 이상이라는 사실(최대 노력 60, 비교군 중앙값 35라는 서술)은 일반 능력 지표이고, 같은 모델이 다른 페이지에서 45(지수 v4.3.2)로 나오며 "독립 평가 예정(추정치)" 표기도 있다. 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도에 대한 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했고 환각률 값도 확인하지 못했다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **벤더 벤치마크를 연구 근거로 인용하지 않는다.** Terminal-Bench, DeepSWE, AutomationBench, CyberGym 수치는 벤더 보고이고 독립 확인이 없다(README.md가 안내하는 개요·운용 문서.4). 인용해야 하면 "벤더 보고"임을 쓰고 출처를 연다. [미확인]
 - **써도 되는 작업.** 서지 정보 서식 변환, 실험 로그·메타데이터 정리, 표 형식 변환, 논문 초록에서 정해진 필드 추출, 분석 스크립트(파이썬)의 초안. "원문에 없으면 null"을 명시하고 추출값은 원문과 한 건씩 대조한다.
@@ -20,7 +20,7 @@
 - **전문 영역(의료, 법률, 안전) 결론에는 "전문가 검토 필요"를 붙인다.**
 
 ## 4. 근거와 한계
-- 독립 지수(버전 충돌)·추정치 표기·변형: [Artificial Analysis: GLM-5.3 (max)](https://artificialanalysis.ai/models/glm-5-3), [GLM-5.3 (low)](https://artificialanalysis.ai/models/glm-5-3-low), [릴리스 목록](https://artificialanalysis.ai/models/releases/glm-5-3) (스니펫만) [부분, 충돌]
+- 독립 평가 점수(버전 충돌)·추정치 표기·변형: [Artificial Analysis: GLM-5.3 (max)](https://artificialanalysis.ai/models/glm-5-3), [GLM-5.3 (low)](https://artificialanalysis.ai/models/glm-5-3-low), [릴리스 목록](https://artificialanalysis.ai/models/releases/glm-5-3) (스니펫만) [부분, 충돌]
 - 벤더 수치: [OrcaRouter: GLM-5.3 릴리스](https://www.orcarouter.ai/zh-TW/blog/glm-5-3-leak) (스니펫만) [부분: 벤더 주장]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다. 공식 모델 카드를 읽지 못했다.

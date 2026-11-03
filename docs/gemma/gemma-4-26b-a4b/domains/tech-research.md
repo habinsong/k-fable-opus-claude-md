@@ -7,7 +7,7 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/tech-research.md`](../../../_common/domain-rules/tech-research.md)
 
 ## 2. 이 모델의 기술 조사 운용, 그리고 이 모델을 평가할 때
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 총 25.2B 중 활성 3.8B, 4비트 약 14.4 GB(26B 전체 상주), Apache 2.0 가중치, 독립 지수 척도 충돌, 에이전트 작업에서 약하다는 평가, 런타임 의존.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 총 25.2B 중 활성 3.8B, 4비트 약 14.4 GB(26B 전체 상주), Apache 2.0 가중치, 독립 평가 점수 척도 충돌, 에이전트 작업에서 약하다는 평가, 런타임 의존.
 
 **이 모델에게 기술 조사를 시킬 때**
 - 분류·정리 단계에만 쓴다. 후보를 정해진 기준(라이선스 유형, 지원 언어, 릴리스 날짜)으로 분류해 표로 만들 때, 값은 사람이 확보한 1차 자료 텍스트에서 추출하게 하고 원문에 없으면 null로 둔다.
@@ -17,7 +17,7 @@
 **Gemma 4 26B A4B를 도입 후보로 평가할 때**
 - **용도 적합성.** 24 GB 안팎 GPU에서 4비트로 도는 로컬 코딩 보조·요약·분류·추출, 미공개 코드나 개인정보를 외부로 보낼 수 없는 환경에서의 후보다. 장시간 자율 코딩 에이전트와 큰 컨텍스트 작업에는 맞지 않는다는 평가가 있다. [부분]
 - **MoE의 비용 구조를 오해하지 않는다.** 활성 파라미터는 약 3.8B지만 메모리는 26B 전체(BF16 약 57.7 GB / 8비트 약 28.8 GB / 4비트 약 14.4 GB)가 든다. 속도는 빠르고 메모리는 밀집 26B급이다. 같은 메모리 예산의 밀집 모델(같은 계열 31B의 양자화, Qwen3.6 27B 등)과 같은 과제로 비교한다. [부분/추정]
-- **크기 선택의 근거를 따로 확인한다.** 독립 지수는 2026-04 버전에서 26B A4B 31, 31B 39였고 이후 버전의 한 정리에서는 순서가 뒤바뀐 값(17 대 15)이 나왔다. 척도가 달라 섞어 쓸 수 없고, 어느 크기가 낫다는 결론은 지수가 아닌 자체 과제 실측으로 정한다. [부분, 충돌]
+- **크기 선택의 근거를 따로 확인한다.** 독립 평가 점수는 2026-04 버전에서 26B A4B 31, 31B 39였고 이후 버전의 한 정리에서는 순서가 뒤바뀐 값(17 대 15)이 나왔다. 척도가 달라 섞어 쓸 수 없고, 어느 크기가 낫다는 결론은 지수가 아닌 자체 과제 실측으로 정한다. [부분, 충돌]
 - **라이선스.** Apache 2.0이라고 모델 카드가 적었다. 호스팅 플랫폼을 거치면 그쪽 약관이 붙는다는 지적이 있다. 수령 경로와 재배포 계획에 따라 LICENSE와 약관, 상표·사용 정책을 원문으로 확인한다(§3.2). 번들이나 파인튜닝 시 고지·NOTICE 의무와 학습 데이터 출처 정책도 점검한다. [부분]
 - **총소유비용.** API 비용이 없는 대신 GPU·전력·운영·평가 비용이 든다. 동시 사용자 수와 처리량을 대상 하드웨어에서 실측한다. 한 DGX Spark 측정에서 약 12.5 토큰/초였다는 개인 측정이 있으나 기기·런타임·양자화에 따라 크게 달라진다. [부분]
 - **런타임 성숙도.** 출시 직후 도구 호출 파서 오류, 스트리밍 시 도구 호출 유출, Apple Silicon의 Flash Attention 정지, 초기 토크나이저 버그가 보고됐고 이후 Google이 채팅 템플릿을 고쳤다. 현재 수정 상태를 확인하지 못했으므로 채택할 런타임 버전에서 작은 시험을 한다. [부분]
@@ -25,6 +25,6 @@
 
 ## 4. 근거와 한계
 - 사양·메모리·라이선스: [Gemma 4 model card](https://ai.google.dev/gemma/docs/core/model_card_4), [Gemma 4 model overview](https://ai.google.dev/gemma/docs/core) (스니펫만) [부분]
-- 독립 지수(버전 충돌): [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know), [26B A4B vs 31B 비교](https://artificialanalysis.ai/models/comparisons/gemma-4-26b-a4b-vs-gemma-4-31b) (스니펫만) [부분, 충돌]
+- 독립 평가 점수(버전 충돌): [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know), [26B A4B vs 31B 비교](https://artificialanalysis.ai/models/comparisons/gemma-4-26b-a4b-vs-gemma-4-31b) (스니펫만) [부분, 충돌]
 - 에이전트 한계·런타임 버그·속도: [Hacker News](https://news.ycombinator.com/item?id=47744255), [Gemma 4 로컬 에이전트 코딩 벤치마크(GitHub gist)](https://gist.github.com/danielvaughan/9c414ce1b49b1940dfc87bb9d7534a55), [Run Gemma 4 Locally](https://www.danilchenko.dev/posts/2026-04-07-run-gemma-4-locally-ollama-llama-cpp-vllm/) [부분: 개인 후기]
 - 한계: 공식 모델 카드·LICENSE 본문을 직접 읽지 못했다. 도입 전에 모델 저장소에서 확인한다. 밀집 모델과의 직접 비교 자료는 확보하지 못했다.

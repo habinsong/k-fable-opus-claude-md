@@ -7,10 +7,10 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 폐쇄형 API 모델, 독립 지수 52(Full 56, Opus 5.5 58), Meta 자체 표와 독립 값 불일치, 환각·사실성 평가 없음, 연구 보조 독립 평가 없음, 안전 분류기 적용, 데이터 약관 충돌.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 폐쇄형 API 모델, 독립 평가 점수 52(Full 56, Opus 5.5 58), Meta 자체 표와 독립 값 불일치, 환각·사실성 평가 없음, 연구 보조 독립 평가 없음, 안전 분류기 적용, 데이터 약관 충돌.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 지수에서 Wonder는 52, Wonder Full은 56으로 Claude Opus 5.5의 58에 못 미친다. 지수는 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
-- **Meta의 표를 연구 근거로 인용하지 않는다.** Meta 모델 카드는 Wonder Full을 AA 지수 항목으로 59.0이라 적었으나 AA는 56을 게시하고, AutomationBench도 Meta 표와 AA 값이 다르며, 헤드라인 수치 상당수가 내부 평가이고 `max` 단계의 값이다. 인용해야 하면 벤치마크 이름·버전·노력 단계·보고 주체를 함께 쓰고 "벤더 보고"임을 밝힌다. [부분, 충돌]
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 평가 점수에서 Wonder는 52, Wonder Full은 56으로 Claude Opus 5.5의 58에 못 미친다. 지수는 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **Meta의 표를 연구 근거로 인용하지 않는다.** Meta 모델 카드는 Wonder Full을 AA 벤치마크 점수 항목으로 59.0이라 적었으나 AA는 56을 게시하고, AutomationBench도 Meta 표와 AA 값이 다르며, 헤드라인 수치 상당수가 내부 평가이고 `max` 단계의 값이다. 인용해야 하면 벤치마크 이름·버전·노력 단계·보고 주체를 함께 쓰고 "벤더 보고"임을 밝힌다. [부분, 충돌]
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했고 환각·사실성 평가도 없다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **장시간 자율 연구를 맡기지 않는다.** Active Focus(막히면 대안을 시도함)는 가설을 결과에 맞춰 바꾸거나 분석 경로를 사후에 바꾸는 방향으로 작동할 수 있다. 이는 추정이며 측정된 바 없다. 가설과 분석 계획을 데이터 확인 전에 고정하고(§3.1), 계획 변경은 이유와 시점을 사람이 기록한다. 이상치 제거·필터·검정 기준이 결과에 맞춰 바뀌지 않았는지 `git diff`로 확인한다. [추정]
 - **Active Memory를 연구 작업에 켜지 않는다.** 대화 간 기억이 이전 분석의 가정이나 오류를 다음 분석에 끌고 올 수 있고, 저장 위치·기간·삭제 방법도 확인하지 못했다. [미확인/추정] 분석마다 독립된 컨텍스트로 시작하고 입력·프롬프트·설정은 하네스가 기록한다.
@@ -22,7 +22,7 @@
 - **전문 영역(의료, 법률, 안전) 결론에는 "전문가 검토 필요"를 붙인다.**
 
 ## 4. 근거와 한계
-- 독립 지수·Meta 표와의 불일치: [Braindetox: 평가 조건](https://braindetox.kr/en/posts/meta_muse_wonder_agent_models_release_2026.html), [Implicator: Opus 아래 순위](https://implicator.ai/meta-muse-wonder-ranks-below-claude-opus), [Artificial Analysis: Muse Wonder (Max)](https://artificialanalysis.ai/de/models/muse-wonder) (스니펫만) [부분, 충돌]
+- 독립 평가 점수·Meta 표와의 불일치: [Braindetox: 평가 조건](https://braindetox.kr/en/posts/meta_muse_wonder_agent_models_release_2026.html), [Implicator: Opus 아래 순위](https://implicator.ai/meta-muse-wonder-ranks-below-claude-opus), [Artificial Analysis: Muse Wonder (Max)](https://artificialanalysis.ai/de/models/muse-wonder) (스니펫만) [부분, 충돌]
 - 안전 서술: [BetaNews: Muse Wonder](https://betanews.com/article/muse-wonder-frontier-model-developers/) (스니펫만) [부분]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다. Meta 공식 문서와 전체 안전 보고서(출시 시점 미공개)를 읽지 못했다.

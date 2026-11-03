@@ -5,7 +5,7 @@
 > 컨텍스트용 지침: [`md/claude/haiku-5.5/general.md`](../../../md/claude/haiku-5.5/general.md)
 > 소제목의 번호(2.x)는 주제별로 나누기 전 일반 조사 기록의 번호다. 문장 속 `§2.x`는 그 번호를 가리킨다.
 
-#### 2.2 API·하네스를 직접 만들 때 (Claude Code·Agent SDK 사용자는 자동 처리됨)
+#### 2.2 API·하네스를 직접 만들 때 (Claude Code·Agent SDK 사용자는 알아서 처리됨)
 - **Haiku 4.5에서 올 때 깨지는 변경.** `budget_tokens` 방식, `temperature`·`top_p`·`top_k`, 어시스턴트 프리필, `computer_20250124`는 400이다. 컴퓨터 사용은 `computer_toolset_20260801`을 쓴다. 이력은 append-only로 유지하고 추론 블록은 그대로 되돌려 보낸다. 응답이 추론 블록으로 시작할 수 있으므로 블록을 위치가 아니라 `type`으로 고른다. `max_tokens`는 추론 토큰을 포함하므로 작게 잡으면 추론 뒤 텍스트가 없이 끊길 수 있다.
 - **이전 턴의 추론 블록이 컨텍스트에 남는다.** Haiku 4.5는 마지막 턴 것만 남겼다. 다중 턴 대화의 입력 토큰이 더 늘어나므로 오래된 블록은 thinking block clearing으로 지운다.
 - **서버 쪽 대체가 없다.** 안전장치 거부(`stop_reason: "refusal"`)를 클라이언트에서 처리해야 하고, 같은 요청을 다시 보내도 대개 같은 거부가 온다.

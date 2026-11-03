@@ -1,4 +1,4 @@
-"""원문과 윤문본을 대조한다. 사실이 그대로인지, 얼마나 바뀌었는지, 새 신호가 생기지 않았는지 본다.
+"""원문과 윤문본을 대조한다. 사실이 그대로인지, 얼마나 바뀌었는지, 새 결함이 생기지 않았는지 본다.
 
 이 검증은 의미를 증명하지 못한다. 숫자, 주소, 코드, 인용, 영문 고유명사가 그대로인지와
 변경 규모를 기계적으로 볼 뿐이다. 의미가 같은지는 사람이 읽어서 판단한다.
@@ -151,11 +151,11 @@ def verify(original: str, revised: str, *, genre: str = "general", lang: str = "
     if r.names_missing or r.names_added:
         msgs.append(("WARN", f"영문 고유명사 후보가 달라졌다: 빠짐 {r.names_missing[:6]}, 새로 생김 {r.names_added[:6]}"))
     if new_signals:
-        msgs.append(("WARN", f"원문에 없던 신호가 생겼다: {new_signals[:6]}"))
+        msgs.append(("WARN", f"원문에 없던 어색한 표현이 생겼다: {new_signals[:6]}"))
     if ratio < 0.6:
         msgs.append(("WARN", f"분량이 {1 - ratio:.0%} 줄었다. 의미가 빠졌는지 확인한다."))
     if after.score >= before.score and before.score > 0:
-        msgs.append(("WARN", "지수가 줄지 않았다."))
+        msgs.append(("WARN", "점수가 줄지 않았다."))
     order = {"PASS": 0, "WARN": 1, "CONFIRM": 2, "FAIL": 3}
     r.messages = msgs
     for lvl, _ in msgs:

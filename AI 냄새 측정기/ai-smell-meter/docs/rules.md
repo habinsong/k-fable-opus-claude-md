@@ -1,4 +1,4 @@
-# 규칙 목록 (자동 생성)
+# 규칙 목록 (정리본)
 
 `ai-smell rules --format md`가 만든다. 직접 고치지 말고 `ai_smell/rules/`를 고친 뒤 다시 만든다.
 

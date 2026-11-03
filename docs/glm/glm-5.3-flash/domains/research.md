@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 총 약 320B·활성 약 18B MoE, 독립 지수 57(중개 페이지 서술, 확인 불가), 벤더 수치는 미확인, 환각률 값 미확인, 연구 보조 독립 평가 없음, 데이터 처리 조건 미확인.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 총 약 320B·활성 약 18B MoE, 독립 평가 점수 57(중개 페이지 서술, 확인 불가), 벤더 수치는 미확인, 환각률 값 미확인, 연구 보조 독립 평가 없음, 데이터 처리 조건 미확인.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 지수 57은 한 중개 페이지의 서술이고 평가 사이트에서 직접 확인하지 못했다. 같은 사이트의 플래그십 값이 지수 버전에 따라 60과 45로 갈리는 만큼 버전 확인 없는 비교는 쓰지 않는다. [미확인, 충돌] 지수는 일반 능력 지표이고 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도의 독립 평가는 찾지 못했다. 새 가설·증명·통계 해석은 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 평가 점수 57은 한 중개 페이지의 서술이고 평가 사이트에서 직접 확인하지 못했다. 같은 사이트의 플래그십 값이 벤치마크 버전에 따라 60과 45로 갈리는 만큼 버전 확인 없는 비교는 쓰지 않는다. [미확인, 충돌] 지수는 일반 능력 지표이고 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도의 독립 평가는 찾지 못했다. 새 가설·증명·통계 해석은 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했고 환각률 값도 확인하지 못했다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **벤더 벤치마크를 연구 근거로 인용하지 않는다.** Terminal-Bench 2.1 84.3, DeepSWE v1.1 63.4와 비전 지표는 Z.ai 보고를 옮긴 집계이고 라벨 오류 지적(MMMU 대 MMVU)도 있다. 인용해야 하면 "벤더 보고"임을 쓰고 원문을 연다. [미확인]
 - **그림·표 이미지에서 값을 읽을 때는 원자료와 대조한다.** 이미지 입력으로 논문의 그래프·표를 읽히면 수치를 잘못 읽거나 축 단위를 놓칠 수 있다. 차트 이해 지표에서 강점이 있다는 서술(CharXiv 89.4 등)은 벤더 보고이고 제3자 비전 평가는 중간 순위였다(종합 66.3%, 33개 중 22위). 읽은 값은 본문 수치·보충 자료·원자료와 한 건씩 대조한다. [부분/미확인]
@@ -21,7 +21,7 @@
 - **전문 영역(의료, 법률, 안전) 결론에는 "전문가 검토 필요"를 붙인다.**
 
 ## 4. 근거와 한계
-- 지수 57 서술·벤더 수치·라벨 문제: [CometAPI: GLM-5.3-Flash 사양](https://www.cometapi.com/ko/models/zhipuai/glm-5-3-flash/), [BenchLM: GLM-5.3-Flash](https://benchlm.ai/md/models/glm-5-3-flash.md), [Eden AI 비교](https://www.edenai.co/post/glm-5-3-flash-benchmark-vs-gemini-deepseek-gpt-5-6) (스니펫만) [부분, 충돌]
+- 벤치마크 점수 57 서술·벤더 수치·라벨 문제: [CometAPI: GLM-5.3-Flash 사양](https://www.cometapi.com/ko/models/zhipuai/glm-5-3-flash/), [BenchLM: GLM-5.3-Flash](https://benchlm.ai/md/models/glm-5-3-flash.md), [Eden AI 비교](https://www.edenai.co/post/glm-5-3-flash-benchmark-vs-gemini-deepseek-gpt-5-6) (스니펫만) [부분, 충돌]
 - 제3자 비전 평가: [Roboflow 비전 평가](https://playground.roboflow.com/models/z-ai/glm-5-3-flash) (스니펫만) [부분: 단일 평가]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다. 공식 모델 카드를 읽지 못했다.

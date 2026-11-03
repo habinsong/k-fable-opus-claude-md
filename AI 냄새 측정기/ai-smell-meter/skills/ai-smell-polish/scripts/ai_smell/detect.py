@@ -1,4 +1,4 @@
-"""문서를 읽어 신호(Finding) 목록과 지수(Analysis)를 만든다. 교정은 하지 않고 교정안(Edit)만 붙인다."""
+"""문서를 읽어 검출 항목(Finding) 목록과 분석 점수(Analysis)를 만든다. 교정은 하지 않고 교정안(Edit)만 붙인다."""
 from __future__ import annotations
 
 import bisect
@@ -79,7 +79,7 @@ def _apply_filters(found: List[Tuple[Rule, Finding]]) -> List[Finding]:
 
 
 def _shadow(findings: List[Finding]) -> None:
-    """겹치는 신호는 가장 무거운 하나만 점수에 넣는다. 가려진 신호의 교정안은 그대로 둔다."""
+    """겹치는 검출 항목은 가장 가중치가 큰 하나만 점수에 반영한다. 가려진 항목의 교정안은 그대로 둔다."""
     items = sorted((f for f in findings if f.end > f.start), key=lambda f: (f.start, -f.end))
     group: List[Finding] = []
     group_end = -1
@@ -106,7 +106,7 @@ def _metrics(masked: str, sents: Sequence[Tuple[int, int]], units: int) -> Dict[
         "avg_sentence_units": round(statistics.mean(lens), 1) if lens else 0,
         "sentence_length_cv": round(statistics.pstdev(lens) / statistics.mean(lens), 2) if len(lens) > 1 and statistics.mean(lens) else 0,
         "em_dashes_per_1000_units": round(1000 * len(re.findall("[—―]", masked)) / max(units, 1), 1),
-        "note": "문장 길이 변동(burstiness)은 약한 신호라 점수에 넣지 않는다(docs/research.md 6절).",
+        "note": "문장 길이 변동(burstiness)은 약한 지표라 점수에 넣지 않는다(docs/research.md 6절).",
     }
 
 
@@ -144,9 +144,9 @@ def analyze(text: str, *, genre: str = "general", lang: str = "auto", ban: Itera
     res = scoring.compute(findings, units)
     notes: List[str] = []
     if units < 40:
-        notes.append("표본이 짧아(40단위 미만) 지수가 불안정하다.")
+        notes.append("표본이 짧아(40단위 미만) 점수가 불안정하다.")
     if not findings:
-        notes.append("잡힌 신호가 없다. 신호가 없다고 사람이 쓴 글이라는 뜻은 아니다.")
+        notes.append("검출된 항목이 없다. 검출 항목이 없다고 사람이 쓴 글이라는 보증은 아니다.")
     return Analysis(lang=detect_lang(masked), genre=genre, units=units, sentences=len(sents),
                     paragraphs=len(paras), score=int(res["score"]), label_ko=str(res["label_ko"]),
                     label_en=str(res["label_en"]), density=float(res["density"]), residue=float(res["residue"]),

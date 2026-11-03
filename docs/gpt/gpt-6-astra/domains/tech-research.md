@@ -20,6 +20,6 @@
 - **미출시·예정 정보는 쓰지 않는다.** 이 폴더는 2026-11-03 기준 출시된 모델만 다룬다.
 
 ## 4. 근거와 한계
-- 비용·종합 지수: [eesel.ai 리뷰](https://www.eesel.ai/blog/gpt-6-astra-review), [CloudZero](https://www.cloudzero.com/blog/gpt-6-pricing/), [GPT-6 Astra Benchmarks: Is It Really Better Than Fable 5.1?](https://www.mindstudio.ai/blog/gpt-6-astra-benchmarks-analysis) [부분]
+- 비용·종합 벤치마크 점수: [eesel.ai 리뷰](https://www.eesel.ai/blog/gpt-6-astra-review), [CloudZero](https://www.cloudzero.com/blog/gpt-6-pricing/), [GPT-6 Astra Benchmarks: Is It Really Better Than Fable 5.1?](https://www.mindstudio.ai/blog/gpt-6-astra-benchmarks-analysis) [부분]
 - 데이터 레지던시·마이그레이션 원칙: [openai/codex 마이그레이션 가이드](https://raw.githubusercontent.com/openai/codex/main/codex-rs/skills/src/assets/samples/openai-docs/references/upgrading-to-gpt-6-astra.md) [확인]
 - 한계: OpenAI 공식 가격·모델 페이지를 직접 열지 못해 가격과 컨텍스트는 집계 사이트 기준이다. 도입 결정 전에 공식 페이지로 다시 확인한다.

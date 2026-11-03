@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용(빌드 둘), 독립 지수 45~58(스냅샷마다 다름), 환각 값 미확인, 벤더 수치는 외부 하네스 기반, 연구 보조 독립 평가 없음, 데이터 정책 일부는 2차 출처.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용(빌드 둘), 독립 평가 점수 45~58(스냅샷마다 다름), 환각 값 미확인, 벤더 수치는 외부 하네스 기반, 연구 보조 독립 평가 없음, 데이터 정책 일부는 2차 출처.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 지수가 56에서 58로 상향되고 페이지에 따라 53~58이 보이는 것은 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 평가 점수가 56에서 58로 상향되고 페이지에 따라 53~58이 보이는 것은 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했고 환각 값도 보도에 나오지 않았다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **벤더 벤치마크를 연구 근거로 인용하지 않는다.** 대표 수치는 Alibaba 내부 실행이고 코딩 벤치마크는 Anthropic 에이전트 하네스에서 돌렸다는 서술이 있다. 인용해야 하면 "벤더 보고"임을 쓰고 벤치마크 이름·버전·하네스·빌드(`0803`/`0902`)를 함께 밝힌다. [부분: 벤더 주장]
 - **써도 되는 작업.** 서지 정보 서식 변환, 실험 로그·메타데이터 정리, 표 형식 변환, 논문 초록에서 정해진 필드 추출, 분석 스크립트(파이썬)의 초안. "원문에 없으면 null"을 명시하고 추출값은 원문과 한 건씩 대조한다.
@@ -20,7 +20,7 @@
 - **전문 영역(의료, 법률, 안전) 결론에는 "전문가 검토 필요"를 붙인다.**
 
 ## 4. 근거와 한계
-- 독립 지수·빌드 차이: [Artificial Analysis: Qwen3.8 Max (0902)](https://artificialanalysis.ai/models/qwen3-8-max), [Artificial Analysis: Qwen3.8 Max (0803)](https://artificialanalysis.ai/models/qwen3-8-max-0803), [OfficeChai: AA 56점](https://officechai.com/ai/qwen-3-8-max-scores-56-on-artificial-analysis-intelligence-index-ahead-of-all-us-companies-except-anthropic-and-openai/) (스니펫만) [부분, 충돌]
+- 독립 평가 점수·빌드 차이: [Artificial Analysis: Qwen3.8 Max (0902)](https://artificialanalysis.ai/models/qwen3-8-max), [Artificial Analysis: Qwen3.8 Max (0803)](https://artificialanalysis.ai/models/qwen3-8-max-0803), [OfficeChai: AA 56점](https://officechai.com/ai/qwen-3-8-max-scores-56-on-artificial-analysis-intelligence-index-ahead-of-all-us-companies-except-anthropic-and-openai/) (스니펫만) [부분, 충돌]
 - 벤더 수치: [DataNorth: Qwen3.8-Max 출시](https://datanorth.ai/news/alibaba-releases-qwen3-8-max) (스니펫만) [부분: 벤더 주장]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다. 공식 모델 카드를 읽지 못했다.

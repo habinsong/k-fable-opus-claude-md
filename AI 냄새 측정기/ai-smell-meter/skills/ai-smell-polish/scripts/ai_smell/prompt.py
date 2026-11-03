@@ -15,7 +15,7 @@ KO_RULES = """\
 1. 사실을 만들지 않는다. 「바꾸지 말 것」의 숫자, 주소, 코드, 인용, 고유명사는 그대로 둔다. 새 사실, 인용, 통계, 속담을 보태지 않는다.
 2. 필자의 목소리를 지키고 빼기 중심으로 고친다. 격식을 올리지 않고, 구어 종결과 의도된 문체를 지우지 않는다.
 3. 변경률은 원문의 5~30%가 권장이다. 30%를 넘으면 경고하고, 50%를 넘으면 멈추고 필자에게 묻는다.
-4. 「걸린 신호」만 국소 수정한다. 문단을 통째로 다시 쓰지 않는다. 같은 유형이 두 번 고쳐도 남으면 접근을 바꾼다.
+4. 「걸린 항목」만 국소 수정한다. 문단을 통째로 다시 쓰지 않는다. 같은 유형이 두 번 고쳐도 남으면 접근을 바꾼다.
 5. 구체적 내용이 없는 글은 지어내서 채우지 않는다. 필자에게 알맹이(수치, 사례, 고유명사)를 묻는다."""
 
 KO_FIX = """\
@@ -33,7 +33,7 @@ KO_FIX = """\
 - 학술은 한다체와 피동을 일률 제거하지 않는다. 일상은 사과와 감사를 한 번씩만. 문학은 도치와 반전 문장을 장면당 하나 이하."""
 
 KO_BAN = """\
-- 오타, 비문, 속어를 일부러 넣어 사람처럼 보이게 하는 것, 동의어로 낱말만 바꾸는 것(새 신호가 생긴다), 탐지기 회피를 노린 모든 조작은 하지 않는다."""
+- 오타, 비문, 속어를 일부러 넣어 사람처럼 보이게 하는 것, 동의어로 낱말만 바꾸는 것(새 어색한 표현이 생긴다), 탐지기 회피를 노린 모든 조작은 하지 않는다."""
 
 EN_RULES = """\
 1. Invent nothing. Keep every number, URL, code span, quotation, and proper noun listed under "Do not change". Add no new facts, sources, or statistics.
@@ -100,7 +100,7 @@ def build(text: str, analysis: Analysis, *, ui: str = "", target: str = "generic
     h = {"role": "# 역할" if ko else "# Role", "rules": "# 원칙" if ko else "# Rules",
          "fix": "# 고치는 방법" if ko else "# How to fix", "ban": "# 하지 말 것" if ko else "# Do not",
          "facts": "# 바꾸지 말 것" if ko else "# Do not change",
-         "found": f"# 걸린 신호 ({analysis.score}/100)" if ko else f"# Flagged signals ({analysis.score}/100)",
+         "found": f"# 걸린 항목 ({analysis.score}/100)" if ko else f"# Flagged signals ({analysis.score}/100)",
          "out": "# 출력 형식" if ko else "# Output format", "text": "# 원문" if ko else "# Text"}
     role = ("당신은 한국어 글을 윤문하는 편집자입니다. 목표는 읽는 사람이 걸리지 않고 읽는 글입니다. "
             "AI 탐지기를 통과시키는 것은 목표가 아닙니다. 장르: " + analysis.genre + "."
@@ -121,8 +121,8 @@ def build(text: str, analysis: Analysis, *, ui: str = "", target: str = "generic
 
 
 CHAT_STEP_KO = """\
-0. 먼저 글에서 AI 냄새 신호를 목록으로 뽑는다(줄 번호, 원문 일부, 유형). 신호가 없으면 "신호 없음"이라 쓰고 고치지 않는다.
-1. 목록의 신호만 국소 수정한다."""
+0. 먼저 글에서 AI 문체 표현을 목록으로 뽑는다(줄 번호, 원문 일부, 유형). 해당 표현이 없으면 "항목 없음"이라 쓰고 고치지 않는다.
+1. 목록의 항목만 국소 수정한다."""
 
 CHAT_STEP_EN = """\
 0. First list the AI-sounding signals you find (line, quoted fragment, type). If there are none, say "no signals" and change nothing.
@@ -130,7 +130,7 @@ CHAT_STEP_EN = """\
 
 
 def chat_prompt(lang: str) -> str:
-    """셸이 없는 채팅 환경에 붙여 넣는 프롬프트. 엔진의 지수와 대조 검증이 없는 대신 신호 목록을 먼저 뽑게 한다."""
+    """셸이 없는 채팅 환경에 붙여 넣는 프롬프트. 엔진의 점수 산출과 대조 검증이 없는 대신 검출 목록을 먼저 뽑게 한다."""
     ko = lang == "ko"
     out_rules = (KO_OUT if ko else EN_OUT)
     parts = [("# 역할" if ko else "# Role",

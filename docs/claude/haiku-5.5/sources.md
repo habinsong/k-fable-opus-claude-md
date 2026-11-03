@@ -12,5 +12,5 @@
 | 변경 사항·토크나이저·추론 블록·거부 | [What's new in Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/whats-new-haiku-5-5) | [확인] |
 | 행동 특성과 권장 프롬프트 | [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5) | [확인] |
 | effort | [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) | [확인] |
-| 독립 지수·지식·비용·가격 임계 | [eesel.ai 리뷰](https://www.eesel.ai/blog/claude-haiku-5-5-review), [Beam: 하위 에이전트 비용](https://beam.ai/agentic-insights/claude-haiku-5-5-subagents), [DataCamp](https://www.datacamp.com/blog/claude-haiku-5-5), [Miraflow](https://miraflow.ai/blog/claude-haiku-5-5-benchmarks-pricing-explained-2026) | [부분] |
+| 독립 평가 점수·지식·비용·가격 임계 | [eesel.ai 리뷰](https://www.eesel.ai/blog/claude-haiku-5-5-review), [Beam: 하위 에이전트 비용](https://beam.ai/agentic-insights/claude-haiku-5-5-subagents), [DataCamp](https://www.datacamp.com/blog/claude-haiku-5-5), [Miraflow](https://miraflow.ai/blog/claude-haiku-5-5-benchmarks-pricing-explained-2026) | [부분] |
 - 가격의 "부터" 기준과 10만 토큰 임계값은 공식 가격 페이지로 확인하지 못했다. 사용 전에 공식 가격 페이지로 확인한다.

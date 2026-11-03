@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 클라우드 API 모델, GPQA Diamond 90.9(벤더 보고), 독립 지수 40~45(버전 충돌), 사실 회상이 약하다고 가정, 연구 보조 독립 평가 없음, 데이터 처리 조건 미확인.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 클라우드 API 모델, GPQA Diamond 90.9(벤더 보고), 독립 평가 점수 40~45(버전 충돌), 사실 회상이 약하다고 가정, 연구 보조 독립 평가 없음, 데이터 처리 조건 미확인.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** GPQA Diamond 90.9는 DeepSeek이 보고한 수치이고 독립 확인이 없다. 독립 지수(Artificial Analysis)도 40과 45로 갈려 어느 버전의 값인지 확인해야 한다. [부분, 충돌] 시험 문제 풀이 점수는 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도에 대한 독립 평가는 찾지 못했다. [미확인] 새 가설·증명·통계 해석은 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** GPQA Diamond 90.9는 DeepSeek이 보고한 수치이고 독립 확인이 없다. 독립 평가 점수(Artificial Analysis)도 40과 45로 갈려 어느 버전의 값인지 확인해야 한다. [부분, 충돌] 시험 문제 풀이 점수는 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도에 대한 독립 평가는 찾지 못했다. [미확인] 새 가설·증명·통계 해석은 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했다. 사실 질문 평가에서도 모르는 것을 모른다고 답하는 능력이 강하다는 근거가 없다(README.md가 안내하는 개요·운용 문서.3). [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **써도 되는 작업.** 서지 정보 서식 변환, 실험 로그·메타데이터 정리, 표 형식 변환, 논문 초록에서 정해진 필드 추출, 분석 스크립트(파이썬)의 초안. "원문에 없으면 null"을 명시하고 추출값은 원문과 한 건씩 대조한다. 가격이 낮아 대량 정리에 유리하나 토큰 사용량이 많았던 측정이 있어 실비용을 확인한다. [부분]
 - **수학·정량 풀이는 코드로 재검산한다.** 추론 모드로 푼 풀이도 틀릴 수 있다. 식은 스크립트·기호 계산 도구로 다시 계산하고 단계를 사람이 읽는다.
@@ -20,6 +20,6 @@
 
 ## 4. 근거와 한계
 - 벤더 보고 수치: [Product Hunt: V4.1-Flash-1017](https://www.producthunt.com/products/deepseek-v4-1-flash-1017), [OpenRouter: V4.1 Flash](https://openrouter.ai/deepseek/deepseek-v4.1-flash-20260910) (스니펫만) [부분: 벤더 주장]
-- 독립 지수(버전 충돌): [Artificial Analysis: V4.1 Flash](https://artificialanalysis.ai/ko/models/deepseek-v4-1-flash) (스니펫만) [부분, 충돌]
+- 독립 평가 점수(버전 충돌): [Artificial Analysis: V4.1 Flash](https://artificialanalysis.ai/ko/models/deepseek-v4-1-flash) (스니펫만) [부분, 충돌]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다. 벤더 수치는 공식 모델 카드에서 직접 확인하지 못했다.

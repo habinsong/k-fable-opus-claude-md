@@ -10,7 +10,7 @@
 |---|---|---|
 | 크기·메모리·컨텍스트·라이선스·샘플링 | [Gemma 4 model overview](https://ai.google.dev/gemma/docs/core), [Gemma 4 locally, which size fits your GPU](https://jacar.es/en/gemma-4-locally-with-ollama/), [Gemma 4 hardware requirements (Yotta Labs)](https://www.yottalabs.ai/post/gemma-4-hardware-requirements-gpu-memory-2026) (스니펫만) | [부분] |
 | KV 캐시·구조 분석 | [Kaitchup: Gemma 4 31B and 26B A4B 구조와 메모리](https://kaitchup.substack.com/p/gemma-4-31b-and-26b-a4b-architecture) (이 환경에서 본문이 열리지 않아 스니펫만) | [부분] |
-| 독립 지수(2026-04 및 이후 버전) | [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know), [26B A4B vs 31B 비교](https://artificialanalysis.ai/models/comparisons/gemma-4-26b-a4b-vs-gemma-4-31b) (스니펫만) | [부분, 충돌] |
+| 독립 평가 점수(2026-04 및 이후 버전) | [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know), [26B A4B vs 31B 비교](https://artificialanalysis.ai/models/comparisons/gemma-4-26b-a4b-vs-gemma-4-31b) (스니펫만) | [부분, 충돌] |
 | 벤치마크 집계(LiveCodeBench·τ²·Terminal-Bench·SWE-bench 불일치) | [DataLearner 분석](https://www.datalearner.com/en/ai-models/pretrained-models/google-gemma-4-31b/analysis), [BenchLM 비교](https://benchlm.ai/compare/gemma-4-31b-vs-glm-4-5) | [부분: 집계 사이트] |
 | Qwen3.6 27B와의 후기 비교·메모리 보고 | [HN 스레드](https://hn.nuxt.dev/item/48385906), [Brian Lovin HN](https://brianlovin.com/hn/47960507) | [부분: 개인 후기] |
 - 공식 모델 카드 본문을 열지 못했다. 모델 ID 표기는 검색 결과에서 가져온 것이다.

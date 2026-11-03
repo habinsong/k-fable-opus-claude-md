@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 독립 지수 55(이전 K3는 지수 버전에 따라 57과 44), HLE(도구 포함) 70.0·BrowseComp 92.1은 Moonshot 표(`max` 단계), 환각 값 미확인, 연구 보조 독립 평가 없음, 데이터 정책 서술 불일치.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 독립 평가 점수 55(이전 K3는 벤치마크 버전에 따라 57과 44), HLE(도구 포함) 70.0·BrowseComp 92.1은 Moonshot 표(`max` 단계), 환각 값 미확인, 연구 보조 독립 평가 없음, 데이터 정책 서술 불일치.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** HLE(도구 포함) 70.0은 Moonshot 출시 표의 값이고 `max` 노력 단계, 벤더 제공이며 독립 확인이 없다(DataLearner의 70.1과도 미세하게 다르다). 독립 지수 55는 일반 능력 지표다. 둘 다 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분: 벤더 주장/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** HLE(도구 포함) 70.0은 Moonshot 출시 표의 값이고 `max` 노력 단계, 벤더 제공이며 독립 확인이 없다(DataLearner의 70.1과도 미세하게 다르다). 독립 평가 점수 55는 일반 능력 지표다. 둘 다 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않으며 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분: 벤더 주장/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이전 K3의 환각률이 51%(2차 서술, 원문 미확인)로 이전 세대보다 올랐다는 보도가 있어 K3.1에서 개선됐다고 가정하지 않는다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **벤더 벤치마크를 연구 근거로 인용하지 않는다.** Moonshot 표는 `max` 단계의 값이고 일부 평가에서 모델마다 다른 프레임워크를 썼다는 지적이 있으며 DeepSWE v1.1, SWE-Marathon v1.1은 점수 없이 각주에만 있었다는 서술도 있다. 인용해야 하면 "벤더 보고"임을 쓰고 벤치마크 이름·버전·노력 단계·하네스를 함께 밝힌다. [부분: 벤더 주장]
 - **금융·재무 분석 수치는 2차 출처이므로 연구 근거로 쓰지 않는다.** OfficeQA Pro v2 64.4와 금융 스트레스 시험의 단일 주장 오류율 6.85%는 제3자 사이트의 보도이고 Moonshot 원문으로 확인하지 못했다. 금융 데이터는 공시·재무제표 원문과 대조한다. [부분: 2차]
@@ -23,7 +23,7 @@
 
 ## 4. 근거와 한계
 - Moonshot 표·조건: [BenchmarkList: Kimi K3.1 Pro](https://benchmarklist.com/models/moonshotai-kimi-k3.1-pro/), [DataLearner: K3.1 대 K3](https://www.datalearner.com/ai-models/compare/kimi-k3-1/vs/kimi-k3), [OrcaRouter: K3.1 Pro 벤치마크](https://www.orcarouter.ai/blog/kimi-k3-1-pro-benchmark) (스니펫만) [부분: 벤더 주장]
-- 독립 지수·K3 환각 서술: [Artificial Analysis: Kimi K3.1 Pro](https://artificialanalysis.ai/zh/models/kimi-k3-1-pro), [Artificial Analysis: Kimi K3](https://artificialanalysis.ai/es/models/kimi-k3) (스니펫만) [부분, 충돌]
+- 독립 평가 점수·K3 환각 서술: [Artificial Analysis: Kimi K3.1 Pro](https://artificialanalysis.ai/zh/models/kimi-k3-1-pro), [Artificial Analysis: Kimi K3](https://artificialanalysis.ai/es/models/kimi-k3) (스니펫만) [부분, 충돌]
 - 사이버 능력 축소: [Forklog](https://forklog.com/en/?p=105758), [WinZheng](https://www.winzheng.com/en/article/kimi-k31-pro-open-weights-cyber-capability-weakening) (스니펫만) [부분: 벤더 주장 포함]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다. Moonshot 공식 문서·모델 카드를 읽지 못했다.

@@ -6,9 +6,9 @@
 ```bash
 S=.gemini/skills/ai-smell-polish/scripts/ai-smell   # 없으면 ~/.gemini/skills/... 또는 .agents/skills/...
 python3 "$S" selftest                      # 전부 통과해야 한다
-python3 "$S" analyze 글.md                 # 지수와 신호
+python3 "$S" analyze 글.md                 # 점수와 검출 항목
 python3 "$S" polish 글.md > 글.교정.md     # 교정문(표준 출력)
-python3 "$S" verify 글.md 글.교정.md       # 사실 보존, 변경률, 새 신호
+python3 "$S" verify 글.md 글.교정.md       # 사실 보존, 변경률, 새 결함
 ```
 
 - 엔진이 못 고치는 구조 습관(대구, 부풀린 서술, 번역투)은 `python3 "$S" prompt 글.md --target gemini`가 만든 지시대로 걸린 곳만 국소 수정한다.

@@ -31,7 +31,7 @@ class CliTests(unittest.TestCase):
     def test_analyze_text_and_json(self):
         p = run("analyze", str(self.src))
         self.assertEqual(p.returncode, 0, p.stderr)
-        self.assertIn("AI 냄새 지수", p.stdout)
+        self.assertIn("AI 냄새 점수", p.stdout)
         self.assertIn("저자 판정에 쓰지 마세요", p.stdout)
         j = json.loads(run("analyze", str(self.src), "--format", "json").stdout)
         self.assertGreaterEqual(j["score"], 60)
@@ -130,7 +130,7 @@ class CliTests(unittest.TestCase):
         p = subprocess.run([sys.executable, "-I", LAUNCHER, "analyze", "--text", "물론입니다! 도움이 되었기를 바랍니다."],
                            capture_output=True, env=env, timeout=60)
         self.assertEqual(p.returncode, 0, p.stderr)
-        self.assertIn("AI 냄새 지수".encode("utf-8"), p.stdout)
+        self.assertIn("AI 냄새 점수".encode("utf-8"), p.stdout)
 
 
 if __name__ == "__main__":

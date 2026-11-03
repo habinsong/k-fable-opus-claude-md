@@ -22,5 +22,5 @@
 
 ## 4. 근거와 한계
 - 접근 단계·벤더 수치: [Gemini 4 Carbon: our next frontier model](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/), [Fairwind Program](https://deepmind.google/fairwind-program/), [Google 블로그: Fairwind](https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/) (검색 스니펫만) [부분]
-- 지수 비교: [Layer3 Labs: Gemini 4 Argon 리뷰](https://www.layer3labs.io/guides/gemini-4-argon-review) [부분: 2차]
+- 평가 점수 비교: [Layer3 Labs: Gemini 4 Argon 리뷰](https://www.layer3labs.io/guides/gemini-4-argon-review) [부분: 2차]
 - 한계: Google 공식 본문을 열지 못했다. 이 문서는 확인 항목 목록이며 모델 특성이 아니다.

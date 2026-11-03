@@ -115,7 +115,7 @@ class InstallTests(unittest.TestCase):
         p = subprocess.run([sys.executable, "-I", str(launcher), "analyze", "--text", "Certainly! Done."],
                            capture_output=True, text=True, encoding="utf-8")
         self.assertEqual(p.returncode, 0, p.stderr)
-        self.assertIn("AI 냄새 지수", p.stdout)
+        self.assertIn("AI 냄새 점수", p.stdout)
 
 
 if __name__ == "__main__":

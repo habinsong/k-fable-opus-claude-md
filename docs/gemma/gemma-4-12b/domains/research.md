@@ -18,6 +18,6 @@
 - **전문 영역(의료, 법률, 안전) 결론에는 "전문가 검토 필요"를 붙인다.**
 
 ## 4. 근거와 한계
-- 벤치마크(모델 카드 인용)·지수: [Gemma 4 12B (techsy)](https://techsy.io/en/blog/gemma-4-12b), [BenchLM](https://benchlm.ai/models/gemma-4-12b) [부분: 2차]
+- 벤치마크(모델 카드 인용)·벤치마크 점수: [Gemma 4 12B (techsy)](https://techsy.io/en/blog/gemma-4-12b), [BenchLM](https://benchlm.ai/models/gemma-4-12b) [부분: 2차]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 12B의 연구 보조 정확도를 측정한 독립 자료가 없다. 사용 범위 제한은 일반 지표에서 도출한 보수적 권고다.

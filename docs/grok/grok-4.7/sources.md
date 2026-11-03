@@ -9,7 +9,7 @@
 | 내용 | 출처 | 수준 |
 |---|---|---|
 | 출시일·컨텍스트·가격·기능 | [Let's Data Science: Grok 4.7 출시](https://letsdatascience.com/news/xai-releases-grok-47-with-500k-context-43aa2021), [Price Per Token: Grok 4.7](https://pricepertoken.com/pricing-page/model/xai-grok-4.7), [Another Wrapper: Grok 4.7 가격](https://anotherwrapper.com/llm-pricing/grok-4.7) (스니펫만) | [부분, 충돌] |
-| 독립 지수·토큰 사용량 | [Artificial Analysis: Grok 4.7 (xhigh)](https://artificialanalysis.ai/models/grok-4-7), [Grok 4.7 (high)](https://artificialanalysis.ai/models/grok-4-7-high), [Grok 4.7 (low) 독일어](https://artificialanalysis.ai/de/models/grok-4-7-low) (스니펫만) | [부분] |
+| 독립 평가 점수·토큰 사용량 | [Artificial Analysis: Grok 4.7 (xhigh)](https://artificialanalysis.ai/models/grok-4-7), [Grok 4.7 (high)](https://artificialanalysis.ai/models/grok-4-7-high), [Grok 4.7 (low) 독일어](https://artificialanalysis.ai/de/models/grok-4-7-low) (스니펫만) | [부분] |
 | 코딩 에이전트 지수·Grok Build | [ToolNavs: Grok 4.7 벤치마크](https://toolnavs.com/de/article/2040-grok-47-benchmark-coding-agent-breaks-into-top-four-at-81k-tokens-per-task), [Gradually: Grok Build 변경 이력](https://www.gradually.ai/changelogs/grok-build/), [Grok Build](https://x.ai/build) (스니펫만) | [부분] |
 | 안전·탈옥 서술 | [Hora de Codar: Grok 4.7 거부·탈옥](https://horadecodar.com.br/grok-4-7-jailbreak/), [Penligent 분석](https://www.penligent.ai/hackinglabs/de/?p=6348) (스니펫만) | [부분: 단일 블로그] |
 | 데이터 정책(2차) | [guptadeepak: 데이터 취급·보관](https://guptadeepak.com/ai-models/data-handling/), [DevelopersDigest: xAI 보관](https://www.developersdigest.tech/models/data-retention/xai), [BAA Atlas: Grok](https://baa-atlas.vercel.app/ai/grok) (스니펫만) | [부분, 충돌] |

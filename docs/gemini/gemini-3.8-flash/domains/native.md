@@ -18,6 +18,6 @@
 - **Gemini CLI에서 쓴다면** 이 문서를 `GEMINI.md`로 복사한다. 시스템 경로, 레지스트리, 드라이버, 부트 설정, 서명 키는 승인 없이 건드리지 않는다. [확인]
 
 ## 4. 근거와 한계
-- Terminal-Bench 격차·코딩 지수: [eesel.ai 리뷰](https://www.eesel.ai/blog/gemini-3-8-flash), [DataNorth](https://datanorth.ai/news/google-launches-gemini-3-8-flash-gemini-3-8-flash-cyber) [부분]
+- Terminal-Bench 격차·코딩 벤치마크 점수: [eesel.ai 리뷰](https://www.eesel.ai/blog/gemini-3-8-flash), [DataNorth](https://datanorth.ai/news/google-launches-gemini-3-8-flash-gemini-3-8-flash-cyber) [부분]
 - Cyber 변종 제한: [DataCamp: Gemini 3.8 Flash](https://www.datacamp.com/blog/gemini-3-8-flash-cyber) [부분]
 - 한계: C·C++·Rust 시스템 코드에 대한 3.8 Flash 전용 독립 평가는 찾지 못했다.

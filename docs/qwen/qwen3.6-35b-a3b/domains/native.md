@@ -23,4 +23,4 @@
 ## 4. 근거와 한계
 - 벤더 수치·속도·루프: [InsiderLLM: Qwen 3.6 완전 가이드](https://insiderllm.com/guides/qwen-3-6-local-ai-guide/), [Brian Lovin HN](https://brianlovin.com/hn/47960507) (스니펫만) [부분: 벤더 주장·개인 후기]
 - 서빙 파서: [Unsloth: Qwen3.6-27B GGUF](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) (스니펫만) [부분]
-- 한계: 언어별 시스템 코드 평가와 독립 지수가 없다.
+- 한계: 언어별 시스템 코드 평가와 독립 평가 점수가 없다.

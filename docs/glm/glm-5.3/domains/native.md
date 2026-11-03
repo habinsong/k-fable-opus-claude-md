@@ -13,7 +13,7 @@
 - **터미널·에이전트 지표는 벤더 보고다.** Terminal-Bench 2.1 88.2, 3.0 28.3, DeepSWE v1.1 66.9 같은 수치가 Hugging Face 카드를 옮긴 보도에 있으나 벤치마크 버전(2.1 대 3.0)이 달라 서로 비교할 수 없고 독립 확인이 없다. 이 수치를 "GLM-5.3이 터미널 작업에 강하다"는 결론으로 옮기지 않는다. [미확인]
 - **C++·Rust·시스템 코드의 언어별 평가는 찾지 못했다.** [미확인] 집계 사이트에서 SWE Multilingual은 GLM-5.3 항목이 "곧 공개"였고 이전 세대 GLM-5가 73.3%였다. 메모리 관리, 동시성, 수명, ABI는 문법이 맞아도 틀리기 쉬우므로 핵심 변경에는 쓰지 않고, 쓴다면 sanitizer(ASan·UBSan·TSan)와 테스트를 지시문으로 강제한다. 핵심 변경은 `claude/sonnet-5.5` 이상, `gpt-6.1-sol`, `gemini-4-argon` 문서를 따른다.
 - **긴 터미널 작업에 쓰려면 하네스 안전장치를 먼저 둔다.** 긴 작업에는 GLM, 검토와 어려운 변경에는 Claude라는 분업 조언이 있다(현장 시험이 아닌 권고). [부분] 에이전트 루프에는 파괴적 명령 차단(권한·훅), 작업 디렉터리 격리, 시간·토큰 한도를 두고 완료 보고는 빌드·테스트·sanitizer 출력과 `git diff`로 확인한다. 테스트·경고·sanitizer 설정이 바뀌었는지도 확인한다.
-- **독립 지수는 버전 충돌이 있다.** GLM-5.3 (max)가 Artificial Analysis에서 60(한 페이지)과 45(지수 v4.3.2, 다른 페이지)로 나뉘고 일부 페이지에 "독립 평가 예정(추정치)" 표기가 있다. 다른 모델과 비교할 때 같은 지수 버전인지 확인한다. [부분, 충돌]
+- **독립 평가 점수는 버전 충돌이 있다.** GLM-5.3 (max)가 Artificial Analysis에서 60(한 페이지)과 45(지수 v4.3.2, 다른 페이지)로 나뉘고 일부 페이지에 "독립 평가 예정(추정치)" 표기가 있다. 다른 모델과 비교할 때 같은 벤치마크 버전인지 확인한다. [부분, 충돌]
 - **추론 토큰이 출력 한도에 들어간다**는 서술이 같은 계열에서 있었다. 긴 추론 뒤 코드가 잘리지 않도록 `max_tokens`를 넉넉히 잡고 응답이 중간에 끊겼는지 `stop_reason`을 확인한다. [부분]
 - **사실 회상을 가정하지 않는다.** AA-Omniscience 환각률 값은 찾지 못했다. 시스템 API 시그니처, 플랫폼별 동작, 표준 라이브러리 세부는 공식 문서와 컴파일러로 확인한다. [미확인]
 - **미공개 소스를 API로 보내기 전에 약관을 확인한다.** 데이터 처리 조건을 찾지 못했다. [미확인] 확인 전에는 비밀·고객 코드를 보내지 않는다(§1.6).
@@ -24,6 +24,6 @@
 
 ## 4. 근거와 한계
 - 벤더 수치(카드를 옮긴 보도): [OrcaRouter: GLM-5.3 릴리스](https://www.orcarouter.ai/zh-TW/blog/glm-5-3-leak), [EvoLink: GLM-5.3 릴리스](https://evolink.ai/blog/glm-5-3-release) (스니펫만) [부분: 벤더 주장]
-- 독립 지수(버전 충돌): [Artificial Analysis: GLM-5.3 (max)](https://artificialanalysis.ai/models/glm-5-3), [릴리스 목록](https://artificialanalysis.ai/models/releases/glm-5-3) (스니펫만) [부분, 충돌]
+- 독립 평가 점수(버전 충돌): [Artificial Analysis: GLM-5.3 (max)](https://artificialanalysis.ai/models/glm-5-3), [릴리스 목록](https://artificialanalysis.ai/models/releases/glm-5-3) (스니펫만) [부분, 충돌]
 - SWE Multilingual 상태: [BenchLM: GLM-5 대 GLM-5.3](https://benchlm.ai/md/compare/glm-5-vs-glm-5-3.md) [부분: 집계 사이트]
 - 한계: 언어별 시스템 코드 평가와 환각·도구 호출 오류율의 독립 자료가 없다.

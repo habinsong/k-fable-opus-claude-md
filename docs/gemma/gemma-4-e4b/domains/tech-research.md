@@ -15,7 +15,7 @@
 
 **Gemma 4 E4B를 도입 후보로 평가할 때**
 - **용도 적합성.** 온디바이스·오프라인·데이터 외부 반출 금지 요건이 있을 때 E2B보다 품질을 높이고 싶은 경우의 후보다. 메모리 4비트 약 4.5 GB, BF16 약 17.9 GB, 컨텍스트 128K, 이미지·오디오 입력 지원이다. [부분] 정확도 요건이 높은 업무에는 맞지 않는다.
-- **독립 지수.** Artificial Analysis 2026-04 지수에서 E4B 19, E2B 15, 26B A4B 31, 31B 39로 보고됐고, 이후 지수 버전이 바뀌어 같은 모델의 값이 달라졌다. 서로 다른 버전의 숫자를 섞지 않고 현재 값을 원본에서 확인한다. [부분]
+- **독립 평가 점수.** Artificial Analysis 2026-04 지수에서 E4B 19, E2B 15, 26B A4B 31, 31B 39로 보고됐고, 이후 벤치마크 버전이 바뀌어 같은 모델의 값이 달라졌다. 서로 다른 버전의 숫자를 섞지 않고 현재 값을 원본에서 확인한다. [부분]
 - **라이선스.** Google 모델 카드는 Apache 2.0이라고 적었다. 호스팅 플랫폼을 거치면 그쪽 약관이 붙는다는 지적이 있다. 가중치 수령 경로와 재배포 계획에 따라 LICENSE와 약관, 상표·사용 정책을 원문으로 확인한다. [부분]
 - **총소유비용.** API 비용이 없는 대신 기기·전력·유지보수와 평가 비용이 든다. 대상 기기에서 메모리·속도·발열을 실측하고, 같은 용도의 다른 소형 모델(Gemma 4 E2B·12B, Qwen3.6 계열)과 같은 과제로 비교한다.
 - **런타임 성숙도.** 출시 직후 Ollama·llama.cpp의 도구 호출·토크나이저·스트리밍 버그가 보고됐고 현재 수정 여부를 확인하지 못했다. 사용할 런타임 버전에서 시험한다. [부분]
@@ -23,6 +23,6 @@
 
 ## 4. 근거와 한계
 - 크기·메모리·라이선스: [Gemma 4 model card](https://ai.google.dev/gemma/docs/core/model_card_4), [Gemma 4 model overview](https://ai.google.dev/gemma/docs/core) (스니펫만) [부분]
-- 독립 지수: [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know) (스니펫만) [부분]
+- 독립 평가 점수: [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know) (스니펫만) [부분]
 - 호스팅 약관 지적: [gemma-4-31b-it (NVIDIA)](https://build.nvidia.com/google/gemma-4-31b-it/modelcard) [부분]
 - 한계: 공식 LICENSE 본문과 사용 정책을 직접 읽지 못했다. 도입 전에 모델 저장소에서 확인한다.

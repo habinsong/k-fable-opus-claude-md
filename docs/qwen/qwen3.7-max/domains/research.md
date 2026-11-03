@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용, 한 세대 전, 독립 지수 46.0 또는 56.6(충돌), HLE 41.4(벤더 보고), 환각 값 미확인, 연구 보조 독립 평가 없음.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용, 한 세대 전, 독립 평가 점수 46.0 또는 56.6(충돌), HLE 41.4(벤더 보고), 환각 값 미확인, 연구 보조 독립 평가 없음.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** HLE 41.4는 벤더 보고이고 조건이 확인되지 않았다. 독립 지수는 46.0과 56.6으로 갈려 어느 스냅샷·지수 버전의 값인지 알 수 없다. 모두 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** HLE 41.4는 벤더 보고이고 조건이 확인되지 않았다. 독립 평가 점수는 46.0과 56.6으로 갈려 어느 스냅샷·벤치마크 버전의 값인지 알 수 없다. 모두 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했고 환각 값도 보도에 나오지 않았다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **벤더 벤치마크를 연구 근거로 인용하지 않는다.** 인용해야 하면 "벤더 보고"임을 쓰고 벤치마크 이름·버전·도구 사용 여부·하네스를 함께 밝힌다. [부분: 벤더 주장]
 - **장시간 자율 실행(35시간 주장)에 가설·분석 경로를 맡기지 않는다.** 가설과 분석 계획을 데이터 확인 전에 고정하고(§3.1), 계획 변경은 이유와 시점을 사람이 기록한다. 이상치 제거·필터·검정 기준이 결과에 맞춰 바뀌지 않았는지 `git diff`로 확인한다. [부분: 벤더 주장/추정]
@@ -21,6 +21,6 @@
 
 ## 4. 근거와 한계
 - 벤더 수치: [VentureBeat: Qwen3.7-Max 35시간 자율 실행](https://venturebeat.com/ai/alibabas-proprietary-qwen3-7-max-can-run-for-35-hours-autonomously-and-supports-external-harnesses-like-anthropics-claude-code) (스니펫만) [부분: 벤더 주장]
-- 지수 충돌: [LLM Reference: Qwen3.7-Max](https://www.llmreference.com/model/qwen3-7-max), [LLMBase: Qwen3.7-Max](https://llmbase.ai/models/qwen/qwen3-7-max/) (스니펫만) [부분, 충돌]
+- 평가 점수 불일치: [LLM Reference: Qwen3.7-Max](https://www.llmreference.com/model/qwen3-7-max), [LLMBase: Qwen3.7-Max](https://llmbase.ai/models/qwen/qwen3-7-max/) (스니펫만) [부분, 충돌]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다.

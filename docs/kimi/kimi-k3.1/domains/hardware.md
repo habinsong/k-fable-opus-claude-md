@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/hardware.md`](../../../_common/domain-rules/hardware.md)
 
 ## 2. 이 모델의 하드웨어 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 폐쇄형 API 먼저(가중치 11-04 공개 예정), 독립 지수 55, 이미지·영상 입력, 환각 값 미확인(이전 K3는 51%라는 2차 서술), 하드웨어 설계 평가 없음, 데이터 정책 서술 불일치.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 폐쇄형 API 먼저(가중치 11-04 공개 예정), 독립 평가 점수 55, 이미지·영상 입력, 환각 값 미확인(이전 K3는 51%라는 2차 서술), 하드웨어 설계 평가 없음, 데이터 정책 서술 불일치.
 
-- **설계 판단에 쓰지 않는다.** 핀 배치, 정격, 타이밍, 수식은 틀리면 보드가 망가지거나 위험해진다. 이 모델의 회로·PCB·HDL 평가는 찾지 못했다. [미확인] 독립 지수 55와 대표 수치(BrowseComp 92.1, HLE 70.0 등 벤더 제공값)는 일반 능력 지표이고 회로 설계 정확도를 대표하지 않는다. 설계는 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6.1-sol` 같은 상위 모델 문서와 같은 과제로 비교하고, 그 결과도 데이터시트 원문과 도구 계산으로 확인한다. [부분]
+- **설계 판단에 쓰지 않는다.** 핀 배치, 정격, 타이밍, 수식은 틀리면 보드가 망가지거나 위험해진다. 이 모델의 회로·PCB·HDL 평가는 찾지 못했다. [미확인] 독립 평가 점수 55와 대표 수치(BrowseComp 92.1, HLE 70.0 등 벤더 제공값)는 일반 능력 지표이고 회로 설계 정확도를 대표하지 않는다. 설계는 `gemini-4-argon`, `claude/opus-5.5`, `gpt-6.1-sol` 같은 상위 모델 문서와 같은 과제로 비교하고, 그 결과도 데이터시트 원문과 도구 계산으로 확인한다. [부분]
 - **값 회상을 믿지 않는다.** 이전 K3에서 환각률 51%(K2.6의 39%에서 상승)라는 2차 서술이 있으나 AA 원문으로 확인하지 못했고 K3.1의 값은 찾지 못했다. [미확인] 부품 번호, 핀 번호, 레지스터 주소, 정격을 모델 기억에서 가져오게 하지 않는다. 값은 사람이 확보한 데이터시트 텍스트에서만 꺼내게 하고, 값마다 문서명·개정판·페이지를 같이 받아 원문 PDF와 한 건씩 대조한다. 원문에 없으면 null이다(§3.1).
 - **이미지·영상 입력으로 데이터시트·회로도·측정 영상을 읽히는 용도는 직접 시험한다.** 텍스트·이미지·영상 입력이라는 서술이 있고 재무·문서 벤치마크 수치(OfficeQA Pro v2 64.4 등, 2차 출처)가 있으나 작은 글씨의 핀 표, 타이밍 다이어그램, 회로도의 정확도를 측정한 자료는 찾지 못했다. 읽은 값은 원문 텍스트·넷리스트·ERC 보고서와 대조하고, 읽기 어려운 부분은 추측하지 말고 "판독 불가"로 표시하게 한다. [부분/미확인]
 - **기본 추론 단계가 `max`라는 서술이 있다.** 데이터시트 필드 추출 같은 단순 작업에는 비용이 과하다. 단계를 요청마다 명시하고 `low`로 시작한다. 컨텍스트가 100만 토큰이어도 필요한 장과 표만 넣고 PDF 표를 텍스트로 변환한 결과도 원문과 대조한다. [부분/추정]
@@ -20,7 +20,7 @@
 - **인체·화재 위험 설계는 "안전하다"고 단정하지 않는다.** 고전압·대전류·배터리·모터는 사람의 검토를 요청한다.
 
 ## 4. 근거와 한계
-- 독립 지수·K3 환각 서술: [Artificial Analysis: Kimi K3.1 Pro](https://artificialanalysis.ai/zh/models/kimi-k3-1-pro), [Artificial Analysis: Kimi K3](https://artificialanalysis.ai/es/models/kimi-k3) (스니펫만) [부분, 충돌]
+- 독립 평가 점수·K3 환각 서술: [Artificial Analysis: Kimi K3.1 Pro](https://artificialanalysis.ai/zh/models/kimi-k3-1-pro), [Artificial Analysis: Kimi K3](https://artificialanalysis.ai/es/models/kimi-k3) (스니펫만) [부분, 충돌]
 - 입력 방식·금융 수치(2차): [CometAPI: Kimi K3.1 Pro](https://www.cometapi.com/zh-TW/models/moonshotai/kimi-k3-1-pro/), [Braindetox: Kimi K3.1 Pro 출시](https://braindetox.kr/en/posts/kimi_k3_1_pro_release_2026.html) (스니펫만) [부분: 2차]
 - 사이버 능력 축소: [VKTR: K3.1 Pro와 사이버 능력 제한](https://www.vktr.com/ai-platforms/kimi-k31-pro-nears-top-proprietary-models-as-moonshot-limits-its-cyber-skills/) (스니펫만) [부분: 벤더 주장 포함]
 - 한계: 하드웨어 설계와 데이터시트 판독에 대한 평가가 없다. "쓰지 않는다"는 일반 지표의 부재에서 도출한 보수적 권고다.

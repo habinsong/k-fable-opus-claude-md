@@ -7,6 +7,6 @@
 
 ## 4. 근거와 한계
 - 발표·접근·사이버 벤치마크: [Gemini 4 Carbon: our next frontier model](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/), [Fairwind Program](https://deepmind.google/fairwind-program/), [Google 블로그: Fairwind](https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/) (검색 스니펫만) [부분]
-- 지수 비교: [Layer3 Labs: Gemini 4 Argon 리뷰](https://www.layer3labs.io/guides/gemini-4-argon-review) [부분: 2차]
+- 평가 점수 비교: [Layer3 Labs: Gemini 4 Argon 리뷰](https://www.layer3labs.io/guides/gemini-4-argon-review) [부분: 2차]
 - 직전 모델 규칙: 같은 저장소의 `gemini/gemini-4-argon/` 문서.
 - 한계: Google 공식 본문을 열지 못했다. Fairwind 파트너가 받는 모델, 일반 공개 일정은 확인하지 못했다.

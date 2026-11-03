@@ -23,6 +23,6 @@
 
 ## 4. 근거와 한계
 - 벤더 수치·각주: [Morph: Qwen 3.8 27B](https://www.morphllm.com/qwen-3-8), [Qubrid: Qwen3.8-27B 개발자 가이드](https://www.qubrid.com/blog/qwen38-27b-api-benchmarks-pricing-and-the-complete-developer-guide), [OrcaRouter: Qwen 3.8 27B 코딩](https://www.orcarouter.ai/blog/qwen-3-8-27b-for-coding) (스니펫만) [부분: 벤더 주장]
-- 독립 지수·속도: [Artificial Analysis: Qwen3.8 27B](https://artificialanalysis.ai/de/models/qwen3-8-27b) (스니펫만) [부분]
+- 독립 평가 점수·속도: [Artificial Analysis: Qwen3.8 27B](https://artificialanalysis.ai/de/models/qwen3-8-27b) (스니펫만) [부분]
 - 이전 세대 도구 호출 후기: [InsiderLLM: 로컬 모델 함수 호출](https://insiderllm.com/guides/function-calling-local-llms/) (스니펫만) [부분: 개인 후기, 이전 세대]
 - 한계: 언어별 시스템 코드 평가와 독립 후기가 없다.

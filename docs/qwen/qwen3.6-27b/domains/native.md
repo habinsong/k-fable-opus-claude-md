@@ -26,4 +26,4 @@
 - 로컬 후기: [ToolHalla: Qwen3.6-27B 로컬 코딩 리뷰](https://toolhalla.ai/blog/qwen3-6-27b-local-coding-review-bottleneck), [Brian Lovin HN](https://brianlovin.com/hn/47960507), [Quesma: Qwen 3.6 is awesome](https://quesma.com/blog/qwen-36-is-awesome/) (스니펫만, quesma.com은 이 환경에서 열리지 않음) [부분: 개인 후기]
 - 벤더 수치·출시 순서: [InsiderLLM: Qwen 3.6 완전 가이드](https://insiderllm.com/guides/qwen-3-6-local-ai-guide/) (스니펫만) [부분: 벤더 주장]
 - 서빙 파서: [Unsloth: Qwen3.6-27B GGUF](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) (스니펫만) [부분]
-- 한계: 언어별 시스템 코드 평가와 독립 지수가 없다.
+- 한계: 언어별 시스템 코드 평가와 독립 평가 점수가 없다.

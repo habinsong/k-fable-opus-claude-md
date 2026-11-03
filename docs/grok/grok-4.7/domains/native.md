@@ -7,12 +7,12 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/native.md`](../../../_common/domain-rules/native.md)
 
 ## 2. 이 모델의 네이티브 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 폐쇄형 API 모델, 독립 지수 46(`high`=`xhigh`), 출력 토큰 소비 많음, 코딩 에이전트 지수 56(원문 미확인), C/C++·Rust 평가 없음, 모델 카드 부재, 탈옥 우회 주장.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 폐쇄형 API 모델, 독립 평가 점수 46(`high`=`xhigh`), 출력 토큰 소비 많음, 코딩 에이전트 지수 56(원문 미확인), C/C++·Rust 평가 없음, 모델 카드 부재, 탈옥 우회 주장.
 
 **개발 보조로 쓸 때**
 - **코딩 에이전트 지수 56은 하네스와 묶인 값이다.** Grok 4.7(`xhigh`)과 Grok Build를 함께 쓴 값이고 4.6보다 9점 높으며 네이티브 하네스 중 4위라는 독일어 글의 서술이다. 같은 글이 높은 노력 단계의 이득이 비용에 못 미칠 수 있다고 한다. 모델 능력과 하네스 효과를 나누어 볼 수 없고 원문을 확인하지 못했다. 다른 하네스(Cursor, VS Code 확장)에서 같은 점수를 기대하지 않는다. [부분/미확인]
 - **C++·Rust·시스템 코드의 언어별 평가는 찾지 못했다.** [미확인] 메모리 관리, 동시성, 수명, ABI는 문법이 맞아도 틀리기 쉬우므로 핵심 변경에는 쓰지 않고, 쓴다면 sanitizer(ASan·UBSan·TSan)와 테스트를 지시문으로 강제한다. 핵심 변경은 `claude/sonnet-5.5` 이상, `gpt-6.1-sol`, `gemini-4-argon` 문서를 따르거나 우리 코드로 같은 과제를 비교한다.
-- **토큰 소비와 노력 단계.** 독립 지수에서 `high`와 `xhigh`가 같고(46) `xhigh`는 출력 토큰이 더 많다(2.4억 대 2.0억, 비교군 중앙값 9,200만). 긴 컴파일·디버그 루프에서는 `high`로 시작하고 과제당 토큰·도구 호출 수를 기록한다. [부분]
+- **토큰 소비와 노력 단계.** 독립 평가 점수에서 `high`와 `xhigh`가 같고(46) `xhigh`는 출력 토큰이 더 많다(2.4억 대 2.0억, 비교군 중앙값 9,200만). 긴 컴파일·디버그 루프에서는 `high`로 시작하고 과제당 토큰·도구 호출 수를 기록한다. [부분]
 - **에이전트 루프에 안전장치를 먼저 둔다.** 파괴적 명령 차단(권한·훅), 작업 디렉터리 격리, 시간·토큰 한도를 설정하고, 완료 보고는 빌드·테스트·sanitizer 출력과 `git diff`로 확인한다. 테스트·경고·sanitizer 설정이 바뀌었는지도 확인한다. 억제 지시문을 넣거나 검사를 끄는 제안은 따르지 않는다.
 - **내장 도구 호출이 반복되는지 본다.** 에이전트가 필요 이상으로 검색을 반복한다는 개발자 보고가 있고 호출당 과금된다. 문서 검색이 필요한 작업에는 호출 횟수 한도를 둔다. [부분: 개인 후기]
 - **긴 컨텍스트의 요금 문턱을 확인한다.** 프롬프트가 20만 토큰에 이르면 요청 전체에 장문 요금이 적용된다는 서술이 있다. 큰 코드베이스를 통째로 넣지 말고 관련 함수·호출부·오류 메시지·빌드 설정만 준다. [부분]
@@ -25,7 +25,7 @@
 
 ## 4. 근거와 한계
 - 코딩 에이전트 지수·Grok Build: [ToolNavs: Grok 4.7 벤치마크](https://toolnavs.com/de/article/2040-grok-47-benchmark-coding-agent-breaks-into-top-four-at-81k-tokens-per-task), [How to use Grok Build](https://flaviocopes.com/grok-build/) (스니펫만) [부분/미확인]
-- 독립 지수·토큰 사용량: [Artificial Analysis: Grok 4.7 (xhigh)](https://artificialanalysis.ai/models/grok-4-7), [Grok 4.7 (high)](https://artificialanalysis.ai/models/grok-4-7-high) (스니펫만) [부분]
+- 독립 평가 점수·토큰 사용량: [Artificial Analysis: Grok 4.7 (xhigh)](https://artificialanalysis.ai/models/grok-4-7), [Grok 4.7 (high)](https://artificialanalysis.ai/models/grok-4-7-high) (스니펫만) [부분]
 - 도구 과금·반복 검색 보고: [xAI 문서: 도구 개요](https://docs.x.ai/docs/tools/overview), [xAI X 검색 비용 분석](https://tanxy.typlog.io/2026/xai-x-search-skill-cost-aware-agents) (스니펫만) [부분: 개인 후기]
 - 안전 서술: [Hora de Codar: Grok 4.7 거부·탈옥](https://horadecodar.com.br/grok-4-7-jailbreak/), [Penligent 분석](https://www.penligent.ai/hackinglabs/de/?p=6348) (스니펫만) [부분: 단일 블로그·개인 주장]
 - 한계: 언어별 시스템 코드 평가와 도구 호출 오류율의 독립 자료가 없다.

@@ -164,7 +164,7 @@ def render_rules(rules: Sequence[Rule], ui: str = "ko") -> str:
 
 
 def rules_markdown(rules: Sequence[Rule]) -> str:
-    out = ["# 규칙 목록 (자동 생성)", "",
+    out = ["# 규칙 목록 (정리본)", "",
            "`ai-smell rules --format md`가 만든다. 직접 고치지 말고 `ai_smell/rules/`를 고친 뒤 다시 만든다.", "",
            "| id | 언어 | 범주 | 등급 | 가중치 | 교정 | 설명 |", "|---|---|---|---|---|---|---|"]
     for r in rules:

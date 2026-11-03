@@ -6,7 +6,7 @@
 > 소제목의 번호(2.x)는 주제별로 나누기 전 일반 조사 기록의 번호다. 문장 속 `§2.x`는 그 번호를 가리킨다.
 
 #### 2.4 비판적 평가 (벤더 수치와 2차 평가를 구분)
-- **독립 지수는 Opus 5.5보다 낮다.** Artificial Analysis Intelligence Index v5.0에서 Argon 50, Claude Opus 5.5 58, Google이 소개한 Gemini 4 Carbon 59로 정리한 2차 보도가 있다. Terminal-Bench 4.0은 Google 수치 57.4%(발표 글은 57.1%, 페이지마다 다름)이고 같은 정리에서 Opus 5.5는 66.4%다. 이 수치는 2차 출처가 옮긴 것이다. [부분]
+- **독립 평가 점수는 Opus 5.5보다 낮다.** Artificial Analysis Intelligence Index v5.0에서 Argon 50, Claude Opus 5.5 58, Google이 소개한 Gemini 4 Carbon 59로 정리한 2차 보도가 있다. Terminal-Bench 4.0은 Google 수치 57.4%(발표 글은 57.1%, 페이지마다 다름)이고 같은 정리에서 Opus 5.5는 66.4%다. 이 수치는 2차 출처가 옮긴 것이다. [부분]
 - **벤더 수치.** Vals Index 1위(모델 카드 68.9%), DeepSWE v1.1 77.9% 신기록, Gray Swan 간접 프롬프트 인젝션 평가 선두는 모두 Google 자체 보고다. Google 자신의 비교표도 FrontierSWE, Terminal-Bench-Science 등에서 일부 경쟁 모델에 뒤진다고 보인다. Antigravity에서 에이전트 코드 제출이 35% 넘게 늘고 롤백이 거의 3분의 1 줄었다는 것도 Google 내부 서술이다. [부분]
 - **토큰을 많이 쓴다.** 한 리뷰에 따르면 지수 평가를 돌리며 출력 약 1.1억 토큰을 생성했고 중앙값은 8,200만이다. 가격 인상(2026-11-30)과 겹치면 비용 부담이 커진다. [부분]
 - **환각.** 모델 카드가 기반 모델의 일반적인 한계로 환각을 인정한다. 한 리뷰는 출시 요약에서 근거 없는 문장을 발견했다. 환각률 수치는 찾지 못했다. [부분/미확인]

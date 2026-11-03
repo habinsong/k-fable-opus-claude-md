@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 경량 변형(파라미터 미확인), 독립 지수 42, 환각률 93% 보도, 연구 보조 독립 평가 없음, 데이터 정책 서술 충돌, 가중치 공개 여부 충돌.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 경량 변형(파라미터 미확인), 독립 평가 점수 42, 환각률 93% 보도, 연구 보조 독립 평가 없음, 데이터 정책 서술 충돌, 가중치 공개 여부 충돌.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 지수 42는 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 평가 점수 42는 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다 — 이 모델에서는 금지에 가깝다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율이 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델은 모르는 질문에도 답을 시도해 환각률이 93%라는 보도가 있어(2차, 원문 미확인) 존재하지 않는 논문·저자·DOI를 그럴듯하게 만들 위험이 더 크다고 본다. 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인하고 확인하지 못한 항목은 목록에서 뺀다(§3.2). [부분/추정]
 - **"모르면 모른다고 쓰라"는 지시의 준수를 가정하지 않는다.** 이 모델의 문제는 모르는 것을 모른다고 하지 않는 경향이므로 지시만으로 해결되지 않을 수 있다. 추출·요약 결과의 근거 구절이 원문에 있는지 코드로 검사하는 구조를 둔다. [추정]
 - **써도 되는 작업.** 서지 정보 서식 변환(주어진 입력에서), 실험 로그·메타데이터 정리, 표 형식 변환, 논문 초록에서 정해진 필드 추출(원문 포함 여부를 코드로 검증), 분석 스크립트(파이썬)의 초안. 작업당 비용이 낮아 대량 정리에 유리하다. 추출값은 원문과 한 건씩 대조한다. [부분]
@@ -20,7 +20,7 @@
 - **전문 영역(의료, 법률, 안전) 결론에는 "전문가 검토 필요"를 붙인다.**
 
 ## 4. 근거와 한계
-- 환각 보도·지수: [Artificial Analysis: MiniMax-M3.1-Flash](https://artificialanalysis.ai/models/minimax-m3-1-flash), [MyClaw: M3.1 Flash 대 M3](https://myclaw.ai/blog/minimax-m3-1-flash-vs-m3) (스니펫만) [부분: 2차, 원문 미확인]
+- 환각 보도·벤치마크 점수: [Artificial Analysis: MiniMax-M3.1-Flash](https://artificialanalysis.ai/models/minimax-m3-1-flash), [MyClaw: M3.1 Flash 대 M3](https://myclaw.ai/blog/minimax-m3-1-flash-vs-m3) (스니펫만) [부분: 2차, 원문 미확인]
 - 프리뷰·정식 단계: [DataNorth: M3.1 Flash 프리뷰](https://datanorth.ai/news/minimax-releases-m3-1-flash-preview), [eesel: MiniMax M3.1 Flash](https://www.eesel.ai/blog/minimax-m3-1-flash) (스니펫만) [부분]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다.

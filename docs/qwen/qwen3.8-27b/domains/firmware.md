@@ -20,5 +20,5 @@
 
 ## 4. 근거와 한계
 - 메모리·사양: [Morph: Qwen 3.8 27B](https://www.morphllm.com/qwen-3-8) (스니펫만) [부분]
-- 독립 지수·속도: [Artificial Analysis: Qwen3.8 27B](https://artificialanalysis.ai/de/models/qwen3-8-27b) (스니펫만) [부분, 충돌]
+- 독립 평가 점수·속도: [Artificial Analysis: Qwen3.8 27B](https://artificialanalysis.ai/de/models/qwen3-8-27b) (스니펫만) [부분, 충돌]
 - 한계: 임베디드·펌웨어에 대한 평가가 없다. 사용 범위 제한은 모델 크기와 비가역 작업의 위험에서 도출한 안전 권고다.

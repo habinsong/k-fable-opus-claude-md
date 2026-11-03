@@ -7,9 +7,9 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/research.md`](../../../_common/domain-rules/research.md)
 
 ## 2. 이 모델의 연구 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 428B MoE, 독립 지수 44·29·55(버전 혼재), 환각 값 부재, 연구 보조 독립 평가 없음, 제한적 커뮤니티 라이선스, 데이터 정책 서술 충돌.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 428B MoE, 독립 평가 점수 44·29·55(버전 혼재), 환각 값 부재, 연구 보조 독립 평가 없음, 제한적 커뮤니티 라이선스, 데이터 정책 서술 충돌.
 
-- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 지수가 페이지에 따라 44, 29, 55로 보이고 지수 버전(v4.1, v4.3.2, v5)이 달라 직접 비교할 수 없다. 모두 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
+- **연구의 추론과 인용은 이 모델에 맡기지 않는다.** 독립 평가 점수가 페이지에 따라 44, 29, 55로 보이고 벤치마크 버전(v4.1, v4.3.2, v5)이 달라 직접 비교할 수 없다. 모두 일반 능력 지표이며 가설 설계, 통계 해석, 문헌 종합의 정확도를 대신하지 않는다. 연구 보조 정확도의 독립 평가는 찾지 못했다. [부분, 충돌/미확인] 새 가설·증명·통계 해석은 `claude/opus-5.5`, `gemini-4-argon`, `gpt-6-astra` 문서를 따르고 전문가 검토를 거친다.
 - **참고문헌을 만들거나 보충하게 하지 않는다.** 26개 LLM 연구에서 검증 가능한 참고문헌 중 모든 필드가 맞은 비율은 48.3%였고 저자 목록이 가장 약했다(51.7%). 이 모델의 별도 측정은 찾지 못했다. 후속 Flash의 독립 측정 환각률 93% 보도가 있어 같은 계열에서 개선됐다고 가정하지 않는다. [부분/미확인] 모든 인용은 Crossref·DataCite·원문에서 제목·저자·연도·권호와 주장의 실제 존재를 확인한다(§3.2).
 - **제공자·언론 비교를 연구 근거로 인용하지 않는다.** "GPT-5.5와 Gemini 3.1 Pro를 일부 벤치마크에서 앞선다", "공개 모델 중 종합 지능 최고" 같은 서술은 호스팅 제공자와 언론의 것이다. 인용해야 하면 출처 주체와 벤치마크 이름·버전을 함께 밝힌다. [부분: 제공자·언론]
 - **써도 되는 작업.** 서지 정보 서식 변환, 실험 로그·메타데이터 정리, 표 형식 변환, 논문 초록에서 정해진 필드 추출, 분석 스크립트(파이썬)의 초안. "원문에 없으면 null"을 명시하고 추출값은 원문과 한 건씩 대조한다.
@@ -20,7 +20,7 @@
 - **전문 영역(의료, 법률, 안전) 결론에는 "전문가 검토 필요"를 붙인다.**
 
 ## 4. 근거와 한계
-- 독립 지수(버전 혼재): [Artificial Analysis: MiniMax-M3](https://artificialanalysis.ai/models/minimax-m3), [AA 기사: MiniMax-M3](https://artificialanalysis.ai/articles/minimax-m3) (스니펫만) [부분, 충돌]
+- 독립 평가 점수(버전 혼재): [Artificial Analysis: MiniMax-M3](https://artificialanalysis.ai/models/minimax-m3), [AA 기사: MiniMax-M3](https://artificialanalysis.ai/articles/minimax-m3) (스니펫만) [부분, 충돌]
 - 제공자·언론 비교: [Fireworks: MiniMax M3 출시](https://fireworks.ai/blog/minimax-m3-launch), [VentureBeat: MiniMax M3](https://venturebeat.com/technology/minimax-m3-debuts-eclipsing-gpt-5-5-and-gemini-3-1-pro-on-key-benchmark-performance-for-just-5-10-of-the-cost) (스니펫만) [부분: 제공자·언론]
 - 참고문헌 정확도(타 모델 포함): [Biomedical Reference Generation Remains Unreliable across 26 LLMs](https://arxiv.org/pdf/2609.14988) [부분]
 - 한계: 연구 보조 정확도를 측정한 독립 자료가 없다.

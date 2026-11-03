@@ -5,7 +5,7 @@ from typing import Dict
 
 S: Dict[str, Dict[str, str]] = {
     "ko": {
-        "title": "AI 냄새 지수",
+        "title": "AI 냄새 점수",
         "target": "대상",
         "units": "단위",
         "sentences": "문장",
@@ -13,27 +13,27 @@ S: Dict[str, Dict[str, str]] = {
         "genre": "장르",
         "lang_ko": "한국어", "lang_en": "영어", "lang_mixed": "한영 혼합",
         "genre_general": "일반", "genre_academic": "학술", "genre_everyday": "일상", "genre_literary": "문학",
-        "disclaimer": "이 수치는 문체 신호의 밀도입니다. 'AI가 썼을 확률'이 아니며, 사람이 쓴 글이 높게, "
+        "disclaimer": "이 수치는 문체 표현의 출현 빈도입니다. 'AI가 썼을 확률'이 아니며, 사람이 쓴 글이 높게, "
                       "AI가 쓴 글이 낮게 나올 수 있습니다. 저자 판정에 쓰지 마세요.",
-        "categories": "범주별 (100단위당 가중 신호)",
-        "findings": "주요 신호",
+        "categories": "범주별 (100단위당 가중치 합산)",
+        "findings": "주요 검출 항목",
         "of": "전체",
-        "fixable": "자동 교정",
-        "paragraphs_h": "문단별 지수 (높은 순)",
+        "fixable": "즉시 교정",
+        "paragraphs_h": "문단별 점수 (높은 순)",
         "info_h": "참고 (점수에 넣지 않음)",
         "next": "다음 단계",
-        "next_polish": "`ai-smell polish` 로 교정문을 출력합니다. 구조 습관은 자동으로 못 고치므로 "
+        "next_polish": "`ai-smell polish` 로 교정문을 출력합니다. 구조 습관은 바로 못 고치므로 "
                        "`ai-smell prompt` 로 LLM 윤문 프롬프트를 만듭니다.",
         "how": "고치는 법",
-        "none_found": "잡힌 신호가 없습니다.",
+        "none_found": "검출된 어색한 항목이 없습니다.",
         "summary": "교정 요약",
-        "score_change": "지수",
-        "edits": "자동 교정",
+        "score_change": "점수",
+        "edits": "적용 교정",
         "count": "건",
         "tier": "단계",
         "change_rate": "변경률",
-        "remaining": "남은 신호",
-        "remaining_hint": "자동으로 고칠 수 없습니다. `ai-smell prompt` 로 LLM 윤문 프롬프트를 만들거나 직접 고치세요.",
+        "remaining": "남은 검토 항목",
+        "remaining_hint": "기계적으로 바로 고칠 수 없습니다. `ai-smell prompt` 로 LLM 윤문 프롬프트를 만들거나 직접 고치세요.",
         "changes": "변경 내역",
         "deleted": "(삭제)",
         "verify": "대조 검증",

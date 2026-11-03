@@ -16,7 +16,7 @@
 
 **DeepSeek V4.1 Flash(1017)를 도입 후보로 평가할 때**
 - **용도 적합성.** 대량 분류·추출·초안, 비용 민감한 에이전트 보조, 코드 초안(검증 전제)에 후보다. 출처 없는 사실 조회, 규제 데이터 처리(약관 확인 전), 재현성이 필요한 작업(스냅샷 고정 불가 시)에는 맞지 않는다.
-- **벤더 수치로 결정하지 않는다.** GPQA Diamond 90.9, DeepSWE 74.2→77.0, "이전 대비 3.8~43.3% 향상"은 벤더 보고나 이를 옮긴 집계이고 독립 확인이 없다. 독립 지수는 40과 45로 갈린다. 후보 비교는 같은 과제, 같은 조건의 자체 실측으로 한다. [부분/미확인]
+- **벤더 수치로 결정하지 않는다.** GPQA Diamond 90.9, DeepSWE 74.2→77.0, "이전 대비 3.8~43.3% 향상"은 벤더 보고나 이를 옮긴 집계이고 독립 확인이 없다. 독립 평가 점수는 40과 45로 갈린다. 후보 비교는 같은 과제, 같은 조건의 자체 실측으로 한다. [부분/미확인]
 - **총비용은 단가가 아니라 과제당 비용이다.** 단가는 출처마다 다르다(입력 $0.30 / 출력 $1.20 대 $0.15 / $0.60, 피크·비피크 차등, 캐시 읽기 $0.003). 이전 측정에서 출력 토큰이 비교군의 약 두 배였고, 한 비교에서는 더 낫지만 토큰을 더 써서 청구액이 거의 같아졌다. 1017이 출력을 줄였다고 주장하므로 우리 과제로 재측정해 과제당 비용을 비교한다. 공식 가격표는 확인하지 못했다. [부분, 충돌]
 - **가격 정책의 변동성.** 한 변경 이력 사이트는 V4-Pro가 이 모델로 흡수됐다고 서술하고, 일부 페이지에는 이전의 프로모션 가격이 남아 있다. 가격 변경과 모델 폐기 공지를 추적할 담당과 재검토 시점을 정한다. [부분: 단일 2차]
 - **라이선스.** 가중치가 MIT라는 보도가 있다(1017 가중치 포함 여부는 보도 한 건). 모델 저장소의 LICENSE 원문, 데이터·사용 정책 별도 조항, 파생·증류 제한, 서비스 약관(API)이 각각 다르므로 원문으로 확인한다(§3.2). "가중치가 MIT"를 "API 이용 데이터가 안전"이나 "학습 데이터가 깨끗"하다는 뜻으로 읽지 않는다. 학습 데이터 출처와 저작권 이슈는 확인하지 못했다. [부분/미확인]
@@ -27,7 +27,7 @@
 
 ## 4. 근거와 한계
 - 1017·베타·가격·사양: [TechNode: 1017 출시](https://technode.com/2026/10/19/deepseek-releases-v4-1-flash-1017-with-stronger-coding-and-agent-capabilities/), [Puter: DeepSeek 가격](https://developer.puter.com/tutorials/deepseek-api-pricing/), [OpenRouter](https://openrouter.ai/deepseek/deepseek-v4.1-flash-20260910) (스니펫만) [부분, 충돌]
-- 독립 지수·토큰 사용량: [Artificial Analysis: V4.1 Flash](https://artificialanalysis.ai/ko/models/deepseek-v4-1-flash) (스니펫만) [부분, 충돌]
+- 독립 평가 점수·토큰 사용량: [Artificial Analysis: V4.1 Flash](https://artificialanalysis.ai/ko/models/deepseek-v4-1-flash) (스니펫만) [부분, 충돌]
 - Flash 대 Pro 비용·토큰 비교: [The New Stack: DeepSeek Flash/Pro 벤치마크](https://thenewstack.io/deepseek-flash-pro-benchmark/) (스니펫만) [부분: 개인 후기]
 - 구 이름 폐기: [DeepSeek API 문서](https://api-docs.deepseek.com/) (스니펫만) [부분]
 - V4-Pro 흡수: [Playcode 변경 이력](https://playcode.io/changelog/deepseek-v4-pro-folds-into-v4-1-flash) [부분: 단일 2차]

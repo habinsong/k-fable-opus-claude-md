@@ -5,7 +5,7 @@
 > 컨텍스트용 지침: [`md/claude/sonnet-5.5/general.md`](../../../md/claude/sonnet-5.5/general.md)
 > 소제목의 번호(2.x)는 주제별로 나누기 전 일반 조사 기록의 번호다. 문장 속 `§2.x`는 그 번호를 가리킨다.
 
-#### 2.2 API·하네스를 직접 만들 때 (Claude Code·Agent SDK 사용자는 자동 처리됨)
+#### 2.2 API·하네스를 직접 만들 때 (Claude Code·Agent SDK 사용자는 알아서 처리됨)
 - **강제 도구 호출이 없다.** `tool_choice`의 `any`·`tool`은 400이다. `strict: true`나 structured outputs를 쓴다.
 - **`between_tools`는 다른 필드와 같이 보낼 수 없다.** `display`·`budget_tokens`·`block_binding`을 함께 보내면 400이다. `between_tools`에서는 도구 사이 진행 알림이 요약 텍스트로 돌아오고, 도구가 없는 요청에서는 추론 없이 바로 답한다. 이때 effort를 대화 중 바꾸면 400이므로 턴마다 effort를 바꾸려면 적응형을 쓴다.
 - **추론 블록은 모델·대화·계정에 묶인다.** Sonnet 5.5는 Sonnet 5, Opus 4.8, Haiku 4.5 이하와 Haiku 5.5(Claude API)의 블록을 읽지만 Opus 5/5.5와 Fable·Mythos의 블록은 읽지 못한다. Opus 5.5는 Sonnet 5.5의 블록을 읽는다. 이력은 append-only로 유지하고, 계정이 2026-08-31 이후 만들어졌고 `prefix_mismatch_behavior`를 설정하지 않으면 무효 블록에 400 오류다.

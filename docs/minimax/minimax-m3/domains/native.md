@@ -7,12 +7,12 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/native.md`](../../../_common/domain-rules/native.md)
 
 ## 2. 이 모델의 네이티브 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 428B MoE(활성 약 23B), SWE-Bench Pro 59.0%(Opus 4.8 69.2%), 독립 지수가 버전마다 다름, 제한적 라이선스, C/C++·Rust 독립 평가 없음.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: 428B MoE(활성 약 23B), SWE-Bench Pro 59.0%(Opus 4.8 69.2%), 독립 평가 점수가 버전마다 다름, 제한적 라이선스, C/C++·Rust 독립 평가 없음.
 
 **개발 보조로 쓸 때**
 - **SWE-Bench Pro 59.0%는 언론이 전한 수치이고 상위 모델에 뒤진다.** Opus 4.8의 69.2%에 못 미쳤다. 낮은 단가의 이점을 쓰려면 단순·반복 작업(로그 분류, 테스트 초안, 기계적 변환, 코드 리뷰 1차 훑기)에 먼저 쓰고, 복잡한 시스템 변경은 상위 모델에 맡기는 분업을 시험한다. [부분: 언론]
 - **C++·Rust·시스템 코드의 언어별 독립 평가는 찾지 못했다.** [미확인] 메모리 관리, 동시성, 수명, ABI는 문법이 맞아도 틀리기 쉬우므로 핵심 변경에는 쓰지 않고, 쓴다면 sanitizer(ASan·UBSan·TSan)와 테스트를 지시문으로 강제한다. 핵심 변경은 `claude/sonnet-5.5` 이상, `gpt-6.1-sol`, `gemini-4-argon` 문서를 따르거나 우리 코드로 같은 과제를 비교한다.
-- **독립 지수를 인용할 때 지수 버전을 명시한다.** 44, 29, 55가 페이지마다 보이고 v4.1, v4.3.2, 10월 발표된 v5가 섞여 있다. 같은 버전의 값끼리만 비교한다. [부분, 충돌]
+- **독립 평가 점수를 인용할 때 벤치마크 버전을 명시한다.** 44, 29, 55가 페이지마다 보이고 v4.1, v4.3.2, 10월 발표된 v5가 섞여 있다. 같은 버전의 값끼리만 비교한다. [부분, 충돌]
 - **제공자(호스트)의 비교 주장을 근거로 쓰지 않는다.** "공개 모델 중 종합 지능 최고" 같은 서술은 이 모델을 호스팅하는 제공자의 홍보 성격이 있다. 우리 과제로 측정한다. [부분: 제공자 주장]
 - **에이전트 루프에 안전장치를 먼저 둔다.** 파괴적 명령 차단(권한·훅), 작업 디렉터리 격리, 시간·토큰 한도를 설정하고, 완료 보고는 빌드·테스트·sanitizer 출력과 `git diff`로 확인한다. 테스트·경고·sanitizer 설정이 바뀌었는지도 확인한다. 억제 지시문을 넣거나 검사를 끄는 제안은 따르지 않는다.
 - **호스트마다 컨텍스트가 다르다.** Fireworks는 출시 시점에 50만 토큰까지만 지원했다. 큰 저장소를 통째로 넣지 말고 관련 함수·호출부·오류 메시지·빌드 설정만 준다. [부분]
@@ -24,5 +24,5 @@
 
 ## 4. 근거와 한계
 - SWE-Bench Pro·제공자 주장: [VentureBeat: MiniMax M3](https://venturebeat.com/technology/minimax-m3-debuts-eclipsing-gpt-5-5-and-gemini-3-1-pro-on-key-benchmark-performance-for-just-5-10-of-the-cost), [Fireworks: MiniMax M3 출시](https://fireworks.ai/blog/minimax-m3-launch) (스니펫만) [부분: 언론·제공자]
-- 독립 지수: [Artificial Analysis: MiniMax-M3](https://artificialanalysis.ai/models/minimax-m3), [AA 기사: MiniMax-M3](https://artificialanalysis.ai/articles/minimax-m3) (스니펫만) [부분, 충돌]
+- 독립 평가 점수: [Artificial Analysis: MiniMax-M3](https://artificialanalysis.ai/models/minimax-m3), [AA 기사: MiniMax-M3](https://artificialanalysis.ai/articles/minimax-m3) (스니펫만) [부분, 충돌]
 - 한계: 언어별 시스템 코드 평가와 독립 에이전트 후기가 없다.

@@ -23,5 +23,5 @@
 ## 4. 근거와 한계
 - 내장 도구·요금·출처 URL 반환: [xAI 문서: 도구 개요](https://docs.x.ai/docs/tools/overview), [xAI 문서: 가격](https://docs.x.ai/developers/pricing.md), [xAI 가격 설명(eesel)](https://www.eesel.ai/en/blog/xai-pricing) (스니펫만, docs.x.ai는 이 환경에서 본문이 열리지 않음) [부분: 4.3·4.5 시기 자료]
 - 반복 검색·비용 인지형 에이전트: [xAI X 검색 비용 분석](https://tanxy.typlog.io/2026/xai-x-search-skill-cost-aware-agents) (스니펫만) [부분: 개인 후기]
-- 독립 지수·토큰 사용량: [Artificial Analysis: Grok 4.7 (xhigh)](https://artificialanalysis.ai/models/grok-4-7) (스니펫만) [부분]
+- 독립 평가 점수·토큰 사용량: [Artificial Analysis: Grok 4.7 (xhigh)](https://artificialanalysis.ai/models/grok-4-7) (스니펫만) [부분]
 - 한계: 4.7에서의 도구 동작, 인용 정확도, 인젝션 방어율의 독립 자료가 없다.

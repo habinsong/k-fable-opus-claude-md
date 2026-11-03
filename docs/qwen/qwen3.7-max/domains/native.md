@@ -7,11 +7,11 @@
 > 분야 규칙의 근거 수준 표기 원본: [`docs/_common/domain-rules/native.md`](../../../_common/domain-rules/native.md)
 
 ## 2. 이 모델의 네이티브 작업 운용
-모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용, 한 세대 전(후속 `qwen3.8-max`), 외부 에이전트 하네스(Claude Code 등) 호환과 35시간 자율 실행 주장(벤더), 독립 지수 46.0 또는 56.6(충돌), C/C++·Rust 평가 없음.
+모델 전체 특성은 상위 폴더의 [`README.md`](../README.md)가 안내하는 개요·운용·비판 문서를 따른다. 요약: API 전용, 한 세대 전(후속 `qwen3.8-max`), 외부 에이전트 하네스(Claude Code 등) 호환과 35시간 자율 실행 주장(벤더), 독립 평가 점수 46.0 또는 56.6(충돌), C/C++·Rust 평가 없음.
 
 **개발 보조로 쓸 때**
 - **C++·Rust·시스템 코드의 언어별 평가는 찾지 못했다.** [미확인] 메모리 관리, 동시성, 수명, ABI는 문법이 맞아도 틀리기 쉬우므로 핵심 변경에는 쓰지 않고, 쓴다면 sanitizer(ASan·UBSan·TSan)와 테스트를 지시문으로 강제한다. 핵심 변경은 `claude/sonnet-5.5` 이상, `gpt-6.1-sol`, `gemini-4-argon` 문서를 따르거나 우리 코드로 같은 과제를 비교한다.
-- **벤더 수치(HLE 41.4, MCP-Atlas 76.4)를 시스템 코드 능력으로 옮기지 않는다.** 추론과 도구 사용 지표이며 코딩 지표가 아니다. 조건과 독립 확인이 없다. 독립 지수도 46.0과 56.6으로 갈려 어느 스냅샷의 값인지 알 수 없다. [부분, 충돌]
+- **벤더 수치(HLE 41.4, MCP-Atlas 76.4)를 시스템 코드 능력으로 옮기지 않는다.** 추론과 도구 사용 지표이며 코딩 지표가 아니다. 조건과 독립 확인이 없다. 독립 평가 점수도 46.0과 56.6으로 갈려 어느 스냅샷의 값인지 알 수 없다. [부분, 충돌]
 - **외부 하네스에서 장시간 에이전트로 돌릴 때는 안전장치를 먼저 둔다.** 35시간 자율 실행은 벤더 설명이다. 파괴적 명령 차단(권한·훅), 작업 디렉터리 격리, 시간·토큰 한도를 설정하고, 완료 보고는 빌드·테스트·sanitizer 출력과 `git diff`로 확인한다. 테스트·경고·sanitizer 설정이 바뀌었는지도 확인한다. 억제 지시문을 넣거나 검사를 끄는 제안은 따르지 않는다. [부분: 벤더 주장]
 - **신규 도입은 후속 모델을 기준으로 한다.** `qwen3.8-max`가 같은 세대 가격대에서 나왔다. 이 모델을 이미 쓰는 파이프라인은 폐기 일정을 확인하고, 이행 시 같은 과제로 회귀 시험을 돌린다. [추정]
 - **긴 컨텍스트에 기대지 않는다.** 100만 토큰이어도 관련 함수·호출부·오류 메시지·빌드 설정만 주는 편이 지연·비용에서 낫다. [추정]
@@ -23,5 +23,5 @@
 
 ## 4. 근거와 한계
 - 벤더 수치·외부 하네스: [VentureBeat: Qwen3.7-Max 35시간 자율 실행](https://venturebeat.com/ai/alibabas-proprietary-qwen3-7-max-can-run-for-35-hours-autonomously-and-supports-external-harnesses-like-anthropics-claude-code) (스니펫만) [부분: 벤더 주장]
-- 지수 충돌: [LLM Reference: Qwen3.7-Max](https://www.llmreference.com/model/qwen3-7-max), [LLMBase: Qwen3.7-Max](https://llmbase.ai/models/qwen/qwen3-7-max/) (스니펫만) [부분, 충돌]
+- 평가 점수 불일치: [LLM Reference: Qwen3.7-Max](https://www.llmreference.com/model/qwen3-7-max), [LLMBase: Qwen3.7-Max](https://llmbase.ai/models/qwen/qwen3-7-max/) (스니펫만) [부분, 충돌]
 - 한계: 언어별 시스템 코드 평가와 도구 호출 오류율의 독립 자료가 없다.

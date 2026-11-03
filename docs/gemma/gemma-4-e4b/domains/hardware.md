@@ -18,5 +18,5 @@
 - **인체·화재 위험 설계는 "안전하다"고 단정하지 않는다.**
 
 ## 4. 근거와 한계
-- 입력 모달리티·지수: [Gemma 4 model card](https://ai.google.dev/gemma/docs/core/model_card_4), [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know) (스니펫만) [부분]
-- 한계: 하드웨어 설계에 대한 E4B 평가가 없다. "쓰지 않는다"는 모델 크기와 지수에서 도출한 보수적 권고다.
+- 입력 모달리티·벤치마크 점수: [Gemma 4 model card](https://ai.google.dev/gemma/docs/core/model_card_4), [Artificial Analysis: Gemma 4](https://artificialanalysis.ai/articles/gemma-4-everything-you-need-to-know) (스니펫만) [부분]
+- 한계: 하드웨어 설계에 대한 E4B 평가가 없다. "쓰지 않는다"는 모델 크기와 벤치마크 점수에서 도출한 보수적 권고다.
